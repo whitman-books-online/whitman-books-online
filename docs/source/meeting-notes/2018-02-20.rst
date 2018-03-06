@@ -1,0 +1,11 @@
+Feb 20 Tue - Wrapping Up Analysis
+=================================
+
+- The **importance of attendance** should be brought up to the whole group, especially that of team leaders.  
+  - **Team leaders should consider making a team planner** so in case of absence/sick-day their team is not completely lost as to what to do.  
+  - Anyone who will not show up to lab should communicate via Slack.  
+  - We will **begin attaching deadlines to our milestones/issues** in the hopes of encouraging stronger attendance and productivity.  
+- **We will be using [Sphinx](http://www.sphinx-doc.org/en/master/) for code documentation.**  
+- Analysis document is coming along well. We mainly just need more info from the front-end.  
+- Documentation team needs a dedicated documenter (i.e. someone to write notes like these). Kirk Lange has taken on this role.  
+  - Who watches the watchmen?
