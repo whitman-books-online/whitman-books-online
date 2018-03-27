@@ -7,7 +7,6 @@ import {
   Redirect,
   withRouter
 } from 'react-router-dom'
-import { Typography } from 'material-ui';
 import auth from './auth';
 
 const CLIENT_ID = '317596678792-2ekdkdrdlgsqdaudaag7t7m7qf4m0b17.apps.googleusercontent.com';
@@ -29,14 +28,15 @@ class Login extends Component {
 
   render() {
     const { from } = this.props.location.state || { from: { pathname: "/" } };
-    const { redirectToReferrer } = this.state;
+    const redirectToReferrer = this.state.redirectToReferrer;
 
     if (redirectToReferrer) {
       return <Redirect to={from} />;
     }
 
     return (
-      <div style={{
+      <div
+        style={{
           height: '100vh',
           display: 'flex',
           flexDirection: 'column',
@@ -45,11 +45,9 @@ class Login extends Component {
           backgroundColor: '#2196f3',
           color: '#FFFFFF',
           textAlign: 'center',
-
-        }}>
-        <Typography variant="display1" gutterBottom color="inherit">
-          Whitman Books Online
-        </Typography>
+          }}
+      >
+        <h1>Whitman Books Online</h1>
         <GoogleLogin
           clientId={CLIENT_ID}
           buttonText="Login"
@@ -59,9 +57,7 @@ class Login extends Component {
         {this.state.invalid ?
          <div>
            <hr />
-           <Typography variant="subheading" gutterBottom color="inherit">
-             Invalid Login
-           </Typography>
+           <h4>Invalid Login</h4>
          </div>
          :
          null

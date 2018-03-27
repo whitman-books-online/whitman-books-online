@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { GoogleLogin } from 'react-google-login';
 import {
   BrowserRouter as Router,
   Route,
@@ -8,7 +7,6 @@ import {
   Redirect,
   withRouter
 } from 'react-router-dom'
-import { Typography } from 'material-ui';
 import Navigation from './Navigation';
 import Login from './Login';
 import Profile from './Profile';
@@ -26,7 +24,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(auth);
     return (
       <Router>
         <div>
@@ -34,7 +31,7 @@ class App extends Component {
           <Switch>
             <Route
               path="/login"
-              render={(props) => <Login {...props} auth={auth} />}
+              component={Login}
             />
             <PrivateRoute
               path="/profile"
