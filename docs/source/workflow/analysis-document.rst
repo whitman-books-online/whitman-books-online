@@ -165,7 +165,7 @@ Schedule
 
 We plan on allowing the final project to be used for as long as it is realistically usable and do minimal post-delivery maintenance on it. We as students will likely not have the time needed to work much on the project after this class is completed, so we will simply test our final product as much as possible before release.
 
-PROJECT VALUE
+Project value
 -------------
 
 We believe the benefits will largely be in terms of experience and benefit to the student body. We are gaining valuable experience in collaboration with each other and learning new software tools. Working in groups is today the only way to develop large software projects, and this class is allowing us to model that process. The community will benefit from having a webapp to use rather than the “forsale” email listserv. The webapp will be more organized and have more features such as searchable listings than a listserv, so the community as a whole will likely save some time when shopping for and selling books and have a more pleasant experience doing so.
