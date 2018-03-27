@@ -1,0 +1,25 @@
+Jan 24 Wed - Minimum Viable Product
+===================================
+
+Components
+----------
+* textbook directory
+* textbook listing
+* user profile (barebones, Whitman email)
+* item profile
+* categories list/page
+
+Actions
+-------
+* add/remove listings
+* sort by x
+* compare
+* search
+* login/logout via Google Authentication
+* buy item / agree to meet with seller
+* search/filter
+
+Other
+-----
+* transactions occur manually between individuals (not virtually, at first)
+

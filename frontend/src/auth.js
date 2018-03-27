@@ -4,7 +4,6 @@ const auth = {
   profile: null,
   valid: true,
   authenticate(response) {
-    console.log(response);
     const profile = response.profileObj;
     const email = profile.email
     const email_ast = parseOneAddress(email);
@@ -14,7 +13,7 @@ const auth = {
       auth.profile = profile;
     }
   },
-  signout(cb) {
+  signout(response) {
     auth.profile = null;
   }
 };
