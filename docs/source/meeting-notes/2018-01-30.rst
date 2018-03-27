@@ -1,0 +1,72 @@
+Jan 30 Tue - Requirements Brainstorming
+=======================================
+Written by Isaiah Banta
+Converted to Markdown by Ian Hawkins
+Converted to reStructuredText by Kirk Lange
+
+MVP Components
+--------------
+* Item
+* Item List
+* Login/Logout
+
+  * Login/Logout/Google Auth (email, username)
+
+* User Profile
+* Item Profile
+
+  * Subject, class, **name of the book**, book edition, **ISBN**, **Price**, Picture option, **username**,  quality(bad->good->perf)
+
+Non-MVP Components
+------------------
+* Category
+* Category List
+* Category Page
+
+Account creation  
+----------------
+(Lower barrier of entry, anyone can vue, users can buy/sell/view usernames)
+
+Story  
+-----
+Jane: Create>User Profile>Add listing>Logout  
+John the Buyer: Create>User Profile>Searches for ‘book’>Opens Jane’s Item profile>Contacts Jane>Sets up meeting>Buys the book>End  
+Jane: Login>User Profile>Delete listing>End  
+
+Tasks  
+-----
+* Contact Bookstore about course requirements (Jeremy) - Friday 2nd 
+* Requirements phase document (Documentation) - (Hard deadline:Friday 9th Feb)
+* Google Auth POC (George) [Back-end] - Tues 6th Feb
+* Schedule (Kyler) [Spiral] - Tues 6th Feb
+* Further define roles.. (integrate with issues in Gitlab, wiki, transparency)
+* Frameworks, languages, API (frontend, backend, documentation)
+
+  * Documentation: Git, Gitlab, Markdown  
+  * Frontend: HTML, CSS, Java  
+  * Backend: SQLAlchemy (Databases), Flask (API)
+
+* Database POC (Owen, Sean)
+
+  * Whitman books group
+
+Documentation
+-------------
+
+Individual tasks assigned to particular people will be handled via issues
+
+
+Roles as of Now
+^^^^^^^^^^^^^^^
+
+====== =========================================================================
+Person Responsibilities
+====== =========================================================================
+Jeremy wiki organizer, front-end secondary
+Paul   front-end primary
+Ian    back-end primary
+Kirk   documentation team documenter (so meta), doc binder, wiki manager
+Kyler  scheduler/task manager, back-end secondary
+Tyler  document writer
+====== =========================================================================
+
