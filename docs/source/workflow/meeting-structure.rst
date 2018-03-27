@@ -1,1 +1,0 @@
-![meeting_structure](/uploads/b660cd5057fd83ee1c3812a19db6a8fa/meeting_structure.png)

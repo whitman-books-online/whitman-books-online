@@ -1,17 +1,18 @@
-[Home](../home)
+Ethical Concerns
+================
 
-Written by Isaiah Banta  
-Converted to Markdown by Kirk Lange  
+.. raw:: html
 
-# ETHICAL CONCERNS
+   <i>Written by Isaiah Banta.<br>
+   Converted to Markdown by Kirk Lange.<br>
+   Converted to reStructuredText by Kirk Lange.<p></i>
 
 
-**Preamble:**  
-The CS-300-A Software Engineering Class of Spring 2018 is dedicated to developing functional and ethical software according to the
+**Preamble:** The CS-300-A Software Engineering Class of Spring 2018 is dedicated to developing functional and ethical software according to the
 guidelines of the IEEE/ACM Joint Task Force on Software Engineering Ethics and Professional Practices for the benefit of the
 students, staff, and faculty of Whitman College.
 
-***
+----
 
 During the Analysis Phase of our Software Development process it was discussed as a class the primary goals and possible
 ramifications of developing a web app that would be used to buy and sell books on a peer-to-peer system.  
@@ -46,6 +47,9 @@ Bookstore was considered. While this is an important concern, it was unanimously
 textbook pricing far outweighed the possible ramifications of such an impact on the Whitman College Bookstore. This webapp is by
 no means a solution to the predatory nature of college textbook pricing, a structural problem with higher education that lies beyond the
 scope of this document. However, we, as a team, hope that this webapp proves to be a solution to a symptom of the larger issue.
-***
-Sincerely,  
--The *Software Engineering* class of *Spring ‘18*
+
+.. raw:: html
+
+   Sincerely,<p>
+   -The <i>Software Engineering</i> class of <i>Spring ‘18</i>
+

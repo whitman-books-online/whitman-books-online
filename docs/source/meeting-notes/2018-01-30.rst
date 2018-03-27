@@ -9,9 +9,12 @@ MVP Components
 * Item
 * Item List
 * Login/Logout
+
   * Login/Logout/Google Auth (email, username)
+
 * User Profile
 * Item Profile
+
   * Subject, class, **name of the book**, book edition, **ISBN**, **Price**, Picture option, **username**,  quality(bad->good->perf)
 
 Non-MVP Components
@@ -38,10 +41,13 @@ Tasks
 * Schedule (Kyler) [Spiral] - Tues 6th Feb
 * Further define roles.. (integrate with issues in Gitlab, wiki, transparency)
 * Frameworks, languages, API (frontend, backend, documentation)
-  * Documentation: Git, Gitlab, Markdown
-  * Frontend: HTML, CSS, Java
-  * Backend: SQLAlchemy (Databases), Flask (API), 
+
+  * Documentation: Git, Gitlab, Markdown  
+  * Frontend: HTML, CSS, Java  
+  * Backend: SQLAlchemy (Databases), Flask (API)
+
 * Database POC (Owen, Sean)
+
   * Whitman books group
 
 Documentation
@@ -49,8 +55,10 @@ Documentation
 
 Individual tasks assigned to particular people will be handled via issues
 
+
 Roles as of Now
-^^^
+^^^^^^^^^^^^^^^
+
 ====== =========================================================================
 Person Responsibilities
 ====== =========================================================================

@@ -1,31 +1,42 @@
-Feb 28 Wed - TODO
-=================
+Feb 28 Wed - API Basics
+=======================
 Oauth being handled by frontend, because of how Google handles its Auth stuff
 
 Frontend/API Actions
 --------------------
 * login
- * create/update/remove user profile
-   1. status, object for create/update
-   1. status for remove
+* create/update/remove user profile
+
+  * status, object for create/update
+  * status for remove
+
 * get user profile
 * create listing
+
   * insert listing record
+
 * create/update/remove listing:
+
   * status, object for create or update
   * status for remove
+
 * search/filter:
+
   * listing (fuzzy search?) 
+
 * get user
 * get listings
 
 Database Structure
 ------------------
 * user profile:
- * name
- * email
- * last login date/time
+
+  * name
+  * email
+  * last login date/time
+
 * listings:
+
   * seller, price
 
 Anytime you want to add something it would be a put request
