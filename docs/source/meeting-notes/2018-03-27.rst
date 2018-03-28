@@ -13,6 +13,7 @@ user ID and the values are data about the user. There may be 2 functions for
 `/books` so that they can be accessed by 
 
 Endpoints:
+
 - /users
 - /books
 - /listings
@@ -23,17 +24,23 @@ Here's a representation of a possible database. There may be some bits missing,
 for example, a book has more information than just title, author, and ID.
 
 - `/users`
+
   - `$user_id`
   - `name`
   - `email`
   - list of listing IDs for listings created by this user
+
 - `/books`
+
   - `$book_id`, perhaps ISBN
   - `title`
   - `author`
   - list of listing IDs for listings for this book
+
     - `$listing_id` for each listing
+
 - `/listings`
+
   - `$listing_id` <-- this is one particular listing
   - `price`
   - `condition`
@@ -46,6 +53,7 @@ When they send a query, backend needs to do some kind of search.
 When they send book IDs, just look up those books.
 
 Things that frontend needs from the API:
+
 - Create, remove, or edit a user, book, or listing
 - get a user by user ID
 - get a book by book ID
