@@ -3,12 +3,17 @@ Welcome to Whitman Books Online's documentation!
 
 .. toctree::
    :maxdepth: 1
-   :caption: Contents:
+   :caption: Workflow Documents:
    :glob:
 
    workflow/*
-   meeting-notes/*
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Meeting Notes:
+   :glob:
+
+   meeting-notes/*
 
 
 .. Indices and tables
