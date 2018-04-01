@@ -1,0 +1,14 @@
+{
+    "parser": "babel-eslint",
+    "extends": "airbnb",
+    "parserOptions": {
+        "ecmaVersion": 6,
+         "sourceType": "module"
+    },
+    "rules": {
+        "react/prefer-stateless-function": "off",
+        "react/jsx-filename-extension": "off",
+        "no-trailing-spaces": 2,
+        "max-len": ["error", {"ignoreUrls": true, "code": 80}]
+    }
+}

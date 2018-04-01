@@ -1,36 +1,33 @@
 import React, { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import {
-  BrowserRouter as Router,
-  Route,
-  Link,
   Redirect,
-  withRouter
-} from 'react-router-dom'
+} from 'react-router-dom';
 import auth from './auth';
 
 const CLIENT_ID = '317596678792-2ekdkdrdlgsqdaudaag7t7m7qf4m0b17.apps.googleusercontent.com';
 
 class Login extends Component {
   state = {
-    redirectToReferrer: false,
-    valid: true,
+    redirect: false,
+    invalid: false,
   };
 
   login = (response) => {
+    console.log(response);
     auth.authenticate(response);
     if (auth.profile) {
-      this.setState({ redirectToReferrer: true, invalid: false });
+      this.setState({ redirect: true, invalid: false });
     } else {
       this.setState({ invalid: true });
     }
   };
 
   render() {
-    const { from } = this.props.location.state || { from: { pathname: "/" } };
-    const redirectToReferrer = this.state.redirectToReferrer;
+    const { from } = this.props.location.state || { from: { pathname: '/' } };
+    const redirect = this.state.redirect;
 
-    if (redirectToReferrer) {
+    if (redirect) {
       return <Redirect to={from} />;
     }
 
@@ -55,10 +52,10 @@ class Login extends Component {
           onFailure={this.login}
         />
         {this.state.invalid ?
-         <div>
-           <hr />
-           <h4>Invalid Login</h4>
-         </div>
+          <div>
+            <hr />
+            <h4>Invalid Login</h4>
+          </div>
          :
          null
         }
