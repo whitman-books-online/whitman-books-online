@@ -16,6 +16,7 @@ class Profile extends Component {
           {auth.profile.email}
         </h3>
         <img src={auth.profile.imageUrl}/>
+        <button onClick={auth.signout}>Signout</button>
       </Page>
     );
   }
