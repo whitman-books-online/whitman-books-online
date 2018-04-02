@@ -9,7 +9,8 @@
         "react/prefer-stateless-function": "off",
         "react/jsx-filename-extension": "off",
         "no-trailing-spaces": 2,
-        "max-len": ["error", {"ignoreUrls": true, "code": 80}]
+        "max-len": ["error", {"ignoreUrls": true, "code": 80}],
+        "jsx-a11y/href-no-hash": "off"
     },
     "env": {
     "browser": true,

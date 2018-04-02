@@ -35,7 +35,6 @@ const auth = {
     auth.token = null;
   },
   isAuthenticated() {
-    console.log(auth.profile, auth.token);
     return auth.profile && auth.token;
   },
   isAuthorizedUser(userId) {

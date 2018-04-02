@@ -19,26 +19,28 @@ class App extends Component {
     return (
       <Router>
         <MuiThemeProvider>
-          <Navigation />
-          <Switch>
-            <Route
-              path="/login"
-              component={Login}
-            />
-            <PrivateRoute
-              path="/profile"
-              component={Profile}
-            />
-            <PrivateRoute
-              path="/exchange"
-              component={Exchange}
-            />
-            <PrivateRoute
-              path="/sell"
-              component={Sell}
-            />
-            <Redirect from="/" to="/exchange" />
-          </Switch>
+          <div>
+            <Navigation />
+            <Switch>
+              <Route
+                path="/login"
+                component={Login}
+              />
+              <PrivateRoute
+                path="/profile"
+                component={Profile}
+              />
+              <PrivateRoute
+                path="/exchange"
+                component={Exchange}
+              />
+              <PrivateRoute
+                path="/sell"
+                component={Sell}
+              />
+              <Redirect from="/" to="/exchange" />
+            </Switch>
+          </div>
         </MuiThemeProvider>
       </Router>
     );
@@ -53,13 +55,13 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }) => (
         auth.isAuthenticated() ? (
           <RouteComponent {...props} />
         ) : (
-          <Redirect
-            to={{
-              pathname: '/login',
-              state: { from: props.location },
-            }}
-          />
-        )
+            <Redirect
+              to={{
+                pathname: '/login',
+                state: { from: props.location },
+              }}
+            />
+          )
       );
     }}
   />
