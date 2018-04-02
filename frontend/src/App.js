@@ -2,31 +2,23 @@ import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Link,
   Switch,
   Redirect,
-  withRouter
-} from 'react-router-dom'
+} from 'react-router-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Navigation from './Navigation';
 import Login from './Login';
 import Profile from './Profile';
-import Market from './Market';
+import Exchange from './Exchange';
 import Sell from './Sell';
 import auth from './auth';
 import './App.css';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      auth: null,
-    }
-  }
-
   render() {
     return (
       <Router>
-        <div>
+        <MuiThemeProvider>
           <Navigation />
           <Switch>
             <Route
@@ -38,36 +30,38 @@ class App extends Component {
               component={Profile}
             />
             <PrivateRoute
-              path="/market"
-              component={Market}
+              path="/exchange"
+              component={Exchange}
             />
             <PrivateRoute
               path="/sell"
               component={Sell}
             />
-            <Redirect from="/" to="/market" />
+            <Redirect from="/" to="/exchange" />
           </Switch>
-        </div>
+        </MuiThemeProvider>
       </Router>
     );
   }
 }
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+const PrivateRoute = ({ component: RouteComponent, ...rest }) => (
   <Route
     {...rest}
-    render={props =>
-      auth.profile ? (
-        <Component {...props} />
-      ) : (
-        <Redirect
-          to={{
-            pathname: "/login",
-            state: { from: props.location }
-          }}
-        />
-      )
-    }
+    render={(props) => {
+      return (
+        auth.isAuthenticated() ? (
+          <RouteComponent {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/login',
+              state: { from: props.location },
+            }}
+          />
+        )
+      );
+    }}
   />
 );
 

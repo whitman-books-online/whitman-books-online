@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 class Navigation extends Component {
   render() {
@@ -7,17 +7,17 @@ class Navigation extends Component {
       <div>
         <ul>
           <li>
-            <Link to={`/profile`}>
+            <Link to="/profile">
               Profile
             </Link>
           </li>
           <li>
-            <Link to={`/market`}>
-              Buy
+            <Link to="/exchange">
+              Exchange
             </Link>
           </li>
           <li>
-            <Link to={`/sell`}>
+            <Link to="/sell">
               Sell
             </Link>
           </li>
