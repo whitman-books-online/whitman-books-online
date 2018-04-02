@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
-import {
-  Redirect,
-} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import auth from './auth';
+import './Login.css';
 
 const CLIENT_ID = '317596678792-2ekdkdrdlgsqdaudaag7t7m7qf4m0b17.apps.googleusercontent.com';
 
@@ -14,9 +13,8 @@ class Login extends Component {
   };
 
   login = (response) => {
-    console.log(response);
-    auth.authenticate(response);
-    if (auth.profile) {
+    auth.signin(response);
+    if (auth.isAuthenticated()) {
       this.setState({ redirect: true, invalid: false });
     } else {
       this.setState({ invalid: true });
@@ -25,25 +23,14 @@ class Login extends Component {
 
   render() {
     const { from } = this.props.location.state || { from: { pathname: '/' } };
-    const redirect = this.state.redirect;
+    const { redirect } = this.state;
 
     if (redirect) {
       return <Redirect to={from} />;
     }
 
     return (
-      <div
-        style={{
-          height: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: '#2196f3',
-          color: '#FFFFFF',
-          textAlign: 'center',
-          }}
-      >
+      <div className="Login-Container">
         <h1>Whitman Books Online</h1>
         <GoogleLogin
           clientId={CLIENT_ID}

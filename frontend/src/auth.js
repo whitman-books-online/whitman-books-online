@@ -13,7 +13,7 @@ const auth = {
   profile: localStorage.profile ? JSON.parse(localStorage.profile) : null,
   token: localStorage.token ? JSON.parse(localStorage.token) : null,
   valid: true,
-  authenticate(response) {
+  signin(response) {
     const token = response.tokenObj;
     const profile = response.profileObj;
     const { email } = profile;
@@ -28,10 +28,18 @@ const auth = {
       localStorage.setItem('profile', JSON.stringify(profile));
     }
   },
-  signout(response) {
+  signout() {
     localStorage.removeItem('token');
     localStorage.removeItem('profile');
     auth.profile = null;
+    auth.token = null;
+  },
+  isAuthenticated() {
+    console.log(auth.profile, auth.token);
+    return auth.profile && auth.token;
+  },
+  isAuthorizedUser(userId) {
+    return userId === auth.profile.googleId;
   },
 };
 

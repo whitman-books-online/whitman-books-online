@@ -10,5 +10,9 @@
         "react/jsx-filename-extension": "off",
         "no-trailing-spaces": 2,
         "max-len": ["error", {"ignoreUrls": true, "code": 80}]
-    }
+    },
+    "env": {
+    "browser": true,
+    "node": true
+    }                                                                      
 }
