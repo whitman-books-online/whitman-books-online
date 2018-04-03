@@ -1,4 +1,4 @@
-Mar 27 Tue - API Endpoints
+Mar 27 Tue * API Endpoints
 ==========================
 
 Owen, Sean, and Richie
@@ -8,49 +8,49 @@ Small meeting to talk about the functions
 Richie brings up the design phase document to show the diagram.
 
 Richie wants a function for each endpoint. For example, there will be an
-endpoint called /users and it will contain key-value pairs where the key is a
+endpoint called /users and it will contain key*value pairs where the key is a
 user ID and the values are data about the user. There may be 2 functions for 
-`/books` so that they can be accessed by 
+`/books` so that they can be accessed by ID or keywords.
 
 Endpoints:
-- /users
-- /books
-- /listings
+* /users
+* /books
+* /listings
 
 Think of the endpoints as their own classes.
 
 Here's a representation of a possible database. There may be some bits missing,
 for example, a book has more information than just title, author, and ID.
 
-- `/users`
-  - `$user_id`
-  - `name`
-  - `email`
-  - list of listing IDs for listings created by this user
-- `/books`
-  - `$book_id`, perhaps ISBN
-  - `title`
-  - `author`
-  - list of listing IDs for listings for this book
-    - `$listing_id` for each listing
-- `/listings`
-  - `$listing_id` <-- this is one particular listing
-  - `price`
-  - `condition`
-  - `book_id`
-  - `user_id`
-  - `status`
+* `/users`
+  * `$user_id`
+  * `name`
+  * `email`
+  * list of listing IDs for listings created by this user
+* `/books`
+  * `$book_id`, perhaps ISBN
+  * `title`
+  * `author`
+  * list of listing IDs for listings for this book
+    * `$listing_id` for each listing
+* `/listings`
+  * `$listing_id` <** this is one particular listing
+  * `price`
+  * `condition`
+  * `book_id`
+  * `user_id`
+  * `status`
 
 Frontend will send a request with either a query or some number of book IDs.
 When they send a query, backend needs to do some kind of search.
 When they send book IDs, just look up those books.
 
 Things that frontend needs from the API:
-- Create, remove, or edit a user, book, or listing
-- get a user by user ID
-- get a book by book ID
-- get books by query (such as title or course)
-- get a listing by listing ID
+* Create, remove, or edit a user, book, or listing
+* get a user by user ID
+* get a book by book ID
+* get books by query (such as title or course)
+* get a listing by listing ID
 
 In any of the "get" actions above, provide all information about the object
 being requested.
