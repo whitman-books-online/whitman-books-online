@@ -3,17 +3,35 @@ Welcome to Whitman Books Online's documentation!
 
 .. toctree::
    :maxdepth: 1
-   :caption: Workflow Documents:
+   :caption: User Guides:
    :glob:
 
-   workflow/*
+   usr-docs/*
+.. Quickstart
+.. etc...
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Developer Guides:
+   :glob:
+
+   dev-docs/*
+.. Quickstart
+.. etc...
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Milestone Documents:
+   :glob:
+
+   milestone/*
 
 .. toctree::
    :maxdepth: 1
    :caption: Meeting Notes:
    :glob:
 
-   meeting-notes/*
+   meeting/*
 
 
 .. Indices and tables
