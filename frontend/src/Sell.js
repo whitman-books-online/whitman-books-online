@@ -46,14 +46,12 @@ class Sell extends Component {
         isbn,
         isbnButtonOff: true,
       })
-
     }
   }
 
   handleConditionChange = (event, index, condition) => {
     this.setState({condition});
   }
-
 
   handlePriceChange = (event) => {
     const price = event.target.value
@@ -72,11 +70,8 @@ class Sell extends Component {
     }
   }
 
-
   handleIsbnClick = (e) => {
     e.preventDefault();
-
-
     isbn.resolve(this.state.isbn, (err, book) => {
       if (err) {
         console.log("book not found")
@@ -87,8 +82,6 @@ class Sell extends Component {
       }
     });
   }
-
-  isbnButton
 
   render() {
     const book = this.state.book;
@@ -122,51 +115,46 @@ class Sell extends Component {
                 />
 
               <CardText expandable={true}>
-                Publisher:  {book.publisher}<br/>
-              Published Date:  {book.publishedDate}<br/>
+                Publisher:  {book.publisher}
+                <br/>
+                Published Date:  {book.publishedDate}
+                <br/>
+                <br/>
+                {book.description}
+              </CardText>
+            </Card>
             <br/>
-            {book.description}
-          </CardText>
-        </Card>
-        <br/>
+      
+            <SelectField
+              floatingLabelText="Condition"
+              value={this.state.condition}
+              onChange={this.handleConditionChange}
+              >
+              <MenuItem value={"Poor"} primaryText="Poor" />
+              <MenuItem value={"Used"} primaryText="Used" />
+              <MenuItem value={"Like New"} primaryText="Like new" />
+              <MenuItem value={"New"} primaryText="New" />
+            </SelectField>
+            <br/>
 
-
-        <SelectField
-          floatingLabelText="Condition"
-          value={this.state.condition}
-          onChange={this.handleConditionChange}
-          >
-          <MenuItem value={"Poor"} primaryText="Poor" />
-          <MenuItem value={"Used"} primaryText="Used" />
-          <MenuItem value={"Like New"} primaryText="Like new" />
-          <MenuItem value={"New"} primaryText="New" />
-        </SelectField>
-        <br/>
-
-        <TextField
-          id = "price-field"
-          floatingLabelText = "Input your desired price:"
-          price = {this.state.price}
-          onChange = {this.handlePriceChange}
-          errorText= {this.state.priceErrorText}
-          />
-
-
-
-
-        $
-        <FlatButton
-          primary = {true}
-          label = "Submit"
-          disabled={this.state.priceButtonOff}/>
-
-
-
-      </div>
-    }
-  </Page>
-);
+            <TextField
+              id = "price-field"
+              floatingLabelText = "Input your desired price:"
+              price = {this.state.price}
+              onChange = {this.handlePriceChange}
+              errorText= {this.state.priceErrorText}
+              />
+            <FlatButton
+              primary = {true}
+              label = "Submit"
+              disabled={this.state.priceButtonOff}
+            />
+          </div>
+        }
+      </Page>
+    );
+  }
 }
-}
+
 
 export default Sell;
