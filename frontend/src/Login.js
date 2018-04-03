@@ -16,6 +16,7 @@ class Login extends Component {
   }
 
   login = (response) => {
+    console.log(response);
     auth.signin(response);
     if (auth.isAuthenticated()) {
       this.setState({ redirect: true, invalid: false });

@@ -16,10 +16,10 @@ class ListingFeed extends Component {
 
   componentDidMount() {
     const { listingIds } = this.props;
-    this.getList(listingIds);
+    this.getListingList(listingIds);
   }
 
-  getList = (listingIds) => {
+  getListingList = (listingIds) => {
     this.setState({ loading: true });
     // Asynchronous request to server
     setTimeout(() => {
