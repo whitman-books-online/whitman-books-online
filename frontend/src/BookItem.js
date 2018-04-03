@@ -4,7 +4,7 @@ import ListingFeed from './ListingFeed';
 class BookItem extends Component {
   render() {
     const { title, author, listingIds } = this.props;
-    
+
     return (
       <div>
         <h3>{title}</h3>
