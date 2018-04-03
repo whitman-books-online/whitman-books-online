@@ -5,6 +5,7 @@
   "dependencies": {
     "email-addresses": "^3.0.1",
     "material-ui": "^0.20.0",
+    "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-google-login": "^3.0.4",
