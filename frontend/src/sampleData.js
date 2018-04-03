@@ -1,8 +1,8 @@
-const bookData = {
+const BOOK_DATA = {
   1234567890: {
     title: 'To Kill a Mockingbird',
     author: 'Harper Lee',
-    listings: [
+    listingIds: [
       '12345',
       '67890',
     ],
@@ -10,13 +10,13 @@ const bookData = {
   9876543210: {
     title: 'Gödel, Escher, Bach',
     author: 'Douglas Hofstadter',
-    listings: [
+    listingIds: [
       '24680',
     ],
   },
 };
 
-const listingData = {
+const LISTING_DATA = {
   12345: {
     price: '100',
     condition: 'Good',
@@ -34,9 +34,28 @@ const listingData = {
   },
 };
 
+const USER_DATA = {
+  a1s2d3: {
+    name: 'Richard Farman',
+    email: 'farmanrl@whitman.edu',
+    userId: 'a1s2d3',
+  },
+  qw34rt: {
+    name: 'Other Person',
+    email: 'otherperson@whitman.edu',
+    userId: 'qw34rt',
+  },
+  xx00xx: {
+    name: 'Another Person',
+    emailJ: 'anotherperson@whitman.edu',
+    userId: 'xx00xx',
+  }
+};
+
 const sampleData = {
-  listingData,
-  bookData,
+  BOOK_DATA,
+  LISTING_DATA,
+  USER_DATA,
 };
 
 export default sampleData;
