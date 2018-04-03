@@ -19,26 +19,28 @@ class App extends Component {
     return (
       <Router>
         <MuiThemeProvider>
-          <Navigation />
-          <Switch>
-            <Route
-              path="/login"
-              component={Login}
-            />
-            <PrivateRoute
-              path="/profile"
-              component={Profile}
-            />
-            <PrivateRoute
-              path="/exchange"
-              component={Exchange}
-            />
-            <PrivateRoute
-              path="/sell"
-              component={Sell}
-            />
-            <Redirect from="/" to="/exchange" />
-          </Switch>
+          <div>
+            <Navigation />
+            <Switch>
+              <Route
+                path="/login"
+                component={Login}
+              />
+              <PrivateRoute
+                path="/profile"
+                component={Profile}
+              />
+              <PrivateRoute
+                path="/exchange"
+                component={Exchange}
+              />
+              <PrivateRoute
+                path="/sell"
+                component={Sell}
+              />
+              <Redirect from="/" to="/exchange" />
+            </Switch>
+          </div>
         </MuiThemeProvider>
       </Router>
     );

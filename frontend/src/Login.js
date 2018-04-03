@@ -7,10 +7,13 @@ import './Login.css';
 const CLIENT_ID = '317596678792-2ekdkdrdlgsqdaudaag7t7m7qf4m0b17.apps.googleusercontent.com';
 
 class Login extends Component {
-  state = {
-    redirect: false,
-    invalid: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      redirect: false,
+      invalid: false,
+    };
+  }
 
   login = (response) => {
     auth.signin(response);
