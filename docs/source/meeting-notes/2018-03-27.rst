@@ -1,4 +1,4 @@
-Mar 27 Tue * API Endpoints
+Mar 27 Tue - API Endpoints
 ==========================
 
 Owen, Sean, and Richie
@@ -8,7 +8,7 @@ Small meeting to talk about the functions
 Richie brings up the design phase document to show the diagram.
 
 Richie wants a function for each endpoint. For example, there will be an
-endpoint called /users and it will contain key*value pairs where the key is a
+endpoint called /users and it will contain key-value pairs where the key is a
 user ID and the values are data about the user. There may be 2 functions for 
 `/books` so that they can be accessed by ID or keywords.
 
@@ -34,7 +34,7 @@ for example, a book has more information than just title, author, and ID.
   * list of listing IDs for listings for this book
     * `$listing_id` for each listing
 * `/listings`
-  * `$listing_id` <** this is one particular listing
+  * `$listing_id` <-- this is one particular listing
   * `price`
   * `condition`
   * `book_id`
