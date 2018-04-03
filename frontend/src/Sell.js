@@ -2,6 +2,7 @@ import React, {
   Component
 } from 'react';
 
+import validator from 'validator';
 
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
@@ -14,8 +15,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 var isbn = require("node-isbn")
 
 class Sell extends Component {
-
-
   constructor(props) {
     super(props);
 
@@ -30,7 +29,7 @@ class Sell extends Component {
   handleChange = (event) => {
     this.setState({
       value: event.target.value,
-    });
+    })
   }
 
   handleConditionChange = (event, index, condition) => {
@@ -41,8 +40,9 @@ class Sell extends Component {
   handlePriceChange = (event) => {
     this.setState({
        price: event.target.value,
-    });
-  }
+       })
+     }
+
 
   handleClick = (e) => {
     e.preventDefault();
@@ -59,10 +59,6 @@ class Sell extends Component {
     });
   }
 
-
-
-
-
   render() {
     const book = this.state.book;
     return (
@@ -73,24 +69,20 @@ class Sell extends Component {
       <TextField id = "isbn-field"
       floatingLabelText = "Input your book's ISBN here:"
       value = {this.state.value}
+      errorText = {this.state.errorText}
       onChange = {this.handleChange}/>
 
       <FlatButton primary = {true} label = "Confirm"
       onClick = {this.handleClick}/>
 
 
-
-
-
-      {/*If there is a book display information and price/condition */}
       {book &&
         <div>
-        {/* This card is basically the BookItem component*/}
         <Card>
     <CardHeader
       title={book.title}
       subtitle={book.authors}
-      avatar={book.imageLinks.thumbnail || null}
+      avatar={book.imageLinks && book.imageLinks.thumbnail}
       actAsExpander={true}
       showExpandableButton={true}
     />
@@ -117,21 +109,19 @@ class Sell extends Component {
   </SelectField>
   <br/>
 
-
-          <TextField
-          id = "price-field"
-          floatingLabelText = "Input your desired price:"
-          price = {this.state.price}
-          onChange = {this.handlePriceChange}/>
-
+  <TextField
+  id = "price-field"
+  floatingLabelText = "Input your desired price:"
+  price = {this.state.price}
+  onChange = {this.handlePriceChange}/>
 
 
 
-                <FlatButton primary = {true} label = "Submit"/>
+  <FlatButton primary = {true} label = "Submit"/>
 
 
 
-        </div>
+  </div>
       }
       </MuiThemeProvider>
     );
