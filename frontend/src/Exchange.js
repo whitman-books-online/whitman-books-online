@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
+import Page from './Page';
 import BookFeed from './BookFeed';
 
 class Exchange extends Component {
   render() {
     return (
-      <div>
+      <Page>
         <h1>Exchange</h1>
         <BookFeed />
-      </div>
+      </Page>
+
     );
   }
 }
