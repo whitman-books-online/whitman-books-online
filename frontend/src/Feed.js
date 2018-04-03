@@ -6,7 +6,6 @@ class Feed extends Component {
   render() {
     const { loading, feedList, FeedItem } = this.props;
 
-
     if (!feedList) {
       if (loading) {
         return <Loader type="bars" color="#333" />;
@@ -16,10 +15,10 @@ class Feed extends Component {
 
     return (
       <List>
-        {Object.keys(feedList).map((item) => {
-          const data = feedList[item];
+        {Object.keys(feedList).map((key) => {
+          const value = feedList[key];
           return (
-            <FeedItem key={item} {...data} />
+            <FeedItem key={key} {...value} />
           );
         })}
       </List>

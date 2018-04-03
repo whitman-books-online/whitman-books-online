@@ -15,10 +15,10 @@ class BookFeed extends Component {
   }
 
   componentDidMount() {
-    this.getList();
+    this.getBookList();
   }
 
-  getList = () => {
+  getBookList = () => {
     this.setState({ loading: true });
     // Asynchronous request to server
     setTimeout(() => {
