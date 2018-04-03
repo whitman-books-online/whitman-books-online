@@ -6,6 +6,17 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 Class Book(Base):
+	"""The Book object stores information about the book, as well as
+	the listing objects that are associated with it.
+
+    Attributes:
+        isbn (string): The isbn number for the book.
+        title (string): The title of the book.
+		author (string): The author/authors of the book.
+		listings (Listing): The current listings of the book.
+    """
+
+    # Creates a table named 'book'
 	__tablename__ = 'book'
 
 	isbn = Column(String, primary_key = True)
@@ -13,6 +24,12 @@ Class Book(Base):
 	author = Column(String)
 	# One to many relationship: Book to listings
 	listings = relationship("Listing", backref="book", order_by="listing.id")
+
+	def add_to_db():
+		session.add(self) # TODO: Decide on handling sessions
+
+	def remove_from_db():
+		session.delete(self)
 
 	def get_ids():
 		listing_ids = []
