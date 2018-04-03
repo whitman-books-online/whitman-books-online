@@ -19,17 +19,35 @@ class Sell extends Component {
     super(props);
 
     this.state = {
-      value: '',
+      isbn: '',
       book: null,
       condition: '',
       price: '',
+      priceErrorText: '',
+      isbnErrorText: '',
+      isbnButtonOff: true,
+      priceButtonOff: true,
+
     };
   }
 
-  handleChange = (event) => {
-    this.setState({
-      value: event.target.value,
-    })
+  handleIsbnChange = (event) => {
+    const isbn = event.target.value;
+    if(validator.isISBN(isbn)){
+      this.setState({
+        isbn,
+        isbnErrorText: '',
+        isbnButtonOff: false,
+      })
+    }
+    else{
+      this.setState({
+        isbnErrorText: 'This is not a valid ISBN.',
+        isbn,
+        isbnButtonOff: true,
+      })
+
+    }
   }
 
   handleConditionChange = (event, index, condition) => {
@@ -38,19 +56,30 @@ class Sell extends Component {
 
 
   handlePriceChange = (event) => {
+    const price = event.target.value
+    if(validator.isCurrency(price))
     this.setState({
-      price: event.target.value,
+      price,
+      priceErrorText: '',
+      priceButtonOff: false,
     })
+    else{
+      this.setState({
+        price,
+        priceErrorText: 'This is not a valid price',
+        priceButtonOff: true,
+      })
+    }
   }
 
 
-  handleClick = (e) => {
+  handleIsbnClick = (e) => {
     e.preventDefault();
 
 
-    isbn.resolve(this.state.value, (err, book) => {
+    isbn.resolve(this.state.isbn, (err, book) => {
       if (err) {
-        console.log('Book not found', err);
+        console.log("book not found")
       } else {
         this.setState({
           book
@@ -59,73 +88,85 @@ class Sell extends Component {
     });
   }
 
+  isbnButton
+
   render() {
     const book = this.state.book;
     return (
       <Page>
 
         <h1> Sell your book:</h1>
-          {/*Input isbn and fetch information, need some formatting.*/}
-          <TextField id = "isbn-field"
-            floatingLabelText = "Input your book's ISBN here:"
-            value = {this.state.value}
-            errorText = {this.state.errorText}
-            onChange = {this.handleChange}/>
+        {/*Input isbn and fetch information, need some formatting.*/}
+        <TextField id = "isbn-field"
+          floatingLabelText = "Input your book's ISBN here:"
+          value = {this.state.isbn}
+          errorText = {this.state.isbnErrorText}
+          onChange = {this.handleIsbnChange}/>
 
-            <FlatButton primary = {true} label = "Confirm"
-              onClick = {this.handleClick}/>
-
-
-              {book &&
-                <div>
-                  <Card>
-                    <CardHeader
-                      title={book.title}
-                      subtitle={book.authors}
-                      avatar={book.imageLinks && book.imageLinks.thumbnail}
-                      actAsExpander={true}
-                      showExpandableButton={true}
-                      />
-
-                      <CardText expandable={true}>
-                        Publisher:  {book.publisher}<br/>
-                        Published Date:  {book.publishedDate}<br/>
-                        <br/>
-                          {book.description}
-                        </CardText>
-                      </Card>
-                      <br/>
-
-
-                        <SelectField
-                          floatingLabelText="Condition"
-                          value={this.state.condition}
-                          onChange={this.handleConditionChange}
-                          >
-                          <MenuItem value={"Poor"} primaryText="Poor" />
-                            <MenuItem value={"Used"} primaryText="Used" />
-                              <MenuItem value={"Like New"} primaryText="Like new" />
-                                <MenuItem value={"New"} primaryText="New" />
-                                </SelectField>
-                                <br/>
-
-                                  <TextField
-                                    id = "price-field"
-                                    floatingLabelText = "Input your desired price:"
-                                    price = {this.state.price}
-                                    onChange = {this.handlePriceChange}/>
+        <FlatButton primary = {true} label = "Confirm"
+          onClick = {this.handleIsbnClick}
+          disabled= {this.state.isbnButtonOff}
+          />
 
 
 
-                                    <FlatButton primary = {true} label = "Submit"/>
+        {book &&
+          <div>
+            <Card>
+              <CardHeader
+                title={book.title}
+                subtitle={book.authors}
+                avatar={book.imageLinks && book.imageLinks.thumbnail}
+                actAsExpander={true}
+                showExpandableButton={true}
+                />
+
+              <CardText expandable={true}>
+                Publisher:  {book.publisher}<br/>
+              Published Date:  {book.publishedDate}<br/>
+            <br/>
+            {book.description}
+          </CardText>
+        </Card>
+        <br/>
+
+
+        <SelectField
+          floatingLabelText="Condition"
+          value={this.state.condition}
+          onChange={this.handleConditionChange}
+          >
+          <MenuItem value={"Poor"} primaryText="Poor" />
+          <MenuItem value={"Used"} primaryText="Used" />
+          <MenuItem value={"Like New"} primaryText="Like new" />
+          <MenuItem value={"New"} primaryText="New" />
+        </SelectField>
+        <br/>
+
+        <TextField
+          id = "price-field"
+          floatingLabelText = "Input your desired price:"
+          price = {this.state.price}
+          onChange = {this.handlePriceChange}
+          errorText= {this.state.priceErrorText}
+          />
 
 
 
-                                    </div>
-                                  }
-                                </Page>
-                              );
-                            }
-                          }
 
-                          export default Sell;
+        $
+        <FlatButton
+          primary = {true}
+          label = "Submit"
+          disabled={this.state.priceButtonOff}/>
+
+
+
+      </div>
+    }
+  </Page>
+);
+}
+}
+
+export default Sell;
