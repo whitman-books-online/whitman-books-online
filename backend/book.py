@@ -1,11 +1,9 @@
 from sqlalchemy import Table, Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
 
-# Definition of base object class
-Base = declarative_base()
+from db import db
 
-Class Book(Base):
+Class Book(db.Model):
 	"""The Book object stores information about the book, as well as
 	the listing objects that are associated with it.
 
@@ -19,17 +17,11 @@ Class Book(Base):
     # Creates a table named 'book'
 	__tablename__ = 'book'
 
-	isbn = Column(String, primary_key = True)
-	title = Column(String)
-	author = Column(String)
+	isbn = db.Column(String, primary_key = True)
+	title = db.Column(String)
+	author = db.Column(String)
 	# One to many relationship: Book to listings
 	listings = relationship("Listing", backref="book", order_by="listing.id")
-
-	def add_to_db(self):
-		session.add(self) # TODO: Decide on handling sessions
-
-	def remove_from_db(self):
-		session.delete(self)
 
 	def get_ids(self):
 		listing_ids = []
@@ -40,6 +32,17 @@ Class Book(Base):
 	# Returns a json object representing the book
 	def json(self):
 		return {'isbn': self.isbn, 'title': self.title, 'author': self.author, 'listings': get_ids(self)}
+
+	def get(self):
+		return json()
+
+	def post(self):
+		db.session.add(self)
+		return json()
+
+	def delete(self):
+		db.session.delete(self)
+		return json()
 
 	# How the book class will be printed
 	def __repr__(self):
