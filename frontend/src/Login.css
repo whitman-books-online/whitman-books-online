@@ -1,0 +1,10 @@
+.Login-Container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #2196f3;
+    color: #FFFFFF;
+    text-align: center;
+}
