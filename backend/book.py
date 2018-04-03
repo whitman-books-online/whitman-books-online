@@ -25,18 +25,23 @@ Class Book(Base):
 	# One to many relationship: Book to listings
 	listings = relationship("Listing", backref="book", order_by="listing.id")
 
-	def add_to_db():
+	def add_to_db(self):
 		session.add(self) # TODO: Decide on handling sessions
 
-	def remove_from_db():
+	def remove_from_db(self):
 		session.delete(self)
 
-	def get_ids():
+	def get_ids(self):
 		listing_ids = []
-		for listing in listings:
+		for listing in self.listings:
 			listing_ids.append(listing.id)
 		return listing_ids
 
+	# Returns a json object representing the book
+	def json(self):
+		return {'isbn': self.isbn, 'title': self.title, 'author': self.author, 'listings': get_ids(self)}
+
+	# How the book class will be printed
 	def __repr__(self):
 		return "<Book(isbn='%s', title='%s', author='%s')>" % (
 			self.isbn, self.title, self.author)
