@@ -1,5 +1,5 @@
-Whitman Books Online Requirements Document
-==========================================
+Requirements Document
+=====================
 
 The CS300 class will develop a web application to facilitate the sale and/or exchange of textbooks between students at Whitman College.  This application will include, at minimum, the following features:  
 

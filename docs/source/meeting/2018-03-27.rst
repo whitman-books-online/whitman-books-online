@@ -13,9 +13,6 @@ user ID and the values are data about the user. There may be 2 functions for
 `/books` so that they can be accessed by ID or keywords.
 
 Endpoints:
-* /users
-* /books
-* /listings
 
 Think of the endpoints as their own classes.
 
@@ -46,11 +43,6 @@ When they send a query, backend needs to do some kind of search.
 When they send book IDs, just look up those books.
 
 Things that frontend needs from the API:
-* Create, remove, or edit a user, book, or listing
-* get a user by user ID
-* get a book by book ID
-* get books by query (such as title or course)
-* get a listing by listing ID
 
 In any of the "get" actions above, provide all information about the object
 being requested.
