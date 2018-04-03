@@ -40,8 +40,8 @@ release = ''
 # ones.
 extensions = [
     'sphinx.ext.autodoc', 
-    'sphinx.ext.napoleon'
-]
+    'sphinx.ext.napoleon', 
+    'sphinx_js']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -158,3 +158,5 @@ texinfo_documents = [
 
 
 # -- Extension configuration -------------------------------------------------
+
+js_source_path = '..../frontend/src'
