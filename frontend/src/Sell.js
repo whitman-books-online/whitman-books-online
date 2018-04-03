@@ -1,76 +1,73 @@
-import React, {
-  Component
-} from 'react';
+import React, { Component } from 'react';
 import validator from 'validator';
 import isbn from 'node-isbn';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
-import Page from './Page'
+import { Card, CardHeader, CardText } from 'material-ui/Card';
+import Page from './Page';
 
 class Sell extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      isbn: '',
+      isbnValue: '',
       book: null,
       condition: '',
       price: '',
-      priceErrorText: '',
+      priceError: '',
       isbnErrorText: '',
-      isbnButtonOff: true,
-      priceButtonOff: true,
+      isbnButtonDisabled: true,
+      priceButtonDisabled: true,
 
     };
   }
 
   handleIsbnChange = (event) => {
-    const isbn = event.target.value;
-    if (validator.isISBN(isbn)) {
+    const isbnValue = event.target.value;
+    if (validator.isISBN(isbnValue)) {
       this.setState({
-        isbn,
+        isbnValue,
         isbnErrorText: '',
-        isbnButtonOff: false,
-      })
-    }
-    else {
+        isbnButtonDisabled: false,
+      });
+    } else {
       this.setState({
         isbnErrorText: 'This is not a valid ISBN.',
-        isbn,
-        isbnButtonOff: true,
-      })
+        isbnValue,
+        isbnButtonDisabled: true,
+      });
     }
   }
 
   handleConditionChange = (event, index, condition) => {
-    this.setState({ 
-      condition 
+    this.setState({
+      condition,
     });
   }
 
   handlePriceChange = (event) => {
-    const price = event.target.value
-    if (validator.isCurrency(price))
+    const price = event.target.value;
+    if (validator.isCurrency(price)) {
       this.setState({
         price,
-        priceErrorText: '',
-        priceButtonOff: false,
-      })
-    else {
+        priceError: '',
+        priceButtonDisabled: false,
+      });
+    } else {
       this.setState({
         price,
-        priceErrorText: 'This is not a valid price',
-        priceButtonOff: true,
-      })
+        priceError: 'This is not a valid price',
+        priceButtonDisabled: true,
+      });
     }
   }
 
   handleIsbnClick = (e) => {
     e.preventDefault();
-    isbn.resolve(this.state.isbn, (err, book) => {
+    isbn.resolve(this.state.isbnValue, (err, book) => {
       if (err) {
         console.log("Book not found", err);
       } else {
@@ -86,22 +83,19 @@ class Sell extends Component {
 
     return (
       <Page>
-
         <h1> Sell your book:</h1>
-        {/*Input isbn and fetch information, need some formatting.*/}
-        <TextField 
-          id="isbn-field"
+        <TextField
           floatingLabelText="Input your book's ISBN here:"
-          value={this.state.isbn}
+          value={this.state.isbnValue}
           errorText={this.state.isbnErrorText}
-          onChange={this.handleIsbnChange} 
+          onChange={this.handleIsbnChange}
         />
 
-        <FlatButton 
-          primary={true} 
+        <FlatButton
+          primary
           label="Confirm"
           onClick={this.handleIsbnClick}
-          disabled={this.state.isbnButtonOff}
+          disabled={this.state.isbnButtonDisabled}
         />
 
         {book &&
@@ -111,11 +105,11 @@ class Sell extends Component {
                 title={book.title}
                 subtitle={book.authors}
                 avatar={book.imageLinks && book.imageLinks.thumbnail}
-                actAsExpander={true}
-                showExpandableButton={true}
+                actAsExpander
+                showExpandableButton
               />
 
-              <CardText expandable={true}>
+              <CardText expandable>
                 Publisher:  {book.publisher}
                 <br />
                 Published Date:  {book.publishedDate}
@@ -124,6 +118,7 @@ class Sell extends Component {
                 {book.description}
               </CardText>
             </Card>
+
             <br />
 
             <SelectField
@@ -131,24 +126,24 @@ class Sell extends Component {
               value={this.state.condition}
               onChange={this.handleConditionChange}
             >
-              <MenuItem value={"Poor"} primaryText="Poor" />
-              <MenuItem value={"Used"} primaryText="Used" />
-              <MenuItem value={"Like New"} primaryText="Like new" />
-              <MenuItem value={"New"} primaryText="New" />
+              <MenuItem value="Poor" primaryText="Poor" />
+              <MenuItem value="Used" primaryText="Used" />
+              <MenuItem value="Like New" primaryText="Like new" />
+              <MenuItem value="New" primaryText="New" />
             </SelectField>
+
             <br />
 
             <TextField
-              id="price-field"
               floatingLabelText="Input your desired price:"
-              price={this.state.price}
+              value={this.state.price}
               onChange={this.handlePriceChange}
-              errorText={this.state.priceErrorText}
+              errorText={this.state.priceError}
             />
             <FlatButton
-              primary={true}
+              primary
               label="Submit"
-              disabled={this.state.priceButtonOff}
+              disabled={this.state.priceButtonDisabled}
             />
           </div>
         }
