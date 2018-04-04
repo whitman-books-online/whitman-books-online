@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Feed from './Feed';
 import ListingItem from './ListingItem';
-import sampleData from './sampleData';
+import sampleData from '../redux/sampleData';
 
 const { LISTING_DATA } = sampleData;
 

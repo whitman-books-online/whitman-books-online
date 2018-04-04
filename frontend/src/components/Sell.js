@@ -7,6 +7,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import Page from './Page';
+import Loader from './Loader';
 
 class Sell extends Component {
   constructor(props) {
@@ -18,10 +19,10 @@ class Sell extends Component {
       condition: '',
       price: '',
       priceError: '',
-      isbnErrorText: '',
+      isbnError: '',
       isbnButtonDisabled: true,
       priceButtonDisabled: true,
-
+      loading: false,
     };
   }
 
@@ -30,12 +31,12 @@ class Sell extends Component {
     if (validator.isISBN(isbnValue)) {
       this.setState({
         isbnValue,
-        isbnErrorText: '',
+        isbnError: '',
         isbnButtonDisabled: false,
       });
     } else {
       this.setState({
-        isbnErrorText: 'This is not a valid ISBN.',
+        isbnError: 'This is not a valid ISBN.',
         isbnValue,
         isbnButtonDisabled: true,
       });
@@ -67,19 +68,24 @@ class Sell extends Component {
 
   handleIsbnClick = (e) => {
     e.preventDefault();
+    this.setState({ loading: true });
     isbn.resolve(this.state.isbnValue, (err, book) => {
       if (err) {
-        console.log("Book not found", err);
+        console.log('Book not found', err);
+        this.setState({
+          loading: false,
+        });
       } else {
         this.setState({
-          book
-        })
+          book,
+          loading: false,
+        });
       }
     });
   }
 
   render() {
-    const { book } = this.state;
+    const { loading, book } = this.state;
 
     return (
       <Page>
@@ -87,7 +93,7 @@ class Sell extends Component {
         <TextField
           floatingLabelText="Input your book's ISBN here:"
           value={this.state.isbnValue}
-          errorText={this.state.isbnErrorText}
+          errorText={this.state.isbnError}
           onChange={this.handleIsbnChange}
         />
 
@@ -97,6 +103,10 @@ class Sell extends Component {
           onClick={this.handleIsbnClick}
           disabled={this.state.isbnButtonDisabled}
         />
+
+        {loading &&
+          <Loader />
+        }
 
         {book &&
           <div>
