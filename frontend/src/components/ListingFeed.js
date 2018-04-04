@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Feed from './Feed';
 import ListingItem from './ListingItem';
-import sampleData from './sampleData';
+import sampleData from '../redux/sampleData';
 
 const { LISTING_DATA } = sampleData;
 
@@ -16,10 +16,10 @@ class ListingFeed extends Component {
 
   componentDidMount() {
     const { listingIds } = this.props;
-    this.getList(listingIds);
+    this.getListingList(listingIds);
   }
 
-  getList = (listingIds) => {
+  getListingList = (listingIds) => {
     this.setState({ loading: true });
     // Asynchronous request to server
     setTimeout(() => {

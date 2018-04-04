@@ -159,7 +159,7 @@ Schedule
 
 **Back-End Model**
 
-.. image:: ../../images/back-end_model.png
+.. image:: ../../images/back_end_model.png
 
 **Post-Delivery Maintenance**
 

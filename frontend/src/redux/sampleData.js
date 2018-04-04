@@ -21,16 +21,19 @@ const LISTING_DATA = {
     price: '100',
     condition: 'Good',
     bookId: '1234567890',
+    userId: 'a1s2d3',
   },
   67890: {
     price: '120',
     condition: 'Excellent',
     bookId: '1234567890',
+    userId: 'a1s2d3',
   },
   24680: {
     price: '65',
     condition: 'Okay',
     bookId: '0987654321',
+    userId: 'qw34rt',
   },
 };
 
@@ -39,11 +42,18 @@ const USER_DATA = {
     name: 'Richard Farman',
     email: 'farmanrl@whitman.edu',
     userId: 'a1s2d3',
+    listingIds: [
+      '12345',
+      '24680',
+    ],
   },
   qw34rt: {
     name: 'Other Person',
     email: 'otherperson@whitman.edu',
     userId: 'qw34rt',
+    listingIds: [
+      24680,
+    ]
   },
   xx00xx: {
     name: 'Another Person',

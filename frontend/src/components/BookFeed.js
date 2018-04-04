@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Feed from './Feed';
 import BookItem from './BookItem';
-import sampleData from './sampleData';
+import sampleData from '../redux/sampleData';
 
 const { BOOK_DATA } = sampleData;
 
@@ -15,10 +15,10 @@ class BookFeed extends Component {
   }
 
   componentDidMount() {
-    this.getList();
+    this.getBookList();
   }
 
-  getList = () => {
+  getBookList = () => {
     this.setState({ loading: true });
     // Asynchronous request to server
     setTimeout(() => {
@@ -31,7 +31,9 @@ class BookFeed extends Component {
     const { loading, bookList } = this.state;
 
     return (
-      <Feed loading={loading} feedList={bookList} FeedItem={BookItem} />
+      <Feed loading={loading} feedList={bookList} FeedItem={BookItem}>
+        <Feed loading={loading} feedList={bookList} FeedItem={BookItem} />
+      </Feed>
     );
   }
 }
