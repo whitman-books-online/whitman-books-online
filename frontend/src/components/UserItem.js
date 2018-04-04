@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Loader from './Loader';
-import sampleData from './sampleData';
+import sampleData from '../redux/sampleData';
 
 const { USER_DATA } = sampleData;
 
