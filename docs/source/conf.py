@@ -159,4 +159,4 @@ texinfo_documents = [
 
 # -- Extension configuration -------------------------------------------------
 
-js_source_path = '..../frontend/src'
+js_source_path = '../../frontend/src'
