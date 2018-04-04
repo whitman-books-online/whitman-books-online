@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 
 from db import db
 
-Class Book(db.Model):
+Class BookModel(db.Model):
 	"""The Book object stores information about the book, as well as
 	the listing objects that are associated with it.
 
@@ -23,6 +23,12 @@ Class Book(db.Model):
 	# One to many relationship: Book to listings
 	listings = relationship("Listing", backref="book", order_by="listing.id")
 
+	def __init__(self, isbn, title, author):
+		self.isbn = isbn
+		self.title = title
+		self.author = author
+
+
 	def get_ids(self):
 		listing_ids = []
 		for listing in self.listings:
@@ -31,17 +37,19 @@ Class Book(db.Model):
 
 	# Returns a json object representing the book
 	def json(self):
-		return {'isbn': self.isbn, 'title': self.title, 'author': self.author, 'listings': get_ids(self)}
+		return {'isbn': self.isbn, 'title': self.title, 'author': self.author, 'listings': get_ids()}
 
-	def get(self):
-		return json()
+	def find_by_isbn(cls, name): # Abstracted and redefined from get
+		return BookModel.query.filter_by(isbn=isbn).first()
 
-	def post(self):
+	def save_to_db(self):
 		db.session.add(self)
+		db.session.commit()
 		return json()
 
-	def delete(self):
+	def delete_from_db(self):
 		db.session.delete(self)
+		db.session.commit()
 		return json()
 
 	# How the book class will be printed
