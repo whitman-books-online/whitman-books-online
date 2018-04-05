@@ -8,5 +8,8 @@ frontend_version: master
 frontend_app_dest: "{{ frontend_home }}/{{ app_name }}"
 frontend_app_path: "{{ frontend_app_dest }}/frontend"
 updated_npm_path: "{{ frontend_home }}/node_modules/.bin/npm"
+systemd_path: /etc/systemd/system
 frontend_service_name: frontend.service
-frontend_service_path: /etc/systemd/system/{{ frontend_service_name }}
+frontend_service_path: "{{ systemd_path }}/{{ frontend_service_name }}"
+frontend_update_service_name: frontend_update.service
+frontend_update_service_path: "{{ systemd_path }}/{{ frontend_update_service_name }}"
