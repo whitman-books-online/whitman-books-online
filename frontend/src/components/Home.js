@@ -15,17 +15,14 @@ const privateRoutes = [
   {
     path: '/profile',
     main: Profile,
-    navigation: Navigation,
   },
   {
     path: '/exchange',
     main: Exchange,
-    navigation: Navigation,
   },
   {
     path: '/sell',
     main: Sell,
-    navigation: Navigation,
   },
 ];
 
@@ -33,21 +30,28 @@ class Home extends Component {
   render() {
     return (
       <div>
-        {privateRoutes.map(route =>
-          <Route key={route.path} path={route.path} component={route.navigation} />,
-        )}
+        {privateRoutes.map(route => (
+          <Route
+            key={route.path}
+            path={route.path}
+            component={Navigation}
+          />
+        ))}
         <Switch>
           <Route
             path="/login"
             component={Login}
           />
-          {privateRoutes.map(route =>
-            <PrivateRoute key={route.path} path={route.path} component={route.main} />
-          )}
-          <Redirect from="/" to="/login" />
+          {privateRoutes.map(route => (
+            <PrivateRoute
+              key={route.path}
+              path={route.path}
+              component={route.main}
+            />
+          ))}
+          <Redirect from="/" to="/exchange" />
         </Switch>
       </div >
-
     );
   }
 }
