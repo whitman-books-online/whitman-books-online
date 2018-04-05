@@ -17,13 +17,10 @@ class Profile extends Component {
     return (
       <Page>
         <h1>Profile</h1>
-        <h2>
-          {`${givenName} ${familyName}`}
-        </h2>
-        <h3>
-          {email}
-        </h3>
+        <h2>{`${givenName} ${familyName}`}</h2>
+        <h3>{email}</h3>
         <img src={imageUrl} alt="profileImage" />
+        <br />
         <button onClick={logout}>Signout</button>
       </Page>
     );

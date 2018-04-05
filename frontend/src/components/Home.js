@@ -3,9 +3,7 @@ import {
   Route,
   Switch,
   Redirect,
-  withRouter,
 } from 'react-router-dom';
-import { connect } from 'react-redux';
 import Navigation from './Navigation';
 import PrivateRoute from './PrivateRoute';
 import Login from './Login';
@@ -13,42 +11,45 @@ import Profile from './Profile';
 import Exchange from './Exchange';
 import Sell from './Sell';
 
+const privateRoutes = [
+  {
+    path: '/profile',
+    main: Profile,
+    navigation: Navigation,
+  },
+  {
+    path: '/exchange',
+    main: Exchange,
+    navigation: Navigation,
+  },
+  {
+    path: '/sell',
+    main: Sell,
+    navigation: Navigation,
+  },
+];
+
 class Home extends Component {
   render() {
     return (
       <div>
-        <Navigation />
+        {privateRoutes.map(route =>
+          <Route key={route.path} path={route.path} component={route.navigation} />,
+        )}
         <Switch>
           <Route
             path="/login"
             component={Login}
           />
-          <PrivateRoute
-            exact
-            path="/profile"
-            component={Profile}
-          />
-          <PrivateRoute
-            exact
-            path="/exchange"
-            component={Exchange}
-          />
-          <PrivateRoute
-            exact
-            path="/sell"
-            component={Sell}
-          />
-          <Redirect from="/" to="/exchange" />
+          {privateRoutes.map(route =>
+            <PrivateRoute key={route.path} path={route.path} component={route.main} />
+          )}
+          <Redirect from="/" to="/login" />
         </Switch>
-      </div>
+      </div >
 
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  const { invalid, isAuthenticated } = state.authReducer;
-  return { invalid, isAuthenticated };
-};
-
-export default withRouter(connect(mapStateToProps)(Home));
+export default Home;
