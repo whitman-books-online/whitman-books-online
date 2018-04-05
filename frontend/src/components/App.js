@@ -12,8 +12,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import authReducer from '../redux/auth/reducer';
 import Home from './Home';
 
-console.log(authReducer);
-
 // Create a history of your choosing
 // (we're using a browser history in this case)
 const history = createHistory();
