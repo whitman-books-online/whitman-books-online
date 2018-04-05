@@ -3,7 +3,7 @@ import { GoogleLogin } from 'react-google-login';
 import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { login, loginSuccess, loginFail } from '../redux/auth/actions';
+import { login } from '../redux/auth/actions';
 import './Login.css';
 
 const CLIENT_ID = '317596678792-2ekdkdrdlgsqdaudaag7t7m7qf4m0b17.apps.googleusercontent.com';

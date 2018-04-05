@@ -3,9 +3,7 @@ import {
   Route,
   Switch,
   Redirect,
-  withRouter,
 } from 'react-router-dom';
-import { connect } from 'react-redux';
 import Navigation from './Navigation';
 import PrivateRoute from './PrivateRoute';
 import Login from './Login';
@@ -13,42 +11,49 @@ import Profile from './Profile';
 import Exchange from './Exchange';
 import Sell from './Sell';
 
+const privateRoutes = [
+  {
+    path: '/profile',
+    main: Profile,
+  },
+  {
+    path: '/exchange',
+    main: Exchange,
+  },
+  {
+    path: '/sell',
+    main: Sell,
+  },
+];
+
 class Home extends Component {
   render() {
     return (
       <div>
-        <Navigation />
+        {privateRoutes.map(route => (
+          <Route
+            key={route.path}
+            path={route.path}
+            component={Navigation}
+          />
+        ))}
         <Switch>
           <Route
             path="/login"
             component={Login}
           />
-          <PrivateRoute
-            exact
-            path="/profile"
-            component={Profile}
-          />
-          <PrivateRoute
-            exact
-            path="/exchange"
-            component={Exchange}
-          />
-          <PrivateRoute
-            exact
-            path="/sell"
-            component={Sell}
-          />
+          {privateRoutes.map(route => (
+            <PrivateRoute
+              key={route.path}
+              path={route.path}
+              component={route.main}
+            />
+          ))}
           <Redirect from="/" to="/exchange" />
         </Switch>
-      </div>
-
+      </div >
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  const { invalid, isAuthenticated } = state.authReducer;
-  return { invalid, isAuthenticated };
-};
-
-export default withRouter(connect(mapStateToProps)(Home));
+export default Home;
