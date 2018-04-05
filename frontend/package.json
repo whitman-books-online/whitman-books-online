@@ -14,14 +14,10 @@
     "react-loading": "^1.0.4",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
-<<<<<<< HEAD
-    "react-scripts": "1.1.1",
-=======
     "react-router-redux": "^5.0.0-alpha.9",
     "react-scripts": "^1.1.4",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
->>>>>>> upstream/master
     "validator": "^9.4.1"
   },
   "scripts": {
