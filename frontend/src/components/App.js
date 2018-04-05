@@ -29,8 +29,6 @@ const store = createStore(
   combineReducers({
     authReducer,
     booksReducer,
-    listingsReducer,
-    usersReducer,
     router: routerReducer,
   }),
   persistedState,
