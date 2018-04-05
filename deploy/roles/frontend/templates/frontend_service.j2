@@ -1,0 +1,13 @@
+[Service]
+ExecStart=/usr/bin/node {{ frontend_app_path }}/node_modules/react-scripts/scripts/start.js
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=node-sample
+User={{ frontend_user }}
+Environment=NODE_ENV=production
+WorkingDirectory={{ frontend_app_path }}
+
+[Install]
+WantedBy=multi-user.target
+

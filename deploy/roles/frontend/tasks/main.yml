@@ -23,3 +23,28 @@
     version: "{{ frontend_version }}"
   become_user: "{{ frontend_user }}"
   become: yes
+  notify: frontend_service
+
+- name: new npm version installed
+  npm:
+    name: npm
+    path: "{{ frontend_home }}"
+    state: latest
+    global: no
+  become_user: "{{ frontend_user }}"
+  become: yes
+
+- name: npm dependencies installed
+  npm:
+    path: "{{ frontend_app_path }}"
+    executable: "{{ updated_npm_path }} --node-flags --max-old-space-size=512"
+  become_user: "{{ frontend_user }}"
+  become: yes
+  notify: frontend_service
+
+- name: frontend systemd service file added
+  template:
+    src: frontend_service.j2
+    dest: "{{ frontend_service_path }}"
+  become: yes
+  notify: frontend_service
