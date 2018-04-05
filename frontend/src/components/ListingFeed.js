@@ -1,38 +1,22 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import Feed from './Feed';
 import ListingItem from './ListingItem';
+import { getListingList } from '../redux/listings/actions';
+import { makeGetListingListByIds } from '../redux/listings/selectors';
 import sampleData from '../redux/sampleData';
 
-const { LISTING_DATA } = sampleData;
-
 class ListingFeed extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      listingList: null,
-      loading: false,
-    };
-  }
-
   componentDidMount() {
-    const { listingIds } = this.props;
-    this.getListingList(listingIds);
+    const { getListingList, listingIds } = this.props;
+    getListingList({ listingIds });
   }
-
-  getListingList = (listingIds) => {
-    this.setState({ loading: true });
-    // Asynchronous request to server
-    setTimeout(() => {
-      const listingMap = listingIds.map(
-        listingId => LISTING_DATA[listingId],
-      );
-      this.setState({ listingList: listingMap });
-      this.setState({ loading: false });
-    }, 2000);
-  };
 
   render() {
-    const { loading, listingList } = this.state;
+    const { listingList } = this.props;
+    const loading = !Object.keys(listingList).length;
 
     return (
       <Feed loading={loading} feedList={listingList} FeedItem={ListingItem} />
@@ -40,4 +24,17 @@ class ListingFeed extends Component {
   }
 }
 
-export default ListingFeed;
+const makeMapStateToProps = () => {
+  const getListingListByIds = makeGetListingListByIds();
+  const mapStateToProps = (state, props) => {
+    return {
+      listingList: getListingListByIds(state, props),
+    };
+  };
+  return mapStateToProps;
+};
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ getListingList }, dispatch);
+
+export default withRouter(connect(makeMapStateToProps, mapDispatchToProps)(ListingFeed));

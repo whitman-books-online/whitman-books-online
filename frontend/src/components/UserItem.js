@@ -1,45 +1,29 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import Loader from './Loader';
+import { getUser } from '../redux/users/actions';
+import { makeGetUserById } from '../redux/users/selectors';
 import sampleData from '../redux/sampleData';
 
 const { USER_DATA } = sampleData;
 
 class UserItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: {
-        name: null,
-        email: null,
-      },
-      loading: false,
-    };
-  }
-
   componentDidMount() {
-    const { userId } = this.props;
-    this.getUser(userId);
-  }
-
-  getUser = (userId) => {
-    this.setState({ loading: true });
-    // Asynchronous request to server
-    setTimeout(() => {
-      const user = USER_DATA[userId];
-      this.setState({ user, loading: false });
-    }, 2000);
+    const { getUser, userId } = this.props;
+    getUser(userId);
   }
 
   render() {
-    const { loading, user } = this.state;
-    const { name, email } = user;
+    const { user } = this.props;
+    const loading = user === undefined;
 
-    if (!name || !email) {
-      if (loading) {
-        return <Loader type="bars" color="#333" />;
-      }
-      return null;
+    if (loading) {
+      return <Loader type="bars" color="#333" width={32} height={32} />;
     }
+
+    const { name, email } = user;
 
     return (
       <h5>{`${name}, ${email}`}</h5>
@@ -47,4 +31,17 @@ class UserItem extends Component {
   }
 }
 
-export default UserItem;
+const makeMapStateToProps = () => {
+  const getUserById = makeGetUserById();
+  const mapStateToProps = (state, props) => {
+    return {
+      user: getUserById(state, props),
+    };
+  };
+  return mapStateToProps;
+};
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ getUser }, dispatch);
+
+export default withRouter(connect(makeMapStateToProps, mapDispatchToProps)(UserItem));
