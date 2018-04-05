@@ -11,8 +11,11 @@ import createHistory from 'history/createBrowserHistory';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import authReducer from '../redux/auth/reducer';
 import booksReducer from '../redux/books/reducer';
+<<<<<<< HEAD
 import listingsReducer from '../redux/listings/reducer';
 import usersReducer from '../redux/users/reducer';
+=======
+>>>>>>> upstream/master
 import Home from './Home';
 
 // Create a history of your choosing
@@ -31,8 +34,11 @@ const store = createStore(
   combineReducers({
     authReducer,
     booksReducer,
+<<<<<<< HEAD
     listingsReducer,
     usersReducer,
+=======
+>>>>>>> upstream/master
     router: routerReducer,
   }),
   persistedState,
