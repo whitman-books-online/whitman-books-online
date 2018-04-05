@@ -1,0 +1,4 @@
+---
+- hosts: frontend_dev
+  roles:
+    - frontend

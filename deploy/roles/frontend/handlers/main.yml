@@ -1,0 +1,7 @@
+---
+- name: frontend_service
+  systemd:
+    name: "{{ frontend_service_name }}"
+    daemon-reload: yes
+    state: restarted
+  become: yes
