@@ -113,7 +113,7 @@ class Sell extends Component {
                                     id = "price-field"
                                     floatingLabelText = "Input your desired price:"
                                     price = {this.state.price}
-                                    onChange = {this.handlePriceChange}/>
+                                    onChange = {this.handlePriceChange}/>$
 
 
 
