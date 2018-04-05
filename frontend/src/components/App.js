@@ -10,6 +10,9 @@ import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import authReducer from '../redux/auth/reducer';
+import booksReducer from '../redux/books/reducer';
+import listingsReducer from '../redux/listings/reducer';
+import usersReducer from '../redux/users/reducer';
 import Home from './Home';
 
 // Create a history of your choosing
@@ -20,13 +23,16 @@ const history = createHistory();
 const middleware = routerMiddleware(history);
 
 // Storing state between sessions
-const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {};
+const persistedState = localStorage.getItem('authState') ? JSON.parse(localStorage.getItem('authState')) : {};
 
 // Add the reducer to your store on the `router` key
 // Also apply our middleware for navigating
 const store = createStore(
   combineReducers({
     authReducer,
+    booksReducer,
+    listingsReducer,
+    usersReducer,
     router: routerReducer,
   }),
   persistedState,
@@ -38,7 +44,11 @@ const store = createStore(
 
 // Subscribing store to localstorage
 store.subscribe(() => {
-  localStorage.setItem('reduxState', JSON.stringify(store.getState()));
+  const authState = {
+    authReducer: store.getState().authReducer,
+  };
+  const serializedState = JSON.stringify(authState);
+  localStorage.setItem('authState', serializedState);
 });
 
 // Now you can dispatch navigation actions from anywhere!

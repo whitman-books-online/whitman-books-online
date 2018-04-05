@@ -7,8 +7,17 @@ import { logout } from '../redux/auth/actions';
 
 class Profile extends Component {
   render() {
-    const { isAuthenticated, profileObj, logout } = this.props;
-    const { givenName, familyName, email, imageUrl} = profileObj;
+    const {
+      isAuthenticated,
+      profileObj,
+      logout,
+    } = this.props;
+    const {
+      givenName,
+      familyName,
+      email,
+      imageUrl,
+    } = profileObj;
 
     if (!isAuthenticated) {
       return <Redirect to="/login" />;
