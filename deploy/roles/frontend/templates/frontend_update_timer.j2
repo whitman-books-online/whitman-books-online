@@ -1,0 +1,9 @@
+[Unit]
+Description=Update {{ app_name }} frontend regularly
+
+[Timer]
+OnCalendar=*:0/10
+Unit=frontend_update.timer
+
+[Install]
+WantedBy=timers.target

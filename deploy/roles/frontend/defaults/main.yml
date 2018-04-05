@@ -13,3 +13,5 @@ frontend_service_name: frontend.service
 frontend_service_path: "{{ systemd_path }}/{{ frontend_service_name }}"
 frontend_update_service_name: frontend_update.service
 frontend_update_service_path: "{{ systemd_path }}/{{ frontend_update_service_name }}"
+frontend_update_timer_name: frontend_update.timer
+frontend_update_timer_path: "{{ systemd_path }}/{{ frontend_update_timer_name }}"
