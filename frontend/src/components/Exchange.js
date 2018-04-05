@@ -7,7 +7,7 @@ class Exchange extends Component {
     return (
       <Page>
         <h1>Exchange</h1>
-        <BookFeed />
+        <BookFeed query={{}} />
       </Page>
 
     );

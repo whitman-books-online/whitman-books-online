@@ -7,10 +7,11 @@ class Feed extends Component {
     const { loading, feedList, FeedItem, children } = this.props;
 
     if (!feedList) {
-      if (loading) {
-        return <Loader type="bars" color="#333" />;
-      }
       return null;
+    }
+
+    if (loading) {
+      return <Loader type="bars" color="#333" />;
     }
 
     return (
