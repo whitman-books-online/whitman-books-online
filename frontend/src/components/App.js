@@ -10,6 +10,7 @@ import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import authReducer from '../redux/auth/reducer';
+import booksReducer from '../redux/books/reducer';
 import Home from './Home';
 
 // Create a history of your choosing
@@ -27,6 +28,7 @@ const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStor
 const store = createStore(
   combineReducers({
     authReducer,
+    booksReducer,
     router: routerReducer,
   }),
   persistedState,
