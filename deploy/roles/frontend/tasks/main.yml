@@ -40,17 +40,3 @@
     dest: "{{ frontend_service_path }}"
   become: yes
   notify: frontend_service
-
-- name: update frontend systemd service file added
-  template:
-    src: frontend_update_service.j2
-    dest: "{{ frontend_update_service_path }}"
-  become: yes
-  notify: fronted_update_stopped
-
-- name: update frontend systemd timer file added
-  template:
-    src: frontend_update_timer.j2
-    dest: "{{ frontend_update_timer_path }}"
-  become: yes
-  notify: fronted_update_stopped
