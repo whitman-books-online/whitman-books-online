@@ -5,3 +5,11 @@
     daemon-reload: yes
     state: restarted
   become: yes
+
+- name: npm_dependencies
+  npm:
+    path: "{{ frontend_app_path }}"
+    executable: "{{ updated_npm_path }} --node-flags --max-old-space-size=512"
+  become_user: "{{ frontend_user }}"
+  become: yes
+  notify: frontend_service

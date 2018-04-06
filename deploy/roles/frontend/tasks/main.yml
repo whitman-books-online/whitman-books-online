@@ -16,15 +16,6 @@
     system: yes
   become: yes
 
-- name: app cloned
-  git:
-    repo: "{{ repo }}"
-    dest: "{{ frontend_app_dest }}"
-    version: "{{ frontend_version }}"
-  become_user: "{{ frontend_user }}"
-  become: yes
-  notify: frontend_service
-
 - name: new npm version installed
   npm:
     name: npm
@@ -34,13 +25,14 @@
   become_user: "{{ frontend_user }}"
   become: yes
 
-- name: npm dependencies installed
-  npm:
-    path: "{{ frontend_app_path }}"
-    executable: "{{ updated_npm_path }} --node-flags --max-old-space-size=512"
+- name: app cloned
+  git:
+    repo: "{{ repo }}"
+    dest: "{{ frontend_app_dest }}"
+    version: "{{ frontend_version }}"
   become_user: "{{ frontend_user }}"
   become: yes
-  notify: frontend_service
+  notify: npm_dependencies
 
 - name: frontend systemd service file added
   template:
