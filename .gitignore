@@ -1,2 +1,6 @@
 # Sphinx
 docs/build
+
+# Ansible deployment
+*.retry
+deploy/local
