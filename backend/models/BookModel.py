@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 
 from db import db
 
-Class BookModel(db.Model):
+class BookModel(db.Model):
 	"""The Book object stores information about the book, as well as
 	the listing objects that are associated with it.
 
