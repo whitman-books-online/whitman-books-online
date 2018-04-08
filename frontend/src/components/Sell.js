@@ -95,14 +95,17 @@ class Sell extends Component {
           value={this.state.isbnValue}
           errorText={this.state.isbnError}
           onChange={this.handleIsbnChange}
-        />
+          errorStyle={{
+            float: "left"
+          }}
+          />
 
         <FlatButton
           primary
           label="Confirm"
           onClick={this.handleIsbnClick}
           disabled={this.state.isbnButtonDisabled}
-        />
+          />
 
         {loading &&
           <Loader />
@@ -117,14 +120,12 @@ class Sell extends Component {
                 avatar={book.imageLinks && book.imageLinks.thumbnail}
                 actAsExpander
                 showExpandableButton
-              />
+                />
 
               <CardText expandable>
-                Publisher:  {book.publisher}
+                {book.publisher ? `Publisher: ${book.publisher}` : null}
                 <br />
-                Published Date:  {book.publishedDate}
-                <br />
-                <br />
+                {book.publishedDate ? `Published Date: ${book.publishedDate}` : null}
                 {book.description}
               </CardText>
             </Card>
@@ -135,7 +136,7 @@ class Sell extends Component {
               floatingLabelText="Condition"
               value={this.state.condition}
               onChange={this.handleConditionChange}
-            >
+              >
               <MenuItem value="Poor" primaryText="Poor" />
               <MenuItem value="Used" primaryText="Used" />
               <MenuItem value="Like New" primaryText="Like new" />
@@ -149,18 +150,21 @@ class Sell extends Component {
               value={this.state.price}
               onChange={this.handlePriceChange}
               errorText={this.state.priceError}
-            />
-            <FlatButton
-              primary
-              label="Submit"
-              disabled={this.state.priceButtonDisabled}
-            />
-          </div>
-        }
-      </Page>
-    );
+              errorStyle={{
+                float: "left"
+              }}
+              />$
+              <FlatButton
+                primary
+                label="Submit"
+                disabled={this.state.priceButtonDisabled}
+                />
+            </div>
+          }
+        </Page>
+      );
+    }
   }
-}
 
 
-export default Sell;
+  export default Sell;
