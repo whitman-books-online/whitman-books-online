@@ -96,16 +96,16 @@ class Sell extends Component {
           errorText={this.state.isbnError}
           onChange={this.handleIsbnChange}
           errorStyle={{
-            float: "left"
+            float: 'left',
           }}
-          />
+        />
 
         <FlatButton
           primary
           label="Confirm"
           onClick={this.handleIsbnClick}
           disabled={this.state.isbnButtonDisabled}
-          />
+        />
 
         {loading &&
           <Loader />
@@ -120,7 +120,7 @@ class Sell extends Component {
                 avatar={book.imageLinks && book.imageLinks.thumbnail}
                 actAsExpander
                 showExpandableButton
-                />
+              />
 
               <CardText expandable>
                 {book.publisher ? `Publisher: ${book.publisher}` : null}
@@ -136,7 +136,7 @@ class Sell extends Component {
               floatingLabelText="Condition"
               value={this.state.condition}
               onChange={this.handleConditionChange}
-              >
+            >
               <MenuItem value="Poor" primaryText="Poor" />
               <MenuItem value="Used" primaryText="Used" />
               <MenuItem value="Like New" primaryText="Like new" />
@@ -152,20 +152,20 @@ class Sell extends Component {
               onChange={this.handlePriceChange}
               errorText={this.state.priceError}
               errorStyle={{
-                float: "left"
+                float: 'left',
               }}
-              />
-              <FlatButton
-                primary
-                label="Submit"
-                disabled={this.state.priceButtonDisabled}
-                />
-            </div>
-          }
-        </Page>
-      );
-    }
+            />
+            <FlatButton
+              primary
+              label="Submit"
+              disabled={this.state.priceButtonDisabled}
+            />
+          </div>
+        }
+      </Page>
+    );
   }
+}
 
 
-  export default Sell;
+export default Sell;
