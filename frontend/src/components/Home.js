@@ -30,11 +30,11 @@ class Home extends Component {
   render() {
     return (
       <div>
-        {privateRoutes.map(route => (
+        {privateRoutes.map((route, index) => (
           <Route
             key={route.path}
             path={route.path}
-            component={Navigation}
+            render={() => <Navigation selectedIndex={index} /> }
           />
         ))}
         <Switch>
