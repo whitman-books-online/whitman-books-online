@@ -4,7 +4,6 @@ const initialState = {
 
 export default (state = initialState, action) => {
   const { payload, type } = action;
-  console.log(payload, type);
   switch (type) {
     case 'GET_BOOK_SUCCESS':
       return {

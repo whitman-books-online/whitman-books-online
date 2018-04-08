@@ -10,22 +10,14 @@ import sampleData from '../redux/sampleData';
 const { BOOK_DATA } = sampleData;
 
 class BookFeed extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: false,
-    };
-  }
-
   componentDidMount() {
-    const { getBookList } = this.props;
-    getBookList({});
+    const { query, getBookList } = this.props;
+    getBookList(query);
   }
 
   render() {
-    const { loading } = this.state;
     const { bookList } = this.props;
-    console.log("FUCK", bookList);
+    const loading = !Object.keys(bookList).length;
 
     return (
       <Feed loading={loading} feedList={bookList} FeedItem={BookItem} />
