@@ -3,7 +3,7 @@ import { GoogleLogin } from 'react-google-login';
 import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { login } from '../redux/auth/actions';
+import { login, loginFail } from '../redux/auth/actions';
 import './Login.css';
 
 const CLIENT_ID = '317596678792-2ekdkdrdlgsqdaudaag7t7m7qf4m0b17.apps.googleusercontent.com';
@@ -11,7 +11,7 @@ const CLIENT_ID = '317596678792-2ekdkdrdlgsqdaudaag7t7m7qf4m0b17.apps.googleuser
 class Login extends Component {
   render() {
     const { from } = this.props.location.state || { from: { pathname: '/' } };
-    const { invalid, isAuthenticated, login } = this.props;
+    const { invalid, isAuthenticated, login, loginFail } = this.props;
 
     if (isAuthenticated) {
       return <Redirect to={from} />;
@@ -24,7 +24,7 @@ class Login extends Component {
           clientId={CLIENT_ID}
           buttonText="Login"
           onSuccess={login}
-          onFailure={login}
+          onFailure={loginFail}
         />
         {invalid ?
           <div>
@@ -45,6 +45,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ login }, dispatch);
+  bindActionCreators({ login, loginFail }, dispatch);
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

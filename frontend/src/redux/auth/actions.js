@@ -31,13 +31,6 @@ export function logout() {
 
 export function login(response) {
   const { profileObj, tokenObj } = response;
-
-  if (!profileObj || !tokenObj) {
-    return (dispatch) => {
-      dispatch(loginFail());
-    };
-  }
-
   return (dispatch) => {
     const { email } = profileObj;
     const emailAst = parseOneAddress(email);
