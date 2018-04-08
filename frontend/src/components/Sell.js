@@ -145,6 +145,7 @@ class Sell extends Component {
 
             <br />
 
+            $
             <TextField
               floatingLabelText="Input your desired price:"
               value={this.state.price}
@@ -153,7 +154,7 @@ class Sell extends Component {
               errorStyle={{
                 float: "left"
               }}
-              />$
+              />
               <FlatButton
                 primary
                 label="Submit"
