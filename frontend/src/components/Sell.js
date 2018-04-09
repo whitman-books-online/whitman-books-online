@@ -95,6 +95,9 @@ class Sell extends Component {
           value={this.state.isbnValue}
           errorText={this.state.isbnError}
           onChange={this.handleIsbnChange}
+          errorStyle={{
+            float: 'left',
+          }}
         />
 
         <FlatButton
@@ -120,11 +123,9 @@ class Sell extends Component {
               />
 
               <CardText expandable>
-                Publisher:  {book.publisher}
+                {book.publisher ? `Publisher: ${book.publisher}` : null}
                 <br />
-                Published Date:  {book.publishedDate}
-                <br />
-                <br />
+                {book.publishedDate ? `Published Date: ${book.publishedDate}` : null}
                 {book.description}
               </CardText>
             </Card>
@@ -144,11 +145,15 @@ class Sell extends Component {
 
             <br />
 
+            $
             <TextField
               floatingLabelText="Input your desired price:"
               value={this.state.price}
               onChange={this.handlePriceChange}
               errorText={this.state.priceError}
+              errorStyle={{
+                float: 'left',
+              }}
             />
             <FlatButton
               primary

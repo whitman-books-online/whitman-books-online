@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Page from './Page';
 import { logout } from '../redux/auth/actions';
+import RaisedButton from 'material-ui/RaisedButton';
+import Avatar from 'material-ui/Avatar';
+import './Profile.css';
+import Paper from 'material-ui/Paper';
 
 class Profile extends Component {
   render() {
@@ -11,12 +15,14 @@ class Profile extends Component {
       isAuthenticated,
       profileObj,
       logout,
+      userId,
     } = this.props;
     const {
       givenName,
       familyName,
       email,
       imageUrl,
+      googleId,
     } = profileObj;
 
     if (!isAuthenticated) {
@@ -25,12 +31,21 @@ class Profile extends Component {
 
     return (
       <Page>
-        <h1>Profile</h1>
-        <h2>{`${givenName} ${familyName}`}</h2>
-        <h3>{email}</h3>
-        <img src={imageUrl} alt="profileImage" />
-        <br />
-        <button onClick={logout}>Signout</button>
+        <Paper class="container" zDepth={2}>
+          <Avatar
+            src={imageUrl}
+            size={80}
+          />
+          <div class = "container_child">
+            <h1>{`${givenName} ${familyName}`}</h1>
+            <h3>{email}</h3>
+          </div>
+          <RaisedButton
+            style={ {float: 'right'} }
+            label="Sign Out"
+            onClick={logout}
+          />
+        </Paper>
       </Page>
     );
   }
