@@ -19,8 +19,8 @@ export default (state = initialState, action) => {
     return {
       ...state,
       listings: {
-      ...state.listings,
-      price: payload.price,
+        ...state.listings,
+        price: payload.price,
       }
     };
     case 'CHANGE_LISTING_PRICE_FAIL':
@@ -31,8 +31,8 @@ export default (state = initialState, action) => {
     return{
       ...state,
       listings: {
-      ...state.listings,
-      condition: payload.condition,
+        ...state.listings,
+        condition: payload.condition,
       }
     };
     case 'CHANGE_LISTING_CONDITION_FAIL':
@@ -43,8 +43,8 @@ export default (state = initialState, action) => {
     return{
       ...state,
       books: {
-      ...state.books,
-      searchValue: payload.searchValue,
+        ...state.books,
+        searchValue: payload.searchValue,
       }
     };
     case 'CHANGE_SEARCH_VALUE_FAIL':
@@ -55,8 +55,8 @@ export default (state = initialState, action) => {
     return{
       ...state,
       listings: {
-      ...state.listings,
-      page: payload.page,
+        ...state.listings,
+        page: payload.page,
       }
     };
     case 'CHANGE_LISTING_PAGE_FAIL':
@@ -67,8 +67,8 @@ export default (state = initialState, action) => {
     return {
       ...state,
       listings: {
-      ...state.listsings,
-      length: payload.length,
+        ...state.listsings,
+        length: payload.length,
       }
     };
     case 'CHANGE_LISTING_LENGTH_FAIL':
