@@ -4,6 +4,9 @@
     requirements: "{{ backend_requirements }}"
     executable: pip3
     state: latest
+    extra_args: --user
+  become_user: "{{ backend_user }}"
+  become: yes
 
 - name: backend_service
   systemd:
