@@ -3,7 +3,6 @@ docs/build
 
 # Ansible deployment
 *.retry
-deploy/local
 
 # Python stuff
 *.pyc
