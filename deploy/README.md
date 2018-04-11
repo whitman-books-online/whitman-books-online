@@ -10,6 +10,6 @@ app.
 ## Usage
 
 ```bash
-# Deploy only the frontend to its test server (listens on port 3000)
-ansible-playbook -i staging frontend_dev.yml
+# Deploy only the frontend to the staging (test) server (listens on port 3000)
+ansible-playbook -i staging frontend.yml
 ```

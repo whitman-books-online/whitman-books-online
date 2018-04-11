@@ -1,4 +1,4 @@
 ---
-- hosts: backend_dev
+- hosts: backend
   roles:
     - backend
