@@ -4,3 +4,10 @@
     requirements: "{{ backend_requirements }}"
     executable: pip3
     state: latest
+
+- name: backend_service
+  systemd:
+    name: "{{ backend_service_name }}"
+    daemon-reload: yes
+    state: restarted
+  become: yes
