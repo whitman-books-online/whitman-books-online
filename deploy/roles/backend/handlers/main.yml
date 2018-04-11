@@ -8,7 +8,7 @@
   become_user: "{{ backend_user }}"
   become: yes
 
-- name: backend_service
+- name: backend_service_restarted
   systemd:
     name: "{{ backend_service_name }}"
     daemon-reload: yes

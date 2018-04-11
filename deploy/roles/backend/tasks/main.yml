@@ -31,4 +31,13 @@
     src: backend_service.j2
     dest: "{{ backend_service_path }}"
   become: yes
-  notify: backend_service
+  notify: backend_service_restarted
+
+- meta: flush_handlers
+
+- name: backend_service started
+  systemd:
+    name: "{{ backend_service_name }}"
+    daemon-reload: yes
+    state: started
+  become: yes
