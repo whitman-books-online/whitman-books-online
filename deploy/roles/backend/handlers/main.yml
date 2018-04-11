@@ -1,0 +1,6 @@
+---
+- name: pip_dependencies
+  pip:
+    requirements: "{{ backend_requirements }}"
+    executable: pip3
+    state: latest
