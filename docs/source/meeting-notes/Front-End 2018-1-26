@@ -1,0 +1,20 @@
+Front-End Jan 26
+================
+* Model
+    - Database of books/users
+    - Constructed by backend (not sure which language yet)
+    - Holds all info
+* View(UI)
+    - Constructed using HTML/CSS
+    - Display textbooks on sale, Craigslist style organization
+    - Projecting what is given by Controller
+* Controller (UX)
+    - Any change to view happens in controller
+    - Get data from Model, make stuff, give to View
+    - Everything must pass through Controller
+* **GOAL:** Keep Model, View and Controller files distinct from one another
+    - Go over CSS/Javascript before lab on Tuesday
+    - Model will be largely handled by backend
+    - View and Controller almost entirely frontend
+* Lots of communication necessary with backend to keep View/Controller in line with Model
+    - Compromise, meet halfway, flexbility is key

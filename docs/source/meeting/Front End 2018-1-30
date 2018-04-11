@@ -1,0 +1,23 @@
+Front-End Jan 30
+================
+Redux = Library to use on top of React
+* Will act as Controller
+* Changes will be reflected in state and then reflected back in app
+* Complicated so we'll gov over it more later
+
+Consider doing testing, dependent on scope of project
+* If time allows, should be doable
+* Could use Jasmine framework
+* Documentation team writing testing?
+Back-end requests logging, would be helpful
+
+Running through the app
+* User prompted to login by start page
+* User tries to login
+    - Whitman email = controller presents view for app
+    - Non-Whitman email = controller presents failure page
+* List of books in app
+    - Each book has drop own showing all sellers of book/all copies on sale
+        + Drop down or dedicated page? Disagreement for now
+
+**GOAL:** Post potential designs in Slack page
