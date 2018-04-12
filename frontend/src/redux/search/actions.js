@@ -36,7 +36,7 @@ export function changeSearchValue(searchValue){
   return{
     type: 'CHANGE_SEARCH_VALUE',
     payload: {
-    searchValue,
+      searchValue,
     }
   };
 }
