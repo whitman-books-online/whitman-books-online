@@ -16,7 +16,7 @@ import { changePrice, changePriceFail, changeCondition, changeConditionFail,
         <SearchBar
         value={this.props.books.searchValue}
         onChange={(newValue) => this.props.changeSearchValue(newValue)}
-        onRequestSearch={() => console.log(this.state.searchValue)}
+        onRequestSearch={() => console.log(this.props.books.searchValue)}
         style={{
           margin: '0 auto',
           maxWidth: 800
