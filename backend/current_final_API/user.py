@@ -1,8 +1,11 @@
 from sqlalchemy import Table, Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 from flask_restful import Resource, reqparse
+from math import ceil
 
 from db import db
+
+page_size = 20
 
 class UserModel(db.Model):
 	"""The Book object stores information about the book, as well as
@@ -70,7 +73,7 @@ class User(Resource):
 	parser = reqparse.RequestParser() # Book class parser
 	parser.add_argument('google_tok',
 		type=str,
-		required=True,
+		required=False,
 		help="goog_tok required."
 	)
 	parser.add_argument('name',
@@ -85,9 +88,18 @@ class User(Resource):
 	)
 
 	def get(self, google_tok): # Get request, looking for user from user_id
+		#strings = find.split("+")
+		#google_tok = int(strings[0])
+		#page = int(strings[1])
 		user = UserModel.find_by_google_tok(google_tok)
+		listing_IDs = []
 		if user:
-			return user.user_json_w_listings()
+			for listing in user.listings:
+				listing_IDs.append(listing.listing_id)
+			return {"name": user.name, "email": user.email, "listings": listing_IDs}
+			user.user_json_w_listings()
+			#of = ceil(len(all_listings)/page_size)
+			#return{"user": [all_listings[i].user_json_w_listings() for i in range(page*page_size, min(((page+1)*page_size),len(all_listings)))], "page": page, "of": of}
 		return {"message": "user not found"}, 404
 
 	def post(self, google_tok): # create user
@@ -122,8 +134,13 @@ class User(Resource):
 			book.author = data['author']"""
 
 class UserList(Resource):
-	def get(self):
-		return {"users": [user.user_json_w_listings() for user in UserModel.query.all()]}
+	def get(self, page):
+		all_listings = UserModel.query.all()
+		of = ceil(len(all_listings)/page_size)
+		return{"users": [all_listings[i].user_json_w_listings() for i in range(page*page_size, min(((page+1)*page_size),len(all_listings)))], "page": page, "of": of}
+
+
+	#	return {"users": [user.user_json_w_listings() for user in UserModel.query.all()]}
 
 	# search_ = strings[1]
 	# for i in search_:

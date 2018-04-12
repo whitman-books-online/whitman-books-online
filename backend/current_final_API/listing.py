@@ -28,15 +28,17 @@ class ListingModel(db.Model):
         self.google_tok = google_tok
         self.status = status
 
+    #Both json functions below used to also include 'isbn': self.isbn
+
     def listing_json_w_user(self):
         try:
-            return {"listing_id": self.listing_id, 'price': self.price, 'condition': self.condition, 'isbn': self.isbn, 'status': self.status, 'user': self.user.user_json_wo_listings()}
+            return {"listing_id": self.listing_id, 'price': self.price, 'condition': self.condition, 'status': self.status, 'user': self.user.user_json_wo_listings()}
         except:
             return {"Message": "User does not exist in DB"}
 
     def listing_json_w_book(self):
         try:
-            return {"listing_id": self.listing_id, 'price': self.price, 'condition': self.condition, 'isbn': self.isbn, 'status': self.status, 'book': self.book.book_json_wo_listings()}
+            return {"listing_id": self.listing_id, 'price': self.price, 'condition': self.condition, 'status': self.status, 'book': self.book.book_json_wo_listings()}
         except:
             return {"Message": "Book does not exist in DB"}
 
@@ -46,6 +48,9 @@ class ListingModel(db.Model):
         except:
             # return {"message": "user deleted"}
             return {"Message": "Object does not exist in DB"}
+
+    def bare_json(self):
+        return {'price': self.price, 'condition': self.condition, 'status': self.status}
 
     #def get_user(self):
     #    user = []
@@ -95,12 +100,11 @@ class Listing(Resource):
         required=False,
         help="FORMAT ERROR: This request must have be string : string "
     )
-    """parser.add_argument("isbn",
+    parser.add_argument("isbn",
         type=int,
-        required=True,
+        required=False,
         help="FORMAT ERROR: This request must have be string : integer where string == price "
     )
-    """
     parser.add_argument("google_tok",
         type=str,
         required=False,
@@ -112,27 +116,40 @@ class Listing(Resource):
         help="FORMAT ERROR: This request must have be string : string where string == price "
     )
 
-    def get(self, isbn): # get request, looking for item called "name",
-        l = ListingModel.find_by_isbn(isbn)
-        if l:
-            return l.listing_json_w_user()
-        return {"message": "Item not found"}, 404
+    def get(self, ids): # get request, looking for all listing objects from ID's,
+        isbns = []
+        ids = ids.split(",")
+        for id_ in range(0, len(ids)):
+            print(ids)
+            ids[id_] = int(ids[id_]) # must be in format ISBN, ISBN, etc. , LAST ISBN CANNOT BE FOLLOWED BY COMMA, single ISBN should not have comma
+        all_listings = ListingModel.query.filter(ListingModel.listing_id.in_(ids)).all()
+        for l in all_listings:
+            if l.isbn not in isbns: # avoid duplicates
+                isbns.append(l.isbn)
+        return {"listings": [listing.bare_json() for listing in all_listings], "isbns": isbns}
+        #return {"listings": [listing.listing_json_w_user() for listing in ListingModel.query.filter_by(isbn=isbn).order_by(ListingModel.price).all()]}
 
-    def post(self, isbn):
+        # l = ListingModel.find_by_isbn(isbn)
+        # if l:
+        #     return l.listing_json_w_user()
+        # return {"message": "Item not found"}, 404
+
+    def post(self, ids):
         #Code below shouldn't be necessary
         #if ListingModel.find_by_isbn(isbn):
         #    return {'message': 'An item with isbn ' + isbn + 'already exists.'}, 400
         data = Listing.parser.parse_args() # what the user will send to the post request (in good format)
         # In our case, the user sends the price as JSON, but the item name gets passed into the function
+        isbn = int(ids)
         item = ListingModel(data["price"], data["condition"], isbn, data["google_tok"], data["status"])
         try:
             item.save_to_db()
         except:
             return{"message": "An error occurred while inserting"}, 500 # internal server error
 
-        return item.listing_json_w_book(), 201 #post was successful
+        return {"message": "post was successful"}, 201 #post was successful
 
-    def delete(self, isbn):
+    def delete(self, ids):
         data = Listing.parser.parse_args()
         item = ListingModel.find_by_listing_id(data["listing_id"])
         if item:
@@ -165,7 +182,7 @@ class allListings(Resource):
     def get(self, search):
         strings = search.split("+")
         try:
-            page = int(strings[4])
+            page = int(strings[3])
         except:
             return {"message": "No page provided"}
         listings = []
@@ -176,20 +193,33 @@ class allListings(Resource):
             ISBNS = strings[0].split(",") # seperate ISBN's by comma,
             for i in range(len(ISBNS)): # turn to ints
                 ISBNS[i] = int(ISBNS[i])
-            if len(strings[2]) > 0: # price was provided
-                price = float(strings[2])
-                if len(strings[3]) > 0: #condition was provided
-                    condition = strings[3] # "bad", "ehh", "good", or "new"
+            if len(strings[1]) > 0: # price was provided
+                price = float(strings[1])
+                if len(strings[2]) > 0: #condition was provided
+                    condition = strings[2] # "bad", "ehh", "good", or "new"
+                    for current_isbn in ISBNS:
+                        all_listings = ListingModel.query.filter(ListingModel.isbn == current_isbn).filter(ListingModel.price <= price).filter(ListingModel.condition >= condition).all()
+
+
+
+
+
+
+
+
                     all_listings = ListingModel.query.filter(ListingModel.isbn.in_(ISBNS)).filter(ListingModel.price <= price).filter(ListingModel.condition >= condition).all()
                 else: # ISBN's, price, no condition
                     all_listings = ListingModel.query.filter(ListingModel.isbn.in_(ISBNS)).filter(ListingModel.price <= price).all()
-            elif len(strings[3]) > 0: # ISBNs, no price, condition
-                condition = strings[3]
+            elif len(strings[2]) > 0: # ISBNs, no price, condition
+                condition = strings[2]
                 all_listings = ListingModel.query.filter(ListingModel.isbn.in_(ISBNS)).filter(ListingModel.condition >= condition).all()
             else: #ISBN's, no price nor condition
                 all_listings = ListingModel.query.filter(ListingModel.isbn.in_(ISBNS)).all()
         else: # No ISBN's provided,
             return {"message": "No ISBN's provided"}
+
+            #below is code to be used for a search function given above implementation
+
             search_ = strings[1]
             for i in search_:
                 if i == "_":
