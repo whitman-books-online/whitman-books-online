@@ -1,5 +1,5 @@
 # Whitman Books Online
-[![GitHub release](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)](https://GitHub.com/Naereen/StrapDown.js/releases/)
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/whitman-books-online/whitman-books-online/LICENSE)
 
 Whitman Books Online is a web-based application to facilitate the sale and 
 exchange of textbooks between students at Whitman College.  It is being 
