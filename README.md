@@ -1,5 +1,10 @@
 # Whitman Books Online
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+[![GitHub issues](https://img.shields.io/github/issues/whitman-books-online/whitman-books-online.svg)](https://github.com/whitman-books-online/whitman-books-online/issues)
+[![GitHub forks](https://img.shields.io/github/forks/whitman-books-online/whitman-books-online.svg)](https://github.com/whitman-books-online/whitman-books-online/network)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/Django.svg)](https://github.com/whitman-books-online/whitman-books-online)
+[![GitHub license](https://img.shields.io/github/license/whitman-books-online/whitman-books-online.svg)](https://github.com/whitman-books-online/whitman-books-online)
+
 
 Whitman Books Online is a web-based application to facilitate the sale and 
 exchange of textbooks between students at Whitman College.  It is being 
