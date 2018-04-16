@@ -262,19 +262,19 @@ As the Schedule Manager for this project, I took it upon myself to sort of track
 
 **Week Four**
 
-.. image:: ../../images/week_four_tasks.png
+.. image:: ../../images/week_four_tasks.PNG
 
 **Week Five**
 
-.. image:: ../../images/week_five_tasks.png
+.. image:: ../../images/week_five_tasks.PNG
 
 **Week Six**
 
-.. image:: ../../images/week_six_tasks.png
+.. image:: ../../images/week_six_tasks.PNG
 
 **Week Seven**
 
-.. image:: ../../images/week_seven_tasks.png
+.. image:: ../../images/week_seven_tasks.PNG
 
 Map of Requirements for Implementation
 --------------------------------------
