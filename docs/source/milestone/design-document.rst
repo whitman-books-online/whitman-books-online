@@ -36,14 +36,17 @@ As a **buyer**, I want to **find books I need** so that **I can buy them easily 
 
 Use Case Diagram
 ^^^^^^^^^^^^^^^^
+
 .. image:: ../../images/uml_use_case.png
 
 User Interfaces
 ^^^^^^^^^^^^^^^
 **User Profile**
+
 .. image:: ../../images/wbo_userprofile_interface.png
 
 **Login Page**
+
 .. image:: ../../images/wbo_login_interface.png
 
 Search
@@ -200,11 +203,13 @@ Following a team meeting, the respective team documenter will update the wiki wi
 - Notify Kyler about anything that would affect the big-picture schedule
   
 **Meeting Structure**
+
 .. image:: ../../images/meeting_structure.png
 
 Although the file structure has changed since the creation of the wiki flow chart below, the information on this image is still relevant in what each team's documenter should have in mind when writing team meeting notes.
 
 **Wiki Organization**
+
 .. image:: ../../images/wiki_flow_chart.png
 
 Below are the team roles that were decided upon on January 30th.
@@ -234,6 +239,7 @@ Master Schedule
 As I continued working on the weekly schedules we (I) realized that people were more interested when large project issues were to be finished. I went around checking in with people on what sort of schedule they would like the most out of the Scheduling Manager. They really liked the Whitman College academic calendar. I made essentially the same schedule as the Whitman Academic Calendar and put in our own assignments and due dates. *~Kyler Dunn*
 
 **Master Schedule**
+
 .. image:: ../../images/master_schedule.jpg
 
 +----------------------------+------------------------------+
@@ -255,15 +261,19 @@ Weekly Schedules
 As the Schedule Manager for this project, I took it upon myself to sort of track what each group was doing over each week. This was to be used not only to aid in keeping people up to date but also for Mr. Banta to know where each team is at. The information tracked on the schedule would be used at overall project meetings so that everyone is aware where people are at during the design phase. ~ Kyler Dunn
 
 **Week Four**
+
 .. image:: ../../images/week_four_tasks.png
 
 **Week Five**
+
 .. image:: ../../images/week_five_tasks.png
 
 **Week Six**
+
 .. image:: ../../images/week_six_tasks.png
 
 **Week Seven**
+
 .. image:: ../../images/week_seven_tasks.png
 
 Map of Requirements for Implementation
@@ -331,6 +341,7 @@ Jasmine.js
 An example of the kind of test we would write.
 
 .. highlight:: javascript
+
    describe("A suite is just a function", () => {
         var a;
 
