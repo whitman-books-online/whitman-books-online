@@ -20,6 +20,7 @@ See our requirements document for more details on each of these items.
 Team
 ----
 **Organizational Chart**
+
 .. image:: ../../images/org_chart.png
 
 Front-End
@@ -148,7 +149,7 @@ Databases
 Search Algorithms and Implementation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 **Fuzzy Search for Lookups & Extending in C**
-Database lookups will likely constitute the majority of our processing requirements. Thus, it is important to have a efficient way of matching an item in our database to a textbook a user is trying to access. Due to long textbook titles and the high probability that the average user wonít know the ISBN of the book they are looking for, we need a search method that doesnít require the user know the exact name their target. We implement numerous fuzzy matching techniques to guess the exact entry from possible misspellings. The first is Levenshtein distance, getting an exact number of character distances from a pre-hashed list of possible spellings of all of our entries. We also implement a trigram search, breaking up each term into randomly sized substrings, and searching those through our database. We will not implement Metaphone or its derivatives as it is unlikely that a user will mistake a ìpî for a ìbî or like errors in typing the textbook they are looking for. For all of these to work with reasonable speed they should not be implemented in Python. We will use the subprocess module to spawn pre-compiled C++ programs for the obvious speed advantages. As the speed requirements of our program become more apparent (server selection) other implementations may need consideration. It is possible that the native library search functions will be adequate given enough processing power.
+Database lookups will likely constitute the majority of our processing requirements. Thus, it is important to have a efficient way of matching an item in our database to a textbook a user is trying to access. Due to long textbook titles and the high probability that the average user won‚Äôt know the ISBN of the book they are looking for, we need a search method that doesn‚Äôt require the user know the exact name their target. We implement numerous fuzzy matching techniques to guess the exact entry from possible misspellings. The first is Levenshtein distance, getting an exact number of character distances from a pre-hashed list of possible spellings of all of our entries. We also implement a trigram search, breaking up each term into randomly sized substrings, and searching those through our database. We will not implement Metaphone or its derivatives as it is unlikely that a user will mistake a ‚Äúp‚Äù for a ‚Äúb‚Äù or like errors in typing the textbook they are looking for. For all of these to work with reasonable speed they should not be implemented in Python. We will use the subprocess module to spawn pre-compiled C++ programs for the obvious speed advantages. As the speed requirements of our program become more apparent (server selection) other implementations may need consideration. It is possible that the native library search functions will be adequate given enough processing power.
 
 Classes
 ^^^^^^^
