@@ -329,7 +329,7 @@ Jasmine.js
 
 An example of the kind of test we would write.
 
-.. highlight:: python
+.. highlight:: javascript
    describe("A suite is just a function", () => {
         var a;
 
