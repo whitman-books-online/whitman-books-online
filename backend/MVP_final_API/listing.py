@@ -10,6 +10,7 @@ from db import db
 
 page_size = 2
 
+
 class ListingModel(db.Model):
     #used to be ^^ class ListingModel(db.Model):
     __tablename__ = 'listings' #our items database

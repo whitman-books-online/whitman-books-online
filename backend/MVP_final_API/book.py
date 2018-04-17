@@ -9,6 +9,7 @@ from db import db
 
 page_size = 20
 
+
 class BookModel(db.Model):
 	"""The Book object stores information about the book, as well as
 	the listing objects that are associated with it.

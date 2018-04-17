@@ -5,6 +5,7 @@ from math import ceil
 
 from db import db
 
+
 page_size = 20
 
 class UserModel(db.Model):
