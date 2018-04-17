@@ -1,21 +1,31 @@
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
-from security import authenticate, identity
-from resources.user import UserRegister
-from resources.item import Item, ItemList
+from listing import Listing, allListings
+from book import Book, BookList
+from user import User, UserList
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #turns off Flask-SQL Alchemy modification tracker, not underlying SQLAlchemy modification tracker
-app.secret_key = "Sean"
 api = Api(app)
 
-jwt = JWT(app, authenticate, identity) # calls authenticate and identity in security.py
+@app.before_first_request
+def create_tables():
+    db.create_all()
 
-api.add_resource(Item, "/item/<string:name>")
-api.add_resource(ItemList, "/items")
-api.add_resource(UserRegister, '/register')
+#Listing endpoints:
+api.add_resource(Listing, "/listing/<string:ids>") # must be listing_id to support POST and DELETE
+api.add_resource(allListings, "/listings/<string:search>")
+
+#Book endpoints:
+api.add_resource(Book, "/book/<string:isbns>")
+api.add_resource(BookList, "/booklist/<string:search>")
+
+
+#user endpoints:
+api.add_resource(User, "/user/<string:google_tok>")
+api.add_resource(UserList, "/userlist/<string:tokens>")
 
 if __name__ == '__main__': # prevents app from running when being imported from elsewhere
     from db import db # prevents circular import
