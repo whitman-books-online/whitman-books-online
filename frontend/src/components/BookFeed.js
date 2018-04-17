@@ -6,6 +6,7 @@ import Feed from './Feed';
 import BookItem from './BookItem';
 import { getBookList } from '../redux/books/actions';
 import sampleData from '../redux/sampleData';
+import { makeGetBookListByISBN } from '../redux/books/selectors';
 
 const { BOOK_DATA } = sampleData;
 
@@ -28,6 +29,14 @@ class BookFeed extends Component {
 const mapStateToProps = (state) => {
   const { bookList } = state.booksReducer;
   return { bookList };
+  /*
+  const getBookListByISBN = makeGetBookListByISBN();
+  const mapStateToProps = (state, props) => {
+    return {
+      bookList: getBookListByISBN(state, props),
+    };
+  };
+  return mapStateToProps;*/
 };
 
 const mapDispatchToProps = dispatch =>

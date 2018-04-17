@@ -12,6 +12,14 @@ api = Api(app)
 
 @app.before_first_request
 def create_tables():
+    """Creates all database tables (books, listings, and users).
+
+    Args:
+        none.
+
+    Returns:
+        none.
+    """
     db.create_all()
 
 #Listing endpoints:

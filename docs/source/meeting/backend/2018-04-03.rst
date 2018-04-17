@@ -1,7 +1,5 @@
-API Meeting with Full Backend Team
-==================================
-
-2018-04-03
+Apr 03 Tue - API Meeting
+========================
 
 Sean and Owen talked to Richie [reference the notes for this meeting] and they
 want to get everyone caught up on what they know.

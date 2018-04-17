@@ -292,11 +292,14 @@ Listing a book requires an account, and to be logged in.
 The minimum values required to list a book are:
 
 - ISBN
+
   - This ISBN is used with a lookup service to gather data on:
+
     - Title
     - Author
     - Edition
     - etc.
+
   - Price
   - Condition
 
@@ -308,6 +311,7 @@ Searching for a book is a main feature of the Whitman Books Online service. A se
 - Author
 - Class
 - Subject
+
 The search will query the database and receive back a list of relevant books. The search will include an autocomplete feature to predict search terms as the user enters them. Once the list of results is displayed, users will be able to filter by Popularity, Subject, Date Added, and Price to further narrow down their search.
 
 Reserve a Book
@@ -340,7 +344,7 @@ Jasmine.js
 
 An example of the kind of test we would write.
 
-.. highlight:: javascript
+.. code-block:: javascript
 
    describe("A suite is just a function", () => {
         var a;

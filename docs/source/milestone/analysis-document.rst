@@ -1,6 +1,10 @@
 Analysis Document
 =================
-*Converted to Markdown by Tyler Phillips. Converted to reStructuredText by Kirk Lange.*
+
+.. raw:: html
+
+    <i>Converted to Markdown by Tyler Phillips.<br>
+    Converted to reStructuredText by Kirk Lange.<p></i>
 
 Due Date: Wednesday, 2/21/2018
 

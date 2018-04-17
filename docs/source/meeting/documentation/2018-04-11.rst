@@ -1,0 +1,10 @@
+Apr 11 Wed - Documentation Tasks
+================================
+
+* After doc leader feedback survey, Jeremy will now take a more hands-on approach
+* Tentative deadline for user tutorials is April 20th
+* JavaScript autodoc work-around
+  * Use JS' autodoc -> html
+  * Move that html into an rst file
+  * Have that rst file be an html block
+* Continue to reorganize meeting notes into their seperate teams

@@ -1,8 +1,11 @@
 Jan 30 Tue - Requirements Brainstorming
 =======================================
-Written by Isaiah Banta
-Converted to Markdown by Ian Hawkins
-Converted to reStructuredText by Kirk Lange
+
+.. raw:: html
+
+    <i>Written by Isaiah Banta<br>
+    Converted to Markdown by Ian Hawkins<br>
+    Converted to reStructuredText by Kirk Lange<p></i>
 
 MVP Components
 --------------
@@ -49,24 +52,4 @@ Tasks
 * Database POC (Owen, Sean)
 
   * Whitman books group
-
-Documentation
--------------
-
-Individual tasks assigned to particular people will be handled via issues
-
-
-Roles as of Now
-^^^^^^^^^^^^^^^
-
-====== =========================================================================
-Person Responsibilities
-====== =========================================================================
-Jeremy wiki organizer, front-end secondary
-Paul   front-end primary
-Ian    back-end primary
-Kirk   documentation team documenter (so meta), doc binder, wiki manager
-Kyler  scheduler/task manager, back-end secondary
-Tyler  document writer
-====== =========================================================================
 
