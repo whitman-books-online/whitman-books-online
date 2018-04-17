@@ -1,0 +1,43 @@
+---
+- name: Install packages
+  include_tasks: packages.yml
+
+- name: app directory created
+  file:
+    state: directory
+    path: "{{ app_directory }}"
+  become: yes
+
+- name: backend user created
+  user:
+    name: "{{ backend_user }}"
+    state: present
+    home: "{{ backend_home }}"
+    system: yes
+  become: yes
+
+- name: app cloned
+  git:
+    repo: "{{ repo }}"
+    dest: "{{ backend_app_dest }}"
+    version: "{{ backend_version }}"
+    force: yes
+  become_user: "{{ backend_user }}"
+  become: yes
+  notify: pip_dependencies
+
+- name: backend systemd service file added
+  template:
+    src: backend_service.j2
+    dest: "{{ backend_service_path }}"
+  become: yes
+  notify: backend_service_restarted
+
+- meta: flush_handlers
+
+- name: backend_service started
+  systemd:
+    name: "{{ backend_service_name }}"
+    daemon-reload: yes
+    state: started
+  become: yes

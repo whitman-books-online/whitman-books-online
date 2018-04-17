@@ -1,0 +1,35 @@
+Feb 06 Tue - Analysis Document Outline
+======================================
+Jeremy Davis's notes from talking to Prof. Klein about the analysis document
+
+Risk analysis
+~~~~~~~~~~~~~
+Risk of not getting project done on time and what can be done to mitigate that risk (include timeline for example) 
+Risk of litigation, talk to Whitman legal counsel 
+Personnel risks such as bad relationship with bookstore
+
+Tools
+~~~~~
+Analysis of software tools to be used to accomplish project such as MySQL for database, html/css and Javascript and react for frontend, etc. 
+Doxygen? All tools we will be using
+Make sure all the interfacing between languages is doable
+
+Backend
+~~~~~~~
+python with flask microframework
+SQLALCHEMY Object-relational mapper for use with MYSQL databate
+Anything we have to buy? Domain name, server hardware?
+Time analysis, do we have enough time to complete everything?
+
+Marketing Strategy
+~~~~~~~~~~~~~~~~~~
+Catchier name? 
+Survey of student to see if they would even be interested? 
+Design of ui to make it salable
+
+Other
+~~~~~
+Software quality assurance analysis, such as what we do to make sure code is up to par, anticipating possible problems to mitigate them. 
+Anticipating future sub-divisions of teams
+Different organization charts of sub-teams, more up to date for exactly what everyone is working on
+

@@ -1,2 +1,12 @@
 # Sphinx
 docs/build
+
+# Ansible deployment
+*.retry
+
+# Python stuff
+*.pyc
+__pycache__/
+
+# Temporary files in Windows
+*~

@@ -1,0 +1,9 @@
+Feb 27 Tue - New Documentation Tools
+====================================
+
+* For sure using Sphinx
+* Probably using readthedocs.org, especially if the repo is public
+
+  * Look into ReadTheDocs private documentation
+  * Link to ReadTheDocs in the top directory's README.md
+
