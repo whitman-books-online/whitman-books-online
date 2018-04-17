@@ -8,6 +8,11 @@ import MenuItem from 'material-ui/MenuItem';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import Page from './Page';
 import Loader from './Loader';
+import authReducer from '../redux/auth/reducer';
+import { Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 
 class Sell extends Component {
   constructor(props) {
@@ -23,8 +28,11 @@ class Sell extends Component {
       isbnButtonDisabled: true,
       priceButtonDisabled: true,
       loading: false,
+
     };
   }
+
+
 
   handleIsbnChange = (event) => {
     const isbnValue = event.target.value;
@@ -84,6 +92,53 @@ class Sell extends Component {
     });
   }
 
+  handleSubmitClick = (e) => {
+    e.preventDefault();
+
+   fetch(`http://127.0.0.1:5000/book/${this.state.book.industryIdentifiers[0].identifier}`, {
+   method: 'POST',
+   body: JSON.stringify(
+     this.state.book
+   )
+    }).then((response) => {
+   const responseJson = response.json();
+   console.log(responseJson);
+   return responseJson;
+    }).then((responseJson) => {
+      console.log(responseJson);
+   this.setState({ responseJson });
+    }).catch((err) => {
+   console.log(err);
+    });
+
+
+    //console.log(JSON.stringify(this.state.book));
+    //console.log(this.state.book.industryIdentifiers[0].identifier || this.state.book.industryIdentifiers[1].indentifier);
+    //console.log(this.props.googleId);
+
+    fetch(`http://127.0.0.1:5000/listings/`, {
+   method: 'POST',
+   body: JSON.stringify({
+     price: parseFloat(this.state.price),
+     condition: this.state.condition,
+     status: "selling",
+     google_tok: this.props.googleId,
+   })
+    }).then((response) => {
+   const responseJson = response.json();
+   return responseJson;
+    }).then((responseJson) => {
+   this.setState({ responseJson });
+    }).catch((err) => {
+   console.log(err);
+    });
+
+    //console.log( JSON.stringify({price: parseFloat(this.state.price),
+     //condition: this.state.condition,
+    //status: "selling", google_tok:this.props.googleId}));
+
+  }
+
   render() {
     const { loading, book } = this.state;
 
@@ -137,9 +192,9 @@ class Sell extends Component {
               value={this.state.condition}
               onChange={this.handleConditionChange}
             >
-              <MenuItem value="Poor" primaryText="Poor" />
-              <MenuItem value="Used" primaryText="Used" />
-              <MenuItem value="Like New" primaryText="Like new" />
+              <MenuItem value="Bad" primaryText="Bad" />
+              <MenuItem value="Ehh" primaryText="Ehh" />
+              <MenuItem value="Good" primaryText="Good" />
               <MenuItem value="New" primaryText="New" />
             </SelectField>
 
@@ -159,6 +214,7 @@ class Sell extends Component {
               primary
               label="Submit"
               disabled={this.state.priceButtonDisabled}
+              onClick={this.handleSubmitClick}
             />
           </div>
         }
@@ -167,5 +223,9 @@ class Sell extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  const { googleId } = state.authReducer.profileObj;
+  return {googleId};
+};
 
-export default Sell;
+export default withRouter(connect(mapStateToProps)(Sell));
