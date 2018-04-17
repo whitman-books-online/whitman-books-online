@@ -1,3 +1,4 @@
 flask_restful
 flask_jwt
 flask_sqlalchemy
+flask_cors
