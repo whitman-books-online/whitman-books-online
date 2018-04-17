@@ -1,11 +1,17 @@
-Front-End Feb 2
-===============
+Feb 2 Fri - Overall Architecture
+================================
+
 * Develop website first then port to mobile app
 * Start with list view on site
+
     * Add grids afterwards?
+
 * System like Amazon or Ebay?
+
     * Amazon = Click on book, pulls up list of sellers
     * Ebay = All entries that match search listed separately
+
 * Clicking on an entry should take you to a different page
 * Want to be able to search for a book and see cheapest option
+
     * Sort by option in sidebar

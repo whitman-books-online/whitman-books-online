@@ -1,26 +1,5 @@
-Feb 06 Tue - Planning and Workshopping
+Feb 06 Tue - Analysis Document Outline
 ======================================
-In addition to the back-end OAuth discussion and sub-team organization, a workshop was held on Git and GitLab.
-
-
-
-General
--------
-
-Making sure everyone is on the same page; Affirming what backend is and does.
-
-Backend has all their current tasks put into issues. Jesse will make more tickets for his own tasks.
-
-George has a paid server option that sounds good.
-
-Jesse will probably take over Raj's ticket of determining what API is suitable for this project. Flask is the most likely pick.
-
-We have access to online Flask lessons through Udemy, as discussed in Slack.
-
-
-
-Analysis Document Outline
--------------------------
 Jeremy Davis's notes from talking to Prof. Klein about the analysis document
 
 Risk analysis
@@ -54,13 +33,3 @@ Software quality assurance analysis, such as what we do to make sure code is up 
 Anticipating future sub-divisions of teams
 Different organization charts of sub-teams, more up to date for exactly what everyone is working on
 
-
-
-Back-End - OAuth
-----------------
-
-Do we want OAuth to send the token directly? That's a question for later, but Jesse thinks the token should be sent to us along with the full name and email address.
-
-Since this is looking more like a frontend matter, Jesse will talk to Richie about passing authentication responsibility to frontend and the OAuth PoC ticket will be closed.
-
-George has been using Flask for part of the OAuth PoC.

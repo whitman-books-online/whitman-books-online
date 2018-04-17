@@ -1,0 +1,19 @@
+Jan 30 Tue - Task Management
+============================
+
+Tasks will be assigned to individual/multiple people will be handled via issues
+
+Roles as of Now
+^^^^^^^^^^^^^^^
+
+====== =========================================================================
+Person Responsibilities
+====== =========================================================================
+Jeremy wiki organizer, front-end secondary
+Paul   front-end primary
+Ian    back-end primary
+Kirk   documentation team documenter (so meta), doc binder, wiki manager
+Kyler  scheduler/task manager, back-end secondary
+Tyler  document writer
+====== =========================================================================
+

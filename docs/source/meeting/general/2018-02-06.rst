@@ -1,0 +1,7 @@
+Feb 06 Tue - Planning and Workshopping
+======================================
+
+* Back-end OAuth discussion (see back-end meeting notes)
+* Sub-team re-organization
+* Workshop held on Git and GitLab
+

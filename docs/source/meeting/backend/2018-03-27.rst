@@ -20,17 +20,23 @@ Here's a representation of a possible database. There may be some bits missing,
 for example, a book has more information than just title, author, and ID.
 
 * `/users`
+
   * `$user_id`
   * `name`
   * `email`
   * list of listing IDs for listings created by this user
+
 * `/books`
+
   * `$book_id`, perhaps ISBN
   * `title`
   * `author`
   * list of listing IDs for listings for this book
+
     * `$listing_id` for each listing
+
 * `/listings`
+
   * `$listing_id` <-- this is one particular listing
   * `price`
   * `condition`
