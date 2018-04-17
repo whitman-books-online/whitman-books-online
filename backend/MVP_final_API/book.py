@@ -2,7 +2,6 @@ from sqlalchemy import Table, Column, Integer, ForeignKey, or_
 from sqlalchemy.orm import relationship
 from flask_restful import Resource, reqparse
 import math # math.ciel() used for paging
-#from assoc_tables import association_table1
 import ast # for json parsing imageLinks around line 177
 
 from db import db
@@ -10,11 +9,13 @@ from db import db
 page_size = 20
 
 class BookModel(db.Model):
-	"""The Book object stores information about the book, as well as
-	the listing objects that are associated with it.
-    Attributes:
-        isbn (string): The isbn number for the book.
-        title (string): The title of the book.
+    """
+    The Book object stores information about the book, as well as
+    the listing objects that are associated with it.
+    	
+	Attributes:
+        	isbn (string): The isbn number for the book.
+        	title (string): The title of the book.
 		author (string): The author/authors of the book.
 		listings (Listing): The current listings of the book.
     """
@@ -39,7 +40,6 @@ class BookModel(db.Model):
 	previewLink = db.Column(db.String)
 	infoLink = db.Column(db.String)
 	canonicalVolumeLink = db.Column(db.String)
-	#author = db.Column(db.String)
 	# One to many relationship: Book to listings
 	# Changing Owen's method a bit using different functions, hopefully desired effect
 	listings = db.relationship('ListingModel')
@@ -66,8 +66,7 @@ class BookModel(db.Model):
 	# Returns a json object representing the book
 	def book_json_w_listings(self):
 		return {'isbn': self.isbn, 'title': self.title, 'subtitle': self.subtitle, 'authors': self.authors, 'categories': self.categories, 'publishedDate': self.publishedDate, 'smallThumbnail': self.smallThumbnail, 'thumbnail': self.thumbnail, 'previewLink': self.previewLink, 'infoLink': self.infoLink, 'canonicalVolumeLink': self.canonicalVolumeLink, 'listings': self.get_listings()}
-		#if you ALSO want listings tied to the book
-		#return {'isbn': self.isbn, 'title': self.title, 'author': self.author, 'listings': self.get_listings()}
+		
 	def book_json_wo_listings(self):
 		return {'isbn': self.isbn, 'title': self.title, 'subtitle': self.subtitle, 'authors': self.authors, 'categories': self.categories, 'publishedDate': self.publishedDate, 'smallThumbnail': self.smallThumbnail, 'thumbnail': self.thumbnail, 'previewLink': self.previewLink, 'infoLink': self.infoLink, 'canonicalVolumeLink': self.canonicalVolumeLink}
 
@@ -89,7 +88,6 @@ class BookModel(db.Model):
 		db.session.commit()
 		for listing in self.listings:
 			listing.delete_from_db()
-		#return self.book_json_wo_listings()
 
 	# How the book class will be printed
 	def __repr__(self):
@@ -133,7 +131,6 @@ class Book(Resource):
 	)
 	parser.add_argument('imageLinks',
 		action='append',
-		#type=str,
 		required=False,
 		help="imageLinks check formatting."
 	)
@@ -185,17 +182,7 @@ class Book(Resource):
 			book.delete_from_db()
 			return {"message": "Book deleted"}
 		return {"message": "Book with isbn (" + isbns + ") does not exist."}
-
-	"""def put(self, isbn):
-		data = Book.parser.parse_args()
-      	# Find book with matching isbn
-		book = BookModel.find_by_isbn(isbn)
-
-		if book is None:
-			book = BookModel(isbn, data['title'], data['author'])
-		else:
-			book.title = data['title']
-			book.author = data['author']"""
+	
 
 class BookList(Resource):
 	def get(self, search): # books -> users
@@ -204,8 +191,8 @@ class BookList(Resource):
 		books = BookModel.query.filter(or_(BookModel.title.contains(search), BookModel.authors.contains(search), BookModel.subtitle.contains(search), BookModel.categories.contains(search), BookModel.publishedDate.contains(search))) #Operator 'contains' is not supported on this expression!!! search in subtitle, search in publishedDate
 		return {"books": [book.bare_json() for book in books]}
 
-
-
+		
+		# Everything below may or may not be useful..?
 
 		# first = True
 		# second = True
@@ -224,7 +211,7 @@ class BookList(Resource):
 		# 		page = t # page number requested by frontend
 		# 		for book in range(page*page_size, (page+1)*page_size):
 		# 			newdata.append(book.json_page(page, of))
-        #
+        	#
 		# 		return {"books": [book.json() for book in BookModel.query.filter_by(author=s).all()]}
 		# 		#used to be return {"books": [book.json() for book in BookModel.query.filter_by(author=s).all()]}
 		# 	elif f == "title":
