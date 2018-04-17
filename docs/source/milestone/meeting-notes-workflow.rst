@@ -6,10 +6,10 @@ Meeting Notes Workflow
 This document is intended to suggest to documentation team members how to update the wiki with new tasks after a meeting.
 
 - Take notes from a meeting
-- Make one new wiki page, using the page slug to specify its location and date. For example:
+- Make a new docs page and specify its location and date. For example:
 
-  - `/backend/meeting-notes/2018-02-14`
-  - `/everyone/meeting-notes/2018-03-20`
+  - `meeting/backend/2018-02-14.rst`
+  - `meeting/general/2018-03-20.rst`
 
 - Convert your meeting notes to `Markdown <https://gitlab.com/help/user/markdown>`_ formatting, if they aren't already.
 
