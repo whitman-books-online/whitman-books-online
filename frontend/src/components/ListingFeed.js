@@ -19,7 +19,9 @@ class ListingFeed extends Component {
     const loading = !Object.keys(listingList).length;
 
     return (
-      <Feed loading={loading} feedList={listingList} FeedItem={ListingItem} />
+      <div>
+        <Feed loading={loading} feedList={listingList} FeedItem={ListingItem} />
+      </div>
     );
   }
 }

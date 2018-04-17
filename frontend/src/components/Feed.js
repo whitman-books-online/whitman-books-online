@@ -19,7 +19,7 @@ class Feed extends Component {
         {Object.keys(feedList).map((key) => {
           const value = feedList[key];
           return (
-            <FeedItem key={key} {...value}>
+            <FeedItem key={key} {...value}> //Usually ListingItem is passed as FeedItem
               {this.props.children}
             </FeedItem>
           );
