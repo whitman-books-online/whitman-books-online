@@ -1,8 +1,11 @@
 from sqlalchemy import Table, Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 from flask_restful import Resource, reqparse
+from math import ceil
 
 from db import db
+
+page_size = 20
 
 class UserModel(db.Model):
 	"""The Book object stores information about the book, as well as
@@ -18,15 +21,21 @@ class UserModel(db.Model):
 	__tablename__ = 'users'
 
 	google_tok = db.Column(db.String, primary_key = True)
-	name = db.Column(db.String)
+	imageURL = db.Column(db.String)
 	email = db.Column(db.String)
+	name = db.Column(db.String)
+	givenName = db.Column(db.String)
+	familyName = db.Column(db.String)
 	# One to many relationship: Book to listings
 	listings = db.relationship("ListingModel")
 
-	def __init__(self, google_tok, name, email):
+	def __init__(self, google_tok, imageURL, email, name, givenName, familyName):
 		self.google_tok = google_tok
-		self.name = name
+		self.imageURL = imageURL
 		self.email = email
+		self.name = name
+		self.givenName = givenName
+		self.familyName = familyName
 
 
 	def get_listings(self):
@@ -37,14 +46,18 @@ class UserModel(db.Model):
 
 	# Returns a json object representing the book
 	def user_json_wo_listings(self): # listings already displayed
-		return {'google_tok': self.google_tok, 'name': self.name, 'email': self.email}
+		return {'google_tok': self.google_tok, 'imageURL': self.imageURL, 'email': self.email, 'name': self.name, 'givenName': self.givenName, 'familyName': self.familyName}
 
 	def user_json_w_listings(self): # listings not already displayed
-		return {'google_tok': self.google_tok, 'name': self.name, 'email': self.email, 'listings': self.get_listings()}
+		return {'google_tok': self.google_tok, 'imageURL': self.imageURL, 'email': self.email, 'name': self.name, 'givenName': self.givenName, 'familyName': self.familyName, 'listings': self.get_listings()}
+
+	def bare_json(self):
+		return {'google_tok': self.google_tok, 'imageURL': self.imageURL, 'email': self.email, 'name': self.name, 'givenName': self.givenName, 'familyName': self.familyName, 'listing_ids': [listing.listing_id for listing in self.listings]}
 
 	@classmethod
 	def find_by_email(cls, email): # emails are unique between students, used to see if user exists or not
 		return UserModel.query.filter_by(email=email).first()
+
 	@classmethod
 	def find_by_google_tok(cls, google_tok):
 		return UserModel.query.filter_by(google_tok=google_tok).first()
@@ -70,24 +83,48 @@ class User(Resource):
 	parser = reqparse.RequestParser() # Book class parser
 	parser.add_argument('google_tok',
 		type=str,
-		required=True,
+		required=False,
 		help="goog_tok required."
 	)
-	parser.add_argument('name',
-		type=str,
-        required=True,
-		help="This field cannot be blank."
+	parser.add_argument('imageURL',
+		type = str,
+		required = False,
+		help="check format"
 	)
 	parser.add_argument('email',
 		type=str,
 		required=True,
 		help="This field cannot be blank."
 	)
+	parser.add_argument('name',
+		type=str,
+        required=True,
+		help="This field cannot be blank."
+	)
+	parser.add_argument('givenName',
+		type = str,
+		required = True,
+		help="must provide givenName"
+	)
+	parser.add_argument('familyName',
+		type = str,
+		required = True,
+		help="must provide familyName"
+	)
 
 	def get(self, google_tok): # Get request, looking for user from user_id
+		#strings = find.split("+")
+		#google_tok = int(strings[0])
+		#page = int(strings[1])
 		user = UserModel.find_by_google_tok(google_tok)
+		listing_IDs = []
 		if user:
-			return user.user_json_w_listings()
+			for listing in user.listings:
+				listing_IDs.append(listing.listing_id)
+			return {'google_tok': user.google_tok, 'imageURL': user.imageURL, "email": user.email, "name": user.name, "givenName": user.givenName, 'familyName': user.familyName, "listings": listing_IDs}
+			#user.user_json_w_listings()
+			#of = ceil(len(all_listings)/page_size)
+			#return{"user": [all_listings[i].user_json_w_listings() for i in range(page*page_size, min(((page+1)*page_size),len(all_listings)))], "page": page, "of": of}
 		return {"message": "user not found"}, 404
 
 	def post(self, google_tok): # create user
@@ -95,7 +132,7 @@ class User(Resource):
 		print("hello")
 		if UserModel.find_by_google_tok(google_tok):
 			return {'message': 'A user with that google_token already exists'}, 400
-		user = UserModel(google_tok, data["name"], data["email"])
+		user = UserModel(google_tok, data['imageURL'], data['email'], data['name'], data['givenName'], data['familyName'])
 		user.save_to_db()
 		return {"message": "User created successfully."}, 201
 
@@ -122,8 +159,15 @@ class User(Resource):
 			book.author = data['author']"""
 
 class UserList(Resource):
-	def get(self):
-		return {"users": [user.user_json_w_listings() for user in UserModel.query.all()]}
+	def get(self, tokens):
+		tokens = tokens.split(",")
+		all_users = UserModel.query.filter(UserModel.google_tok.in_(tokens)).all()
+		#of = ceil(len(all_listings)/page_size)
+		#return {"users": [all_listings[i].user_json_w_listings() for i in range(page*page_size, min(((page+1)*page_size),len(all_listings)))], "page": page, "of": of}
+
+		return {"users": [user.bare_json() for user in all_users]}
+
+	#	return {"users": [user.user_json_w_listings() for user in UserModel.query.all()]}
 
 	# search_ = strings[1]
 	# for i in search_:
