@@ -4,8 +4,12 @@ from flask_jwt import JWT
 from listing import Listing, allListings
 from book import Book, BookList
 from user import User, UserList
+from flask.ext import restful
+from flask.ext.sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #turns off Flask-SQL Alchemy modification tracker, not underlying SQLAlchemy modification tracker
 api = Api(app)
