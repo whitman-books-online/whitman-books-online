@@ -1,0 +1,17 @@
+Apr 03 Tue - API Meeting
+========================
+
+Sean and Owen talked to Richie [reference the notes for this meeting] and they
+want to get everyone caught up on what they know.
+
+By the end of this meeting, everyone not working on something else will have 
+
+In Flask, you declare a port number and an endpoint like `/books`.
+
+The endpoints have methods `get`, `put`, and `delete`. This will look like
+`/book(ID)` where `ID` is a unique identifier for the book.  Books can also be
+accessed with a search term.
+
+There will be 3 Python modules: `book.py`, `listing.py`, and `user.py`, to be
+divided among backend team members. A class will be written for each and then
+the Flask will be implemented afterward.

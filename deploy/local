@@ -1,0 +1,5 @@
+[frontend]
+localhost	ansible_connection=local
+
+[backend]
+localhost	ansible_connection=local

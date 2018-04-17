@@ -30,6 +30,7 @@
     repo: "{{ repo }}"
     dest: "{{ frontend_app_dest }}"
     version: "{{ frontend_version }}"
+    force: yes
   become_user: "{{ frontend_user }}"
   become: yes
   notify: npm_dependencies

@@ -1,0 +1,10 @@
+Jan 23 Tue - Initial Project Vote
+=================================
+
+Class voted for the app proposal Whitman Books Online. Original description:  
+
+*An app that lets Whitman students buy and sell textbooks from other Whitman
+students. Currently, there is no good way to buy used textbooks from other
+students. If there was a simple app to search by book, then students would not
+be forced to use the bookstore. Students could also get more money back for
+their textbooks, and could also purchase them for cheaper.*
