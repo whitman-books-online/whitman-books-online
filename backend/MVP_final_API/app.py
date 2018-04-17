@@ -15,17 +15,17 @@ def create_tables():
     db.create_all()
 
 #Listing endpoints:
-api.add_resource(Listing, "/listing/<int:isbn>") # must be listing_id to support POST and DELETE
+api.add_resource(Listing, "/listing/<string:ids>") # must be listing_id to support POST and DELETE
 api.add_resource(allListings, "/listings/<string:search>")
 
 #Book endpoints:
-api.add_resource(Book, "/book/<int:isbn>")
-api.add_resource(BookList, "/booklist")
+api.add_resource(Book, "/book/<string:isbns>")
+api.add_resource(BookList, "/booklist/<string:search>")
 
 
 #user endpoints:
 api.add_resource(User, "/user/<string:google_tok>")
-api.add_resource(UserList, "/userlist")
+api.add_resource(UserList, "/userlist/<string:tokens>")
 
 if __name__ == '__main__': # prevents app from running when being imported from elsewhere
     from db import db # prevents circular import
