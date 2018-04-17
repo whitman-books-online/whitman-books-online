@@ -94,50 +94,41 @@ class Sell extends Component {
 
   handleSubmitClick = (e) => {
     e.preventDefault();
+    //BOOK TO BACKEND
+    //${this.state.book.industryIdentifiers[0].identifier}
+    console.log(this.state.book);
+    var requestURL = `http://127.0.0.1:5000/book/${this.state.isbnValue}`;
+    var request = new XMLHttpRequest();
+    request.open('POST', requestURL);
+    request.responseType = "json";
+    request.setRequestHeader("Content-Type","application/json");
+    request.send(JSON.stringify(this.state.book));
+    request.onload = function () {
+      var bookData = request.response;
+      console.log(bookData["message"])
+    }
 
-   fetch(`http://127.0.0.1:5000/book/${this.state.book.industryIdentifiers[0].identifier}`, {
-   method: 'POST',
-   body: JSON.stringify(
-     this.state.book
-   )
-    }).then((response) => {
-   const responseJson = response.json();
-   console.log(responseJson);
-   return responseJson;
-    }).then((responseJson) => {
-      console.log(responseJson);
-   this.setState({ responseJson });
-    }).catch((err) => {
-   console.log(err);
-    });
+    //LISTING TO BACKEND
+
+    //var requestURL2 = `http://127.0.0.1:5000/listing/this.state.book.industryIdentifiers[0].identifier`;
+    //var request2 = new XMLHttpRequest();
+    //request2.open('POST', requestURL2);
+    //request2.responseType = "json";
+    //request2.setRequestHeader("Content-Type","application/json");
+    //request2.send(JSON.stringify({
+    //  price: parseFloat(this.state.price),
+    //  condition: this.state.condition,
+    //  status: "selling",
+    //  google_tok: this.props.googleId,
+    //}));
+    //request2.onload = function () {
+    //  var listingData = request2.reponse;
+    }
 
 
-    //console.log(JSON.stringify(this.state.book));
-    //console.log(this.state.book.industryIdentifiers[0].identifier || this.state.book.industryIdentifiers[1].indentifier);
-    //console.log(this.props.googleId);
 
-    fetch(`http://127.0.0.1:5000/listings/`, {
-   method: 'POST',
-   body: JSON.stringify({
-     price: parseFloat(this.state.price),
-     condition: this.state.condition,
-     status: "selling",
-     google_tok: this.props.googleId,
-   })
-    }).then((response) => {
-   const responseJson = response.json();
-   return responseJson;
-    }).then((responseJson) => {
-   this.setState({ responseJson });
-    }).catch((err) => {
-   console.log(err);
-    });
 
-    //console.log( JSON.stringify({price: parseFloat(this.state.price),
-     //condition: this.state.condition,
-    //status: "selling", google_tok:this.props.googleId}));
 
-  }
 
   render() {
     const { loading, book } = this.state;
