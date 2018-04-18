@@ -1,5 +1,11 @@
 [frontend]
-localhost	ansible_connection=local
+localhost      ansible_connection=local
 
 [backend]
-localhost	ansible_connection=local
+localhost      ansible_connection=local
+
+[reverse_proxy]
+localhost      ansible_connection=local
+
+[all:vars]
+server_name=local.whitmanbooks.online

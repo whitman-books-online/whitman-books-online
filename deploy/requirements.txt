@@ -1,0 +1,2 @@
+libselinux-python
+libsemanage-python
