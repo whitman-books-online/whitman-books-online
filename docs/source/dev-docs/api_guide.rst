@@ -103,7 +103,7 @@ including the image tied to their Google account, name, email address, etc.
 
 **Second**, use ``listings`` to make the following GET request::
     
-    /listings/listing_ids_separated_by_commas
+    /listing/listing_ids,separated,by,commas
 
 The response will look like this::
     
@@ -136,7 +136,7 @@ Use the ``listings`` data to edit the user's home page.
 
 **Third**, use ``isbns`` for the following GET request::
     
-    /book/isbns_seperated_by_commas
+    /book/isbns,seperated,by,commas
 
 The response will look like this::
     
