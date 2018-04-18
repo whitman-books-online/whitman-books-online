@@ -2,18 +2,16 @@
 API Guide
 ############
 
-*Written by Sean Miller.*
-*Converted to reStructured Text by Tyler Phillips.*
+|*Written by Sean Miller.*
+|*Converted to reStructured Text by Tyler Phillips.*
 
 *Updated 2018-04-11.*
 
-:Run the API:
-    ``python3 app.py``
+**Run the API:**            ``python3 app.py``
+                    
+                            All files must be in the same directory.
     
-    All files must be in the same directory.
-    
-:Reset the database:
-    ``rm data.db``
+**Reset the database:**     ``rm data.db``
 
 The API will run on ``http://127.0.0.1:5000/some_endpoint``.  Each time the API
 runs, it will generate a new ``data.db``.  
@@ -65,7 +63,7 @@ The body of the request should look like this::
     }
 
 ``google_tok`` must be the Google token of the user making the listing.  At the
-moment, the only ``condition``s that I expect are ``"new"``, ``"good"``, 
+moment, the only ``condition`` s that I expect are ``"new"``, ``"good"``, 
 ``"ehh"``, and ``"bad"`` so that Python string comparisons can uphold that 
 order (In this case, we are using first-character comparison.).  For the MVP, 
 ``status`` should always be ``"selling"``.  Price must be a float, *not* a 
@@ -105,7 +103,7 @@ including the image tied to their Google account, name, email address, etc.
 
 **Second**, use ``listings`` to make the following GET request::
     
-    /listings/listing_ids_separated_by_commas
+    /listing/listing_ids,separated,by,commas
 
 The response will look like this::
     
@@ -138,7 +136,7 @@ Use the ``listings`` data to edit the user's home page.
 
 **Third**, use ``isbns`` for the following GET request::
     
-    /book/isbns_seperated_by_commas
+    /book/isbns,seperated,by,commas
 
 The response will look like this::
     
@@ -173,7 +171,7 @@ streamlined in the final product.
 5. Book -> Listing -> User
 ****************************
 
-This pipeliune will be used when a user is looking to buy a used textbook from 
+This pipeline will be used when a user is looking to buy a used textbook from 
 our site.  
 
 **First**, the user will search by author, title, subtitle, category, or date 
@@ -186,7 +184,7 @@ through the endpoint::
     
     /booklist/search_value
 
-The response will look like this (for ``/booklist/will_smith`)::
+The response will look like this (for ``/booklist/will_smith``)::
     
     {
         "books": [
@@ -212,7 +210,7 @@ The response will look like this (for ``/booklist/will_smith`)::
 
 This data can be used to construct the book objects.  
 
-**Second**, use ``listing_id``s to perform the following GET request.  
+**Second**, use ``listing_id`` s to perform the following GET request.  
 
 **Important:** This is where condition and price ordering comes into play.  To 
 retrieve listings without any ordering::
@@ -255,8 +253,7 @@ The response will look like this::
 
 Use this data to construct the listing objects.  
 
-_`6.3`
-**Third**, use ``google_tokens`` for a GET request to the following endpoint::
+**_`Third`**, use ``google_tokens`` for a GET request to the following endpoint::
     
     /userlist/google,tokens,separated,by,commas
 
@@ -322,7 +319,7 @@ the user and book objects will be loaded *separately*.  For book-object queries
 from ISBNs, see here_.  Use the data from those queries to construct the full 
 home page.  
 
-.. _here: `6.3`_
+.. _here: `Third`_
 
 *********************
 7. Deleting Objects
