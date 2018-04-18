@@ -21,38 +21,11 @@ Welcome to Whitman Books Online's documentation!
 
 .. toctree::
    :maxdepth: 1
-   :caption: Milestone Documents:
+   :caption: Extra Documents:
    :glob:
 
-   milestone/*
-
-.. toctree::
-   :maxdepth: 1
-   :caption: General Meeting Notes:
-   :glob:
-
-   meeting/general/*
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Front-End Meeting Notes:
-   :glob:
-
-   meeting/frontend/*
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Back-End Meeting Notes:
-   :glob:
-
-   meeting/backend/*
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Documentation Meeting Notes:
-   :glob:
-
-   meeting/documentation/*
+   meeting/meeting-index.rst
+   extra/*
 
 
 .. Indices and tables
