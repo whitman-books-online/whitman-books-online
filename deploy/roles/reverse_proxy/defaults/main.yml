@@ -1,0 +1,9 @@
+---
+domain: whitmanbooks.online
+ssl_certificate: /etc/letsencrypt/live/{{ server_name }}/fullchain.pem
+ssl_certificate_key: /etc/letsencrypt/live/{{ server_name }}/privkey.pem
+nginx_conf: /etc/nginx/nginx.conf
+nginx_user: nginx
+sites_enabled: /etc/nginx/sites-enabled
+frontend_host: localhost
+frontend_port: 3000

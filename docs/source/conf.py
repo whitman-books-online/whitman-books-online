@@ -31,6 +31,8 @@ release = ''
 
 # -- General configuration ---------------------------------------------------
 
+output_title = 'Whitman Books Online Documentation'
+
 # If your documentation needs a minimal Sphinx version, state it here.
 #
 # needs_sphinx = '1.0'
@@ -129,7 +131,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'whitman-books-online.tex', 'whitman-books-online Documentation',
+    (master_doc, 'whitman-books-online.tex', output_title,
      'Whitman CS-300 SP2018', 'manual'),
 ]
 
@@ -139,7 +141,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'whitman-books-online', 'whitman-books-online Documentation',
+    (master_doc, 'whitman-books-online', output_title,
      [author], 1)
 ]
 
@@ -150,7 +152,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'whitman-books-online', 'whitman-books-online Documentation',
+    (master_doc, 'whitman-books-online', output_title,
      author, 'whitman-books-online', 'One line description of project.',
      'Miscellaneous'),
 ]

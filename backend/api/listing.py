@@ -1,14 +1,15 @@
 from sqlalchemy import Table, Column, Integer, ForeignKey, desc, asc
 from sqlalchemy.orm import relationship
 from flask_restful import Resource, reqparse
-from math import ceil # for ceil used for paging
-from book import BookModel # for error handling, cannot add listing if book not in db
-from user import UserModel # for error handling, cannot add listing if user not in db
+from math import ceil  # for ceil used for paging
+from book import BookModel  # for error handling, cannot add listing if book not in db
+from user import UserModel  # for error handling, cannot add listing if user not in db
 import datetime
 
 from db import db
 
 page_size = 2
+
 
 class ListingModel(db.Model):
     """The ListingModel object stores information about the listing, as well as
@@ -25,10 +26,11 @@ class ListingModel(db.Model):
         status (string): The status of the listing.
         timestamp (int): The time the listing was posted.
     """
-    __tablename__ = 'listings' #our listings database
+    __tablename__ = 'listings'  # our listings database
 
-    listing_id = db.Column(db.Integer, primary_key=True) # listing id's are assigned by integer key, not used by constructor
-    price = db.Column(db.Float(precision = 2))
+    # listing id's are assigned by integer key, not used by constructor
+    listing_id = db.Column(db.Integer, primary_key=True)
+    price = db.Column(db.Float(precision=2))
     condition = db.Column(db.String(15))
     isbn = db.Column(db.Integer, db.ForeignKey('books.isbn'))
     book = db.relationship('BookModel')
@@ -36,7 +38,6 @@ class ListingModel(db.Model):
     user = db.relationship('UserModel')
     status = db.Column(db.String(15))
     timestamp = db.Column(db.Integer)
-
 
     def __init__(self, price, condition, isbn, google_tok, status):
         self.price = price
@@ -46,7 +47,7 @@ class ListingModel(db.Model):
         self.status = status
         self.timestamp = datetime.datetime.now()
 
-    #Both json functions below used to also include 'isbn': self.isbn
+    # Both json functions below used to also include 'isbn': self.isbn
 
     def listing_json_w_user(self):
         """Returns the listing jsonified, with a reference to the user who posted.
@@ -104,7 +105,7 @@ class ListingModel(db.Model):
         """
         return {'price': self.price, 'condition': self.condition, 'status': self.status, "listing_id": self.listing_id, 'timestamp': self.timestamp}
 
-    def bu_bare_json(self): # Book to user bare jason
+    def bu_bare_json(self):  # Book to user bare jason
         """Returns a json object representing the listing. Used when
         going from books to users.
 
@@ -115,13 +116,13 @@ class ListingModel(db.Model):
             json: A jsonified listing.
         """
         return {'price': self.price, 'condition': self.condition, 'status': self.status, "listing_id": self.listing_id, "google_tok": self.google_tok, 'timestamp': self.timestamp}
-    #def get_user(self):
+    # def get_user(self):
     #    user = []
     #    user.append(user.find_by_google_tok(self.google_tok))
     #    return user
 
     @classmethod
-    def find_by_isbn(cls, isbn): # abstracted and redifined from get
+    def find_by_isbn(cls, isbn):  # abstracted and redifined from get
         """Finds all listings matching an isbn.
 
         Args:
@@ -130,7 +131,8 @@ class ListingModel(db.Model):
         Returns:
             ListingModel[]: A list of listings.
         """
-        listings = ListingModel.query.filter_by(name=isbn).all() # returns all listings of isbn as a list
+        listings = ListingModel.query.filter_by(
+            name=isbn).all()  # returns all listings of isbn as a list
         if len(listings) > 0:
             return listings
         return None
@@ -146,11 +148,10 @@ class ListingModel(db.Model):
             ListingModel[]: A list of listings.
         """
         listing = ListingModel.query.filter_by(listing_id=listing_id).first()
-        #For next time... How to search ONLY listing_id column???
+        # For next time... How to search ONLY listing_id column???
         if listing:
             return listing
         return None
-
 
     def save_to_db(self):
         """Saves the listing to the database.
@@ -178,45 +179,46 @@ class ListingModel(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+
 class Listing(Resource):
     """The Listing object handles API requests such as Get/Post/Delete/Put.
 
     Attributes:
         none.
     """
-    parser = reqparse.RequestParser() #Item class parser
-    parser.add_argument("listing_id", #requests must be in format { "price": float}
-        type=int,
-        required=False,
-        help="FORMAT ERROR: This request must have be string : integer "
-    )
-    parser.add_argument("price", #requests must be in format { "price": float}
-        type=float,
-        required=True,
-        help="FORMAT ERROR: This request must have be string : float where string == price "
-    )
+    parser = reqparse.RequestParser()  # Item class parser
+    parser.add_argument("listing_id",  # requests must be in format { "price": float}
+                        type=int,
+                        required=False,
+                        help="FORMAT ERROR: This request must have be string : integer "
+                        )
+    parser.add_argument("price",  # requests must be in format { "price": float}
+                        type=float,
+                        required=True,
+                        help="FORMAT ERROR: This request must have be string : float where string == price "
+                        )
     parser.add_argument("condition",
-        type=str,
-        required=True,
-        help="FORMAT ERROR: This request must have be string : string "
-    )
+                        type=str,
+                        required=True,
+                        help="FORMAT ERROR: This request must have be string : string "
+                        )
     parser.add_argument("isbn",
-        type=int,
-        required=False,
-        help="FORMAT ERROR: This request must have be string : integer where string == price "
-    )
+                        type=int,
+                        required=False,
+                        help="FORMAT ERROR: This request must have be string : integer where string == price "
+                        )
     parser.add_argument("google_tok",
-        type=str,
-        required=True,
-        help="FORMAT ERROR: This request must have be string : integer where string == price "
-    )
+                        type=str,
+                        required=True,
+                        help="FORMAT ERROR: This request must have be string : integer where string == price "
+                        )
     parser.add_argument("status",
-        type=str,
-        required=True,
-        help="FORMAT ERROR: This request must have be string : string where string == price "
-    )
+                        type=str,
+                        required=True,
+                        help="FORMAT ERROR: This request must have be string : string where string == price "
+                        )
 
-    def get(self, ids): # get request, looking for all listing objects from listing ID's, user -> books
+    def get(self, ids):  # get request, looking for all listing objects from listing ID's, user -> books
         """Get request, looking for all listings matching an id in ids.
 
         Args:
@@ -226,25 +228,27 @@ class Listing(Resource):
             json[]: A list of jsonified listings.
         """
 
-        #FOR WHEN WE DO PAGING:
+        # FOR WHEN WE DO PAGING:
         #ids = ids.split("+")
-        #try:
+        # try:
         #    page = int(ids[1])
-        #except:
+        # except:
         #    return {"message": "No page provided"}
         ids = ids.split(",")
         for id_ in range(0, len(ids)):
-            #print(ids)
-            ids[id_] = int(ids[id_]) # must be in format ISBN, ISBN, etc. , LAST ISBN CANNOT BE FOLLOWED BY COMMA, single ISBN should not have comma
-        all_listings = ListingModel.query.filter(ListingModel.listing_id.in_(ids)).all()
+            # print(ids)
+            # must be in format ISBN, ISBN, etc. , LAST ISBN CANNOT BE FOLLOWED BY COMMA, single ISBN should not have comma
+            ids[id_] = int(ids[id_])
+        all_listings = ListingModel.query.filter(
+            ListingModel.listing_id.in_(ids)).all()
         isbns = []
         for l in all_listings:
-            if l.isbn not in isbns: # avoid duplicates
+            if l.isbn not in isbns:  # avoid duplicates
                 isbns.append(l.isbn)
-        #PAGING
+        # PAGING
         #of = ceil(len(all_listings)/page_size)
         return {"listings": [listing.bare_json() for listing in all_listings], "isbns": isbns}
-        #return {"listings": [listing.listing_json_w_user() for listing in ListingModel.query.filter_by(isbn=isbn).order_by(ListingModel.price).all()]}
+        # return {"listings": [listing.listing_json_w_user() for listing in ListingModel.query.filter_by(isbn=isbn).order_by(ListingModel.price).all()]}
         # for when we do paging: return {"listings": [all_listings[i].bare_json() for i in range(page*page_size,(min((page+1)*page_size, len(all_listings))))], "isbns": isbns, "page": page, "of": of}
         # l = ListingModel.find_by_isbn(isbn)
         # if l:
@@ -261,25 +265,29 @@ class Listing(Resource):
             message: What happened with the post call.
         """
 
-        #if ListingModel.find_by_isbn(isbn):
+        # if ListingModel.find_by_isbn(isbn):
         #    return {'message': 'An item with isbn ' + isbn + 'already exists.'}, 400
-        data = Listing.parser.parse_args() # what the user will send to the post request (in good format)
+        # what the user will send to the post request (in good format)
+        data = Listing.parser.parse_args()
         # In our case, the user sends the price as JSON, but the item name gets passed into the function
-        if not UserModel.find_by_google_tok(data['google_tok']): # if user doesn't exist
+        # if user doesn't exist
+        if not UserModel.find_by_google_tok(data['google_tok']):
             return {"message": "invalid google token, user does not exist in database"}
-        if not BookModel.find_by_isbn(ids): # if book doesn't exist
+        if not BookModel.find_by_isbn(ids):  # if book doesn't exist
             return {"message": "invalid isbn, book model does not exist in database"}
 
         isbn = int(ids)
 
-        item = ListingModel(data["price"], data["condition"], isbn, data["google_tok"], data["status"])
+        item = ListingModel(data["price"], data["condition"],
+                            isbn, data["google_tok"], data["status"])
 
         try:
             item.save_to_db()
         except:
-            return{"message": "An error occurred while inserting"}, 500 # internal server error
+            # internal server error
+            return{"message": "An error occurred while inserting"}, 500
 
-        return {"message": "post was successful"}, 201 #post was successful
+        return {"message": "post was successful"}, 201  # post was successful
 
     def delete(self, ids):
         """Deletes a listing from the database.
@@ -298,7 +306,8 @@ class Listing(Resource):
             return {"message": "Item deleted"}
         return {"message": "Listing with ID " + str(id_) + " does not exist"}
 
-    def put(self, listing_id, price, condition, isbn, google_tok, status): # aka "mostly just use to change status"
+    # aka "mostly just use to change status"
+    def put(self, listing_id, price, condition, isbn, google_tok, status):
         """Either posts listing to database, or updates it.
 
         Args:
@@ -313,17 +322,18 @@ class Listing(Resource):
             json: A jsonified listing object representing what was put.
         """
 
-        data = Listing.parser.parse_args() # only add valid JSON requests into data
+        data = Listing.parser.parse_args()  # only add valid JSON requests into data
 
         if(listing_id):
-            item = ListingModel.find_by_listing_id(listing_id) # find item
+            item = ListingModel.find_by_listing_id(listing_id)  # find item
             if item:
-                item.condition = condition # returns one element or None,
+                item.condition = condition  # returns one element or None,
             else:
                 return {"message": "listing not found"}
 
-        else: # no listing found, add listing (probably unnecessary)
-            item = ListingModel(data['price'], data["condition"], data["isbn"], data["google_tok"], data["status"])
+        else:  # no listing found, add listing (probably unnecessary)
+            item = ListingModel(data['price'], data["condition"],
+                                data["isbn"], data["google_tok"], data["status"])
 
         item.save_to_db()
 
@@ -337,7 +347,7 @@ class allListings(Resource):
         none.
     """
 
-    #def get(self):
+    # def get(self):
     #    return{"listings": [item.json() for item in ListingModel.query.all()]}
 
     def get(self, search):
@@ -350,35 +360,38 @@ class allListings(Resource):
             json[]: A list of jsonified listings that match the search result.
         """
 
-        #used to go from books to users, also called on the home page to display most recent listings
-        if search == "home": # right now, it just returns the most recent listings, not most recent 20 books
-            listings = ListingModel.query.order_by(ListingModel.timestamp.desc())
+        # used to go from books to users, also called on the home page to display most recent listings
+        if search == "home":  # right now, it just returns the most recent listings, not most recent 20 books
+            listings = ListingModel.query.order_by(
+                ListingModel.timestamp.desc())
         else:
             strings = search.split("+")
             listing_ids = strings[0].split(",")
             for i in range(0, len(listing_ids)):
                 listing_ids[i] = int(listing_ids[i])
             if len(strings) > 1:
-                if strings[1] == "condition": # sort by price
-                    listings = ListingModel.query.filter(ListingModel.listing_id.in_(listing_ids)).order_by(ListingModel.condition.desc())
-                elif strings[1] == "price": #sort by condition
-                    listings = ListingModel.query.filter(ListingModel.listing_id.in_(listing_ids)).order_by(ListingModel.price)
-                else: # no filters provided
-                    listings = ListingModel.query.filter(ListingModel.listing_id.in_(listing_ids))
+                if strings[1] == "condition":  # sort by price
+                    listings = ListingModel.query.filter(ListingModel.listing_id.in_(
+                        listing_ids)).order_by(ListingModel.condition.desc())
+                elif strings[1] == "price":  # sort by condition
+                    listings = ListingModel.query.filter(
+                        ListingModel.listing_id.in_(listing_ids)).order_by(ListingModel.price)
+                else:  # no filters provided
+                    listings = ListingModel.query.filter(
+                        ListingModel.listing_id.in_(listing_ids))
             else:
                 return{"message": "format error, '/listings/listing_id1,listing_id2+price xor condition', or '/listing/listing_id1,listing_id2+'"}
         tokens = []
         for listing in listings:
             if listing.google_tok not in tokens:
                 tokens.append(listing.google_tok)
-        if search == "home": # this is hilarious
+        if search == "home":  # this is hilarious
             isbns = []
             for listing in listings:
                 if listing.isbn not in isbns:
                     isbns.append(listing.isbn)
             return{"listings": [listing.bare_json() for listing in listings], "google_tokens": tokens, "isbns": isbns}
         return {"listings": [listing.bu_bare_json() for listing in listings], "google_tokens": tokens}
-
 
         """try:
             page = int(strings[3])

@@ -1,0 +1,37 @@
+Feb 05 Mon - Details and Desired Functionality
+==============================================
+
+* Listings showing title of book and price range
+
+  * Selecting listing creates dropdown
+  * Dropdown contains list of sellers ranked price/book condition
+  * Disagreement on dropdown or new page
+
+    * What are the advantages of dropdown vs. new page? Vice versa?
+
+* Book condition, select from list of preset conditions
+
+  * Can add additional description of condition, click on "More" to see
+
+* Can upload any book, not only Whitman books
+
+  * Add ISBN number when uploading new book?
+
+* **Seller's persepctive:** Adding books to sell
+
+  * Adding by title
+  * Adding by ISBN
+
+    * Necessary to be accurate on editions of textbooks
+    * Could prompt user to ask to check ISBN
+    * Original upload of book could force adding ISBN
+
+      * SUbsequent adds would ask to check if ISBN is same
+
+  * Ideally, would be able to add by either
+  * Pulling info from Amazon?
+  * How do people know hoe much to sell for?
+
+    * Free market will decide
+
+  * Option of adding picture(s) of book, not required to upload

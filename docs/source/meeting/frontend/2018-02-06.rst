@@ -1,0 +1,45 @@
+Feb 06 Tue - Tool Tutorials
+===========================
+
+* Start writing code today?
+
+  * Start with basics of web development
+
+    * Code Academy links in front-end webpage
+
+  * Get proper software installed on every ront-end member's laptop
+
+* Time spent working with Code Academy to familiarize with languages
+* FlyChecker to maintain style guidelines
+
+  * Automatically corrects coding style based on presets
+  * Could be helpful in maintaining consistent coding style
+
+* React Tutorial
+
+  * Public folder contains index.html file
+
+    * Template for app
+
+  * Use ReadMe to understand create-react-app
+  * Package.json
+
+    * Describes basic configuration of app (Name, version etc.)
+
+  * Changes to React environment create immediate changes to webpage
+  * Importing functions similarly to Python
+  * Define components as class containing attributes and methods
+
+    * Almost every component will have render() method
+
+  * Sizing and Formatting
+
+    * Use px for elements you want to keep the same size and % for elements you want to scale with size of the page
+    * % is based on space given, not on true size of page
+
+  * Inspecting a webpage: Ctrl + Shift + I (learn this shortcut)
+  * Making a component for Login page
+
+    * Renders login button on screen
+    * Inserted into render() method of app
+    * Login function sends alert for logging in when clicked (temporary)
