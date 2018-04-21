@@ -30,13 +30,14 @@ class Profile extends Component {
     }
 
     return (
-      <div>
+      <Page>
         <div className="container">
           <Paper zDepth={1} style={{width: '100%'}} className="container">
             <div className="box">
               <Avatar
                 className="picture"
                 src={imageUrl}
+                size="6vw"
               />
             </div>
             <div className="box">
@@ -54,7 +55,7 @@ class Profile extends Component {
         </div>
         <h1 className="listing-header">Your Listings</h1>
         <p className="listing-header">Books you are selling go here.</p>
-      </div>
+      </Page>
     );
   }
 }
