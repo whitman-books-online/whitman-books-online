@@ -7,8 +7,8 @@ import {Link} from 'react-router-dom';
 import './Navigation.css';
 
 const profileIcon = <FontIcon className="material-icons">face</FontIcon>;
-const marketIcon = <FontIcon className="material-icons">library_books</FontIcon>;
-const sellIcon = <FontIcon className="material-icons">library_add</FontIcon>;
+const exchangeIcon = <FontIcon className="material-icons">swap_horiz</FontIcon>;
+const sellIcon = <FontIcon className="material-icons">add</FontIcon>;
 
 class Navigation extends Component { 
 
@@ -48,8 +48,8 @@ class Navigation extends Component {
                 onClick={() => this.select(0)}
               />
               <BottomNavigationItem
-                label="Market"
-                icon={marketIcon}
+                label="Exchange"
+                icon={exchangeIcon}
                 onClick={() => this.select(1)}
               />
               <BottomNavigationItem
