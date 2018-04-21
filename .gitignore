@@ -10,3 +10,14 @@ __pycache__/
 
 # Temporary files in Windows
 *~
+/.vs/VSWorkspaceState.json
+/frontend/bookstore test.njsproj
+/frontend/obj/Release
+/frontend/obj/Debug/bookstore test.njsprojResolveAssemblyReference.cache
+/frontend/obj/Debug/bookstore test.njsproj.FileListAbsolute.txt
+/frontend/obj/Debug/bookstore test.njsproj.CoreCompileInputs.cache
+/frontend/bin/Microsoft.NodejsTools.WebRole.dll
+/frontend/.vs/bookstore test/v15/.suo
+/.vs/whitman-books-online/v15/.suo
+/.vs/slnx.sqlite
+/.vs/ProjectSettings.json

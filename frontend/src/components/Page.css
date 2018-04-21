@@ -1,7 +1,20 @@
-.Page-Container { /*for Page component. Center component and make width 800 max*/
-	max-width: 800px;
-    min-height: 90vh;
-	padding: 16px;
-	margin-left: auto;
-	margin-right: auto;
+@media (min-width: 800px) {
+
+    .Page-Container { /*for Page component. Center component and pad accordingly for large screens*/
+        max-width: 75%;
+        min-height: 90vh;
+        padding: 16px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 800px) {
+    .Page-Container { /*for Page component. Center component and no padding for small screens*/
+        max-width: 100%;
+        min-height: 90vh;
+        padding: 16px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
