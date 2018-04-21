@@ -1,0 +1,25 @@
+.price_cond {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top:'1vh';
+  padding-left:'1vh';
+  justify-content: flex-start;
+}
+
+.price_box {
+  display: inline-block;
+  color: #58ab43;
+  font-size: 16pt;
+  margin-right: 1vh;
+  padding-right: 1vh;
+  padding-left: 1vh;
+}
+
+.cond_box {
+  display: inline-block;
+  font-size: 16pt;
+  margin-right: 1vh;
+  padding-right: 1vh;
+  padding-left: 1vh;
+}

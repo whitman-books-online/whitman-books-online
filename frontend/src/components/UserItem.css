@@ -1,0 +1,12 @@
+.user_box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user_info {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}

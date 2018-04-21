@@ -14,6 +14,7 @@ import Popover from 'material-ui/Popover';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Snackbar from 'material-ui/Snackbar';
+import './UserItem.css';
 
 
 
@@ -84,6 +85,7 @@ class UserItem extends Component {
     const { user, profileObj } = this.props;
     const loading = user === undefined;
 
+    // Commented out to speed up testing. Uncomment for final version.
     if (loading) {
       return <Loader type="bars" color="#333" width={32} height={32} />;
     }
@@ -93,16 +95,19 @@ class UserItem extends Component {
     const emailBody = "Hi " + name.split(" ")[0] + ",\n I'd like to buy your book!"
 
     return (
-      <div>
-      {`${name}, ${email}`}
-      {(profileObj.googleId === googleId) 
+      <div className="user_box">
+        <div className="user_info">
+          <h4>Seller: {name}</h4>
+          {/*`${email}`*/}
+        </div>
+      {(profileObj.googleId === googleId)
         ?
         <CardActions>
-          <RaisedButton label="Delete My Listing" secondary={true} />
+          <RaisedButton label="Delete" secondary={true} />
         </CardActions>
         :
         <CardActions style={{"padding-left":"0px"}}>
-          <RaisedButton label="Contact Seller" primary={true} onClick={this.handlePopoverClick}/>
+          <RaisedButton label="Buy" primary={true} onClick={this.handlePopoverClick} style={{float:'right'}}/>
           <Popover
             open={this.state.popoverOpen}
             anchorEl={this.state.anchorEl}

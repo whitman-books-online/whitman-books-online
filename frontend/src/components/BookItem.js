@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ListingFeed from './ListingFeed';
 import Paper from 'material-ui/Paper';
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 import './BookItem.css';
 
 class BookItem extends Component {
@@ -10,14 +12,22 @@ class BookItem extends Component {
     const { title, authors, industryIdentifiers, listingIds, imageLinks } = this.props;
 
     return (
-      <Paper zDepth={1}>
+      <Card style={{'margin-bottom': '1vh'}}>
         <div className="book_container">
-          {/* <img src={imageLinks.thumbnail} alt="picture of book" />} */}
-          <h3>{title}</h3>
-          <h4>{authors}</h4>
+          <img src={imageLinks.thumbnail} style={ {'padding-left': '10px', 'padding-top': '10px', width: '15%', height: '10%', } } alt="pic" />
+          <div className="info_box">
+            <h2>{title}</h2>
+            <h4>{authors}</h4>
+          </div>
         </div>
-        <ListingFeed listingIds={listingIds} />
-      </Paper>
+        <CardHeader
+          subtitle={'View Listings'}
+          actAsExpander={true}
+          showExpandableButton={true}
+          style={{'text-align': 'right'}}
+        />
+        <ListingFeed expandable={true} listingIds={listingIds} />
+      </Card>
     );
   }
 }

@@ -8,8 +8,12 @@ class Exchange extends Component {
   render() {
     return (
       <Page>
-        <h1>Exchange</h1>
-        <Search/>
+        <div style={{'padding-bottom': '2vh'}}>
+          <h1>Exchange</h1>
+        </div>
+        <div style={{'padding-bottom': '2vh'}}>
+          <Search/>
+        </div>
         <BookFeed query={{}} />
       </Page>
     );
