@@ -1,13 +1,12 @@
-.book_container {
+.user_box {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
   align-items: center;
+  justify-content: space-between;
 }
 
-.info_box {
+.user_info {
   display: flex;
+  justify-content: flex-start;
   flex-direction: column;
-  padding-left: 2vw;
-  padding-top: 1.5vh;
 }

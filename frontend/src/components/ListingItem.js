@@ -7,7 +7,9 @@ import { getUser } from '../redux/users/actions';
 import { makeGetUserById } from '../redux/users/selectors';
 import sampleData from '../redux/sampleData';
 import Loader from './Loader';
-import {Card, CardHeader} from 'material-ui/Card';
+import { Card, CardHeader } from 'material-ui/Card';
+import Paper from 'material-ui/Paper';
+import './ListingItem.css'
 
 
 class ListingItem extends Component {
@@ -21,15 +23,20 @@ class ListingItem extends Component {
     const { price, condition, userId, user, profileObj } = this.props;
 
     return (
-		  <Card>
-		    <CardHeader
-		      title={`$${price}, ${condition}`}
-		      subtitle={<UserItem user={user} profileObj={profileObj} />}
-		      actAsExpander={false}
-		      showExpandableButton={false}
-		      style={{padding: '10px'}}
-		    />
-		  </Card>
+      <Paper style={{ margin: '1vh' }}>
+        <div className='price_cond'>
+          <div className='price_box'>
+            {/*<h3 style={{color:'#58ab43'}}>${price}</h3>*/}
+            ${price}
+          </div>
+          <div className='cond_box'>
+            <h4>{condition}</h4>
+          </div>
+        </div>
+        <div style={{ 'padding-top': '1vh', 'padding-left': '1vh' }}>
+          <UserItem user={user} profileObj={profileObj} />
+        </div>
+      </Paper>
     );
   }
 }
