@@ -1,5 +1,5 @@
 const initialState = {
-  userList: {},
+  userList: [],
 };
 
 export default (state = initialState, action) => {
@@ -20,10 +20,10 @@ export default (state = initialState, action) => {
     case 'GET_USER_LIST_SUCCESS':
       return {
         ...state,
-        userList: {
+        userList: [
           ...state.userList,
-          [payload.pathname]: payload.userList,
-        },
+          ...payload.userList,
+        ],
       };
     case 'GET_USER_LIST_FAIL':
       return {

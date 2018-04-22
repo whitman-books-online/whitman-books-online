@@ -80,7 +80,7 @@ export function changeListingLengthFail(length) {
 export function changeSort(sort) {
   return {
     type: 'CHANGE_SORT',
-    payload:{
+    payload: {
       sort,
     }
   };

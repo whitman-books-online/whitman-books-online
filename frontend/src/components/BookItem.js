@@ -8,13 +8,12 @@ import './BookItem.css';
 class BookItem extends Component {
 
   render() {
-    console.log(this.props);
-    const { title, authors, industryIdentifiers, listingIds, imageLinks } = this.props;
+    const { title, authors, industryIdentifiers, listing_ids, thumbnail } = this.props;
 
     return (
-      <Card style={{'margin-bottom': '1vh'}}>
+      <Card style={{'marginBottom': '1vh'}}>
         <div className="book_container">
-          <img src={imageLinks.thumbnail} style={ {'padding-left': '10px', 'padding-top': '10px', width: '15%', height: '10%', } } alt="pic" />
+          <img src={thumbnail} style={ {'paddingLeft': '10px', 'paddingTop': '10px', width: '15%', height: '10%' }} alt="pic" />
           <div className="info_box">
             <h2>{title}</h2>
             <h4>{authors}</h4>
@@ -24,9 +23,9 @@ class BookItem extends Component {
           subtitle={'View Listings'}
           actAsExpander={true}
           showExpandableButton={true}
-          style={{'text-align': 'right'}}
+          style={{'textAlign': 'right'}}
         />
-        <ListingFeed expandable={true} listingIds={listingIds} />
+        <ListingFeed expandable={true} listingIds={listing_ids} />
       </Card>
     );
   }

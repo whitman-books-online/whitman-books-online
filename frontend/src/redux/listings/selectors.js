@@ -11,12 +11,7 @@ export const makeGetListingListByIds = () =>
   createSelector(
     [getListingList, getListingIds],
     (listingList, listingIds) => {
-      const listingListByIds = Object.keys(listingList)
-        .filter(key => listingIds.includes(key))
-        .reduce((obj, key) => {
-          obj[key] = listingList[key];
-          return obj;
-        }, {});
+      const listingListByIds = listingList.filter(item => listingIds.includes(item.listing_id));
       return listingListByIds;
     },
   );

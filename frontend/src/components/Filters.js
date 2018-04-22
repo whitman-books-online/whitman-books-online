@@ -22,71 +22,71 @@ const styles = {
   },
 };
 
-  class Filters extends Component{
+class Filters extends Component {
 
-    handlePriceChange = (event) => {
-	    const price = event.target.value;
-	    if (validator.isCurrency(price)) {
-	      this.props.changePrice(price);
-	    } else {
-	      this.props.changePriceFail(price);
-	    }
-  	}
+  handlePriceChange = (event) => {
+    const price = event.target.value;
+    if (validator.isCurrency(price)) {
+      this.props.changePrice(price);
+    } else {
+      this.props.changePriceFail(price);
+    }
+  }
 
-  	handleConditionChange = (event, index, value) => {
-  		this.props.changeCondition(value);
-  	}
+  handleConditionChange = (event, index, value) => {
+    this.props.changeCondition(value);
+  }
 
-  	render() {
-  		return (
-  		  <Card >
-  		    <CardHeader className="Advanced-Search"
-  		  		title="Advanced Search"
-  		  		actAsExpander
-                showExpandableButton
+  render() {
+    return (
+      <Card >
+        <CardHeader className="Advanced-Search"
+          title="Advanced Search"
+          actAsExpander
+          showExpandableButton
+        />
+        <CardText expandable>
+          <div className="Condition-Filter">
+            <SelectField
+              value={this.props.listings.condition}
+              onChange={this.handleConditionChange}
+            >
+              <MenuItem value="" primaryText="All Conditions" />
+              <MenuItem value="poor" primaryText="Poor" />
+              <MenuItem value="used" primaryText="Used" />
+              <MenuItem value="like_new" primaryText="Like new" />
+              <MenuItem value="new" primaryText="New" />
+            </SelectField>
+          </div>
+
+          <div className="Price-Filter">
+            $
+              <TextField
+              floatingLabelText="Input maximum price:"
+              onChange={this.handlePriceChange}
+              value={this.props.listings.price}
+              errorText={this.props.listings.priceError}
+              errorStyle={{
+                float: 'left',
+              }}
             />
-  		  	<CardText expandable>
-  		  	<div className = "Condition-Filter">
-		  		<SelectField
-	              value={this.props.listings.condition}
-	              onChange={this.handleConditionChange}
-	            >
-	              <MenuItem value="" primaryText="All Conditions" />
-	              <MenuItem value="poor" primaryText="Poor" />
-	              <MenuItem value="used" primaryText="Used" />
-	              <MenuItem value="like_new" primaryText="Like new" />
-	              <MenuItem value="new" primaryText="New" />
-	            </SelectField>
-        	</div>
-
-            <div className = "Price-Filter">
-            	$
-	            <TextField
-	              floatingLabelText="Input maximum price:"
-	              onChange={this.handlePriceChange}
-	              value={this.props.listings.price}
-	              errorText={this.props.listings.priceError}
-	              errorStyle={{
-	                float: 'left',
-	              }}
-	            />
-	        <FlatButton
+            <FlatButton
               primary
               label="SEARCH"
             />
-	        </div>
-	    	</CardText>
-          </Card>
-  		);
-  	}
+          </div>
+        </CardText>
+      </Card>
+    );
   }
+}
 
-  const mapStateToProps = (state) => {
-    const listings = state.searchReducer;
-    return listings;
-  };
+const mapStateToProps = (state) => {
+  const listings = state.searchReducer;
+  return listings;
+};
 
-  const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = dispatch =>
   bindActionCreators({ changePrice, changePriceFail, changeCondition, changeConditionFail }, dispatch);
 
-    export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Filters));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Filters));
