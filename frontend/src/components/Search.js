@@ -3,37 +3,39 @@ import SearchBar from 'material-ui-search-bar';
 import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { changePrice, changePriceFail, changeCondition, changeConditionFail,
-  changeSearchValue, changeSearchValueFail, changeListingPage, changeListingPageFail,
-  changeListingLength, changeListingLengthFail  } from '../redux/search/actions';
+import { changeSearchValue } from '../redux/search/actions';
+import { getBookList } from '../redux/books/actions';
 
 
 
-  class Search extends Component{
+class Search extends Component {
+  render() {
+    const { getBookList, changeSearchValue, books } = this.props;
+    const { searchValue } = books;
 
-    render(){
-      return(
-        <SearchBar
-        value={this.props.books.searchValue}
-        onChange={(newValue) => this.props.changeSearchValue(newValue)}
-        onRequestSearch={() => console.log(this.props.books.searchValue)}
+    return (
+      <SearchBar
+        value={searchValue}
+        onChange={newSearchValue => changeSearchValue(newSearchValue)}
+        onRequestSearch={() => getBookList()}
         style={{
           margin: '0 auto',
-          maxWidth: 800
+          maxWidth: 800,
         }}
-        />
-      );
-    }
+      />
+    );
   }
+}
 
-  const mapStateToProps = (state) => {
-    const { books, listings } = state.searchReducer;
-    return { books, listings };
-  };
+const mapStateToProps = (state) => {
+  const { books, listings } = state.searchReducer;
+  return { books, listings };
+};
 
-  const mapDispatchToProps = dispatch =>
-  bindActionCreators({ changePrice, changePriceFail, changeCondition, changeConditionFail,
-    changeSearchValue, changeSearchValueFail, changeListingPage, changeListingPageFail,
-    changeListingLength, changeListingLengthFail  }, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({
+    changeSearchValue,
+    getBookList,
+  }, dispatch);
 
-    export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Search));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Search));

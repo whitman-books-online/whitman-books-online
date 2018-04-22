@@ -4,21 +4,14 @@ import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getUser } from '../redux/users/actions';
-import { makeGetUserById } from '../redux/users/selectors';
+import { getUserById } from '../redux/users/selectors';
 import sampleData from '../redux/sampleData';
 import Loader from './Loader';
 import { Card, CardHeader } from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
-import './ListingItem.css'
-
+import './ListingItem.css';
 
 class ListingItem extends Component {
-
-  componentDidMount() {
-    const { getUser, userId } = this.props;
-    getUser(userId);
-  }
-
   render() {
     const { price, condition, userId, user, profileObj } = this.props;
 
@@ -33,7 +26,7 @@ class ListingItem extends Component {
             <h4>{condition}</h4>
           </div>
         </div>
-        <div style={{ 'padding-top': '1vh', 'padding-left': '1vh' }}>
+        <div style={{ 'paddingTop': '1vh', 'paddingLeft': '1vh' }}>
           <UserItem user={user} profileObj={profileObj} />
         </div>
       </Paper>
@@ -42,7 +35,6 @@ class ListingItem extends Component {
 }
 
 const makeMapStateToProps = () => {
-  const getUserById = makeGetUserById();
   const mapStateToProps = (state, props) => {
     return {
       user: getUserById(state, props),

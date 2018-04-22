@@ -1,6 +1,7 @@
 import sampleData from '../sampleData';
 
 const { USER_DATA } = sampleData;
+const USER_ENDPOINT = 'http://127.0.0.1:5000/userlist/';
 
 export function getUserSuccess(userId, user) {
   return {
@@ -21,7 +22,9 @@ export function getUserFail() {
 export function getUserListSuccess(userList) {
   return {
     type: 'GET_USER_LIST_SUCCESS',
-    payload: userList,
+    payload: {
+      userList,
+    },
   };
 }
 
@@ -64,13 +67,18 @@ export function getUser(userId) {
   };
 }
 
-export function getUserList(query) {
+export function getUserList(googleIds) {
   return (dispatch) => {
-    dispatch(loadUserList(true));
-    setTimeout(() => {
-      const userList = USER_DATA;
+    //third GET request using google tokens to get user objects
+    const urlDest = USER_ENDPOINT + googleIds;
+    const requestUsers = new XMLHttpRequest();
+    requestUsers.open('GET', urlDest);
+    requestUsers.responseType = "json";
+    requestUsers.send(urlDest);
+    requestUsers.onload = () => {
+      const userObjs = requestUsers.response;
+      const userList = userObjs.users;
       dispatch(getUserListSuccess(userList));
-      dispatch(loadUserList(false));
-    }, 2000);
+    };
   };
 }
