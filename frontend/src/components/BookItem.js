@@ -11,7 +11,7 @@ class BookItem extends Component {
     const { title, authors, industryIdentifiers, listing_ids, thumbnail } = this.props;
 
     return (
-      <Card style={{'marginBottom': '1vh'}}>
+      <Card style={{'marginBottom': '2vh'}}>
         <div className="book_container">
           <img src={thumbnail} style={ {'paddingLeft': '10px', 'paddingTop': '10px', width: '15%', height: '10%' }} alt="pic" />
           <div className="info_box">
