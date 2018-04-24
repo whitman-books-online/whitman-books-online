@@ -1,6 +1,8 @@
 import sampleData from '../sampleData';
 
 const { BOOK_DATA } = sampleData;
+const POST_BOOK_ENDPOINT = 'http://127.0.0.1:5000/book/';
+const GET_BOOK_ENDPOINT = 'http://127.0.0.1:5000/booklist/';
 
 export function getBookSuccess(bookId, book) {
   return {
@@ -56,11 +58,19 @@ export function getBook(bookId) {
   };
 }
 
-export function getBookList(query) {
-  return (dispatch) => {
-    setTimeout(() => {
-      const bookList = BOOK_DATA;
+export function getBookList() {
+  return (dispatch, getState) => {
+    const state = getState();
+    const searchValue = state.searchReducer.books.searchValue || '_';
+    const urlDest = GET_BOOK_ENDPOINT + searchValue;
+    const requestBooks = new XMLHttpRequest();
+    requestBooks.open('GET', urlDest);
+    requestBooks.responseType = 'json';
+    requestBooks.send(urlDest);
+    requestBooks.onload = () => {
+      const bookObjs = requestBooks.response;
+      const bookList = bookObjs.books;
       dispatch(getBookListSuccess(bookList));
-    }, 2000);
+    };
   };
 }

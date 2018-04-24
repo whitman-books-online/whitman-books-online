@@ -1,6 +1,7 @@
 import sampleData from '../sampleData';
-
+import { getUserList } from '../users/actions';
 const { LISTING_DATA } = sampleData;
+const LISTING_ENDPOINT = 'http://127.0.0.1:5000/listings/';
 
 export function getListingSuccess(listingId, listing) {
   return {
@@ -85,9 +86,21 @@ export function fetchListingList(query) {
   };
 }
 
-export function getListingList(query) {
-  return (dispatch) => {
-    dispatch(loadListingList(true));
-    dispatch(fetchListingList(query));
+export function getListingList(listingIds) {
+  return (dispatch, getState) => {
+    const state = getState();
+    const { sort } = state.searchReducer.listings;
+    const urlDest = `${LISTING_ENDPOINT}${listingIds}+${sort}`;
+    const requestIds = new XMLHttpRequest();
+    requestIds.open('GET', urlDest);
+    requestIds.responseType = "json";
+    requestIds.send(urlDest);
+    requestIds.onload = () => {
+      const listingObjs = requestIds.response;
+      const listingList = listingObjs.listings;
+      const userIds = listingObjs.google_tokens;
+      dispatch(getListingListSuccess(listingList));
+      dispatch(getUserList(userIds));
+    };
   };
 }

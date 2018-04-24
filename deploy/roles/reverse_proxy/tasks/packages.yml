@@ -3,10 +3,9 @@
     name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
   become: yes
 
-- name: required packages installed
+- name: packages installed
   yum:
     name:
-      - python34-pip
-      - git
-      - sudo
+      - nginx
+      - certbot-nginx
   become: yes

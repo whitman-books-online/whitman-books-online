@@ -1,0 +1,13 @@
+.Condition-Filter {
+	display: flex;
+	flex-shrink: 10;
+	flex-wrap: wrap;
+}
+
+.Price-Filter {
+	display: inline-block;
+}
+
+.Advanced-Search {
+	font-weight: 400;
+}

@@ -7,21 +7,27 @@ import BookItem from './BookItem';
 import { getBookList } from '../redux/books/actions';
 import sampleData from '../redux/sampleData';
 import { makeGetBookListByISBN } from '../redux/books/selectors';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const { BOOK_DATA } = sampleData;
 
 class BookFeed extends Component {
   componentDidMount() {
-    const { query, getBookList } = this.props;
-    getBookList(query);
+    const { query, getBookList, bookList } = this.props;
+    if (!Object.keys(bookList).length) {
+      getBookList();
+    }
   }
 
   render() {
-    const { bookList } = this.props;
+    const { bookList, getBookList } = this.props;
     const loading = !Object.keys(bookList).length;
 
     return (
-      <Feed loading={loading} feedList={bookList} FeedItem={BookItem} />
+      <div>
+        <RaisedButton label="Refresh" primary={true} onClick={() => getBookList()} />
+        <Feed loading={loading} feedList={bookList} FeedItem={BookItem} />
+      </div>
     );
   }
 }

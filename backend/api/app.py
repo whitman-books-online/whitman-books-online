@@ -4,13 +4,23 @@ from flask_jwt import JWT
 from listing import Listing, allListings
 from book import Book, BookList
 from user import User, UserList
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #turns off Flask-SQL Alchemy modification tracker, not underlying SQLAlchemy modification tracker
 api = Api(app)
 
 @app.before_first_request
+    """Creates all database tables (books, listings, and users).
+
+    Args:
+        none.
+
+    Returns:
+        none.
+    """
 def create_tables():
     db.create_all()
 

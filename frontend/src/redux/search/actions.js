@@ -9,7 +9,7 @@ export function changePrice(price) {
   };
 }
 
-export function changePriceFail(price) {
+export function changePriceFail() {
   return {
     type: 'CHANGE_LISTING_PRICE_FAIL',
   };
@@ -74,5 +74,35 @@ export function changeListingLength(length) {
 export function changeListingLengthFail(length) {
   return {
     type: 'CHANGE_LISTING_LENGTH_FAIL',
+  };
+}
+
+export function changeSort(sort) {
+  return {
+    type: 'CHANGE_SORT',
+    payload: {
+      sort,
+    }
+  };
+}
+
+export function changeSortFail(sort) {
+  return {
+    type: 'CHANGE_SORT_FAIL',
+  };
+}
+
+export function changeIds(ids) {
+  return {
+    type: 'CHANGE_IDS',
+    payload:{
+      ids,
+    }
+  };
+}
+
+export function changeIdsFail(ids) {
+  return {
+    type: 'CHANGE_IDS_FAIL'
   };
 }

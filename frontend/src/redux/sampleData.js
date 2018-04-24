@@ -71,6 +71,10 @@ const BOOK_DATA = {
       containsEpubBubbles: false,
       containsImageBubbles: false,
     },
+    imageLinks: {
+      smallThumbnail: 'http://books.google.com/books/content?id=Lps7PgAACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api',
+      thumbnail: 'https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.liquorature.com%2Fwp-content%2Fuploads%2F2013%2F03%2FMoby-Dick.jpg&f=1'
+    },
     language: 'en',
     previewLink: 'http://books.google.com/books?id=olHntAEACAAJ&dq=isbn:9781974305032&hl=&cd=1&source=gbs_api',
     infoLink: 'http://books.google.com/books?id=olHntAEACAAJ&dq=isbn:9781974305032&hl=&source=gbs_api',

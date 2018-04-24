@@ -1,0 +1,40 @@
+---
+- name: packages installed
+  include_tasks: packages.yml
+
+- name: nginx conf
+  template:
+    src: nginx.conf
+    dest: "{{ nginx_conf }}"
+  become: yes
+  notify: restart nginx
+
+- name: sites_enabled directory exists
+  file:
+   path: "{{ sites_enabled }}"
+   state: directory
+  become: yes
+
+- name: frontend added to sites_enabled
+  template:
+    src: sites-enabled/frontend.j2
+    dest: "{{ sites_enabled }}/frontend"
+  become: yes
+  notify: restart nginx
+
+- name: SELinux enabled
+  selinux:
+    policy: targeted
+    state: enforcing
+  when: ansible_selinux["status"] == "enabled"
+  become: yes
+
+# Prevent "Permission denied" nginx errors when proxying frontend
+# by changing selinux policy
+- name: set SELinux policy
+  seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
+  when: ansible_selinux["status"] == "enabled"
+  become: yes

@@ -7,26 +7,29 @@ from db import db
 
 page_size = 20
 
+
 class UserModel(db.Model):
-    """The Book object stores information about the book, as well as
+    """The UserModel object stores information about the user, as well as
     the listing objects that are associated with it.
 Attributes:
-    isbn (string): The isbn number for the book.
-    title (string): The title of the book.
-            author (string): The author/authors of the book.
-            listings (Listing): The current listings of the book.
+    google_tok (string): The google token for the user.
+    imageURL (string): The URL referencing the user's image.
+    email (string): The user's email.
+    name (string): The user's first name.
+    givenName (string): The user's given name.
+    familyName (string): The user's last name.
+    listings (ListingModel[]): All listings posted by the user,
 """
 
-# Creates a table named 'book'
+# Creates a table named 'users'
     __tablename__ = 'users'
 
-    google_tok = db.Column(db.String, primary_key = True)
+    google_tok = db.Column(db.String, primary_key=True)
     imageURL = db.Column(db.String)
     email = db.Column(db.String)
     name = db.Column(db.String)
     givenName = db.Column(db.String)
     familyName = db.Column(db.String)
-    # One to many relationship: Book to listings
     listings = db.relationship("ListingModel")
 
     def __init__(self, google_tok, imageURL, email, name, givenName, familyName):
@@ -37,82 +40,162 @@ Attributes:
         self.givenName = givenName
         self.familyName = familyName
 
-
     def get_listings(self):
+        """Get a list of book listing jsons posted by the user.
+
+        Args:
+                none.
+
+        Returns:
+                json[]: A list of jsonified listings.
+        """
         listing_ids = []
         for listing in self.listings:
             listing_ids.append(listing.listing_json_w_book())
         return listing_ids
 
     # Returns a json object representing the book
-    def user_json_wo_listings(self): # listings already displayed
+    def user_json_wo_listings(self):  # listings already displayed
+        """Returns a jsonified user item.
+
+        Args:
+                none.
+
+        Returns:
+                json: A json item representing the user.
+        """
         return {'google_tok': self.google_tok, 'imageURL': self.imageURL, 'email': self.email, 'name': self.name, 'givenName': self.givenName, 'familyName': self.familyName}
 
-    def user_json_w_listings(self): # listings not already displayed
+    def user_json_w_listings(self):  # listings not already displayed
+        """Returns a jsonified user item, with a list of jsonified listings.
+
+        Args:
+                none.
+
+        Returns:
+                json: A json item representing the user.
+        """
         return {'google_tok': self.google_tok, 'imageURL': self.imageURL, 'email': self.email, 'name': self.name, 'givenName': self.givenName, 'familyName': self.familyName, 'listings': self.get_listings()}
 
     def bare_json(self):
+        """Returns a jsonified user item, with a list of listing ids.
+
+        Args:
+                none.
+
+        Returns:
+                json: A json item representing the user.
+        """
         return {'google_tok': self.google_tok, 'imageURL': self.imageURL, 'email': self.email, 'name': self.name, 'givenName': self.givenName, 'familyName': self.familyName, 'listing_ids': [listing.listing_id for listing in self.listings]}
 
     @classmethod
-    def find_by_email(cls, email): # emails are unique between students, used to see if user exists or not
+    # emails are unique between students, used to see if user exists or not
+    def find_by_email(cls, email):
+        """Finds a user by email.
+
+        Args:
+                email (str): The email of the user we're searching for.
+
+        Returns:
+                UserModel: The user who matches the email.
+        """
         return UserModel.query.filter_by(email=email).first()
 
     @classmethod
     def find_by_google_tok(cls, google_tok):
+        """Finds a user by google token.
+
+        Args:
+                google_tok (str): The google token of the user we're looking for.
+
+        Returns:
+                UserModel: The user who matches the google token..
+        """
         return UserModel.query.filter_by(google_tok=google_tok).first()
 
     def save_to_db(self):
+        """Saves the user to the database.
+
+        Args:
+                none.
+
+        Returns:
+                json: A json item representing the user.
+        """
         db.session.add(self)
         db.session.commit()
         return self.user_json_wo_listings()
 
     def delete_from_db(self):
+        """Deletes the user from the database.
+
+        Args:
+                none.
+
+        Returns:
+                none.
+        """
         db.session.delete(self)
         db.session.commit()
         for listing in self.listings:
             listing.delete_from_db()
 
-    # How the book class will be printed
     def __repr__(self):
+        """Defines how the user class will appear when printed.
+
+        Args:
+                none.
+
+        Returns:
+                none.
+        """
         return "<User(name='%s', email='%s')>" % (
-                self.name, self.email)
+            self.name, self.email)
 
 
 class User(Resource):
-    parser = reqparse.RequestParser() # Book class parser
+    parser = reqparse.RequestParser()  # Book class parser
     parser.add_argument('google_tok',
-            type=str,
-            required=False,
-            help="goog_tok required."
-    )
+                        type=str,
+                        required=False,
+                        help="goog_tok required."
+                        )
     parser.add_argument('imageURL',
-            type = str,
-            required = False,
-            help="check format"
-    )
+                        type=str,
+                        required=False,
+                        help="check format"
+                        )
     parser.add_argument('email',
-            type=str,
-            required=True,
-            help="This field cannot be blank."
-    )
+                        type=str,
+                        required=True,
+                        help="This field cannot be blank."
+                        )
     parser.add_argument('name',
-            type=str,
-    required=True,
-            help="This field cannot be blank."
-    )
+                        type=str,
+                        required=True,
+                        help="This field cannot be blank."
+                        )
     parser.add_argument('givenName',
-            type = str,
-            required = True,
-            help="must provide givenName"
-    )
+                        type=str,
+                        required=True,
+                        help="must provide givenName"
+                        )
     parser.add_argument('familyName',
-            type = str,
-            required = True,
-            help="must provide familyName"
-    )
+                        type=str,
+                        required=True,
+                        help="must provide familyName"
+                        )
 
-    def get(self, google_tok): # Get request, looking for user from user_id
+    def get(self, google_tok):
+        """Get request, looking for all users with google token.
+
+        Args:
+                google_tok (str[]): A list of google tokens to query with.
+
+        Returns:
+                json[]: A list of jsonified users.
+        """
+
         #strings = find.split("+")
         #google_tok = int(strings[0])
         #page = int(strings[1])
@@ -122,64 +205,84 @@ class User(Resource):
             for listing in user.listings:
                 listing_IDs.append(listing.listing_id)
             return {'google_tok': user.google_tok, 'imageURL': user.imageURL, "email": user.email, "name": user.name, "givenName": user.givenName, 'familyName': user.familyName, "listings": listing_IDs}
-            #user.user_json_w_listings()
+            # user.user_json_w_listings()
             #of = ceil(len(all_listings)/page_size)
-            #return{"user": [all_listings[i].user_json_w_listings() for i in range(page*page_size, min(((page+1)*page_size),len(all_listings)))], "page": page, "of": of}
+            # return{"user": [all_listings[i].user_json_w_listings() for i in range(page*page_size, min(((page+1)*page_size),len(all_listings)))], "page": page, "of": of}
         return {"message": "user not found"}, 404
 
-    def post(self, google_tok): # create user
+    def post(self, google_tok):
+        """Posts a user to the database.
+
+        Args:
+                google_tok (str): The google token of the user being posted.
+
+        Returns:
+                message: What happened with the post call.
+        """
         data = User.parser.parse_args()
         print("hello")
         if UserModel.find_by_google_tok(google_tok):
             return {'message': 'A user with that google_token already exists'}, 400
-        user = UserModel(google_tok, data['imageURL'], data['email'], data['name'], data['givenName'], data['familyName'])
+        user = UserModel(google_tok, data['imageURL'], data['email'],
+                         data['name'], data['givenName'], data['familyName'])
         user.save_to_db()
         return {"message": "User created successfully."}, 201
 
-    def delete(self, google_tok): # delete User
+    def delete(self, google_tok):
+        """Deletes a user from the database.
+
+        Args:
+                google_tok (str): The google token of the book being deleted.
+
+        Returns:
+                message: What happened with the delete call.
+        """
         user = UserModel.find_by_google_tok(google_tok)
         if user:
             user.delete_from_db()
             return {"message": "User deleted"}
         return {"message": "User with user_id (" + google_tok + ") does not exist."}
 
-    def put(self, isbn): # update listings
-        pass
-
-        #relationships might already solve this
-
-        """data = User.parser.parse_args()
-# Find book with matching isbn
-        book = UserModel.find_by_isbn(isbn)
-
-        if book is None:
-                book = UserModel(isbn, data['title'], data['author'])
-        else:
-                book.title = data['title']
-                book.author = data['author']"""
 
 class UserList(Resource):
+    """The UserList object handles the entire list of users in the database.
+
+Attributes:
+    none.
+"""
+
     def get(self, tokens):
+        """Gets a list of all users in database that match any token from a list
+        of tokens..
+
+        Args:
+                tokens (str[]): A list of tokens to query with.
+
+        Returns:
+                json[]: A list of jsonified users that match the tokens.
+        """
+
         tokens = tokens.split(",")
-        all_users = UserModel.query.filter(UserModel.google_tok.in_(tokens)).all()
+        all_users = UserModel.query.filter(
+            UserModel.google_tok.in_(tokens)).all()
         #of = ceil(len(all_listings)/page_size)
-        #return {"users": [all_listings[i].user_json_w_listings() for i in range(page*page_size, min(((page+1)*page_size),len(all_listings)))], "page": page, "of": of}
+        # return {"users": [all_listings[i].user_json_w_listings() for i in range(page*page_size, min(((page+1)*page_size),len(all_listings)))], "page": page, "of": of}
 
         return {"users": [user.bare_json() for user in all_users]}
 
-    #       return {"users": [user.user_json_w_listings() for user in UserModel.query.all()]}
+    #	return {"users": [user.user_json_w_listings() for user in UserModel.query.all()]}
 
     # search_ = strings[1]
     # for i in search_:
-    #       if i == "_":
-    #               search_by.append(" ")
-    #       else:
-    #               search_by.append(i)
+    # 	if i == "_":
+    # 		search_by.append(" ")
+    # 	else:
+    # 		search_by.append(i)
     # search_by = ''.join(search_by)
     # if len(strings[2]) > 0: # price was provided
-    #       price = float(strings[2])
-    #       if len(strings[3]) > 0: #condition was provided
-    #               condition = strings[3] # "bad", "ehh", "good", or "new"
-    #               print(search_by)
-    #               all_listings = ListingModel.query.filter(ListingModel.book.book_json_wo_listings()["author"] == search_by or ListingModel.book.book_json_wo_listings()["title"] == search_by).filter(ListingModel.price <= price).filter(ListingModel.condition >= condition).all()
-    #               return{"listings": [all_listings[i].listing_json_w_book_and_user() for i in range(page*page_size, min(((page+1)*page_size),len(all_listings)))], "page": page, "of": of}
+    # 	price = float(strings[2])
+    # 	if len(strings[3]) > 0: #condition was provided
+    # 		condition = strings[3] # "bad", "ehh", "good", or "new"
+    # 		print(search_by)
+    # 		all_listings = ListingModel.query.filter(ListingModel.book.book_json_wo_listings()["author"] == search_by or ListingModel.book.book_json_wo_listings()["title"] == search_by).filter(ListingModel.price <= price).filter(ListingModel.condition >= condition).all()
+    # 		return{"listings": [all_listings[i].listing_json_w_book_and_user() for i in range(page*page_size, min(((page+1)*page_size),len(all_listings)))], "page": page, "of": of}

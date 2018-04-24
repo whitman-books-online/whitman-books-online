@@ -10,8 +10,10 @@ import sampleData from '../redux/sampleData';
 
 class ListingFeed extends Component {
   componentDidMount() {
-    const { getListingList, listingIds } = this.props;
-    getListingList({ listingIds });
+    const { getListingList, listingIds, listingList } = this.props;
+    if (!Object.keys(listingList).length) {
+      getListingList(listingIds);
+    }
   }
 
   render() {

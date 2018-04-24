@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { getUserList } from '../redux/users/actions';
+import { getUserById } from '../redux/users/selectors';
 import Page from './Page';
 import { logout } from '../redux/auth/actions';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -10,12 +12,18 @@ import './Profile.css';
 import Paper from 'material-ui/Paper';
 
 class Profile extends Component {
+  componentDidMount() {
+    const { user, profileObj, getUserList } = this.props;
+    const { googleId } = profileObj;
+    getUserList([googleId]);
+  }
+
   render() {
     const {
       isAuthenticated,
       profileObj,
+      user,
       logout,
-      userId,
     } = this.props;
     const {
       givenName,
@@ -30,22 +38,23 @@ class Profile extends Component {
     }
 
     return (
-      <div>
+      <Page>
         <div className="container">
-          <Paper zDepth={1} style={{width: '100%'}} className="container">
+          <Paper zDepth={1} style={{ width: '100%' }} className="container">
             <div className="box">
               <Avatar
                 className="picture"
                 src={imageUrl}
+                size="6vw"
               />
             </div>
             <div className="box">
               <h1>{`${givenName} ${familyName}`}</h1>
               <h3>{email}</h3>
             </div>
-            <div className="box" style={ {float: 'right'}}>
+            <div className="box" style={{ float: 'right' }}>
               <RaisedButton
-                style={ {float: 'right'}}
+                style={{ float: 'right' }}
                 label="Sign Out"
                 onClick={logout}
               />
@@ -54,17 +63,24 @@ class Profile extends Component {
         </div>
         <h1 className="listing-header">Your Listings</h1>
         <p className="listing-header">Books you are selling go here.</p>
-      </div>
+      </Page>
     );
   }
 }
 
-function mapStateToProps(state) {
-  const { profileObj, isAuthenticated } = state.authReducer;
-  return { profileObj, isAuthenticated };
-}
+const makeMapStateToProps = () => {
+  const mapStateToProps = (state, props) => {
+    const { profileObj, isAuthenticated } = state.authReducer;
+    return {
+      user: getUserById(state, props),
+      profileObj,
+      isAuthenticated,
+    };
+  };
+  return mapStateToProps;
+};
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ logout }, dispatch);
+  bindActionCreators({ logout, getUserList }, dispatch);
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Profile));
+export default withRouter(connect(makeMapStateToProps, mapDispatchToProps)(Profile));
