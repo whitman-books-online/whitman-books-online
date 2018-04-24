@@ -247,7 +247,6 @@ class Listing(Resource):
                 isbns.append(l.isbn)
         # PAGING
         #of = ceil(len(all_listings)/page_size)
-        print(listing.bare_json() for listing in all_listings)
         return {"listings": [listing.bare_json() for listing in all_listings], "isbns": isbns}
         # return {"listings": [listing.listing_json_w_user() for listing in ListingModel.query.filter_by(isbn=isbn).order_by(ListingModel.price).all()]}
         # for when we do paging: return {"listings": [all_listings[i].bare_json() for i in range(page*page_size,(min((page+1)*page_size, len(all_listings))))], "isbns": isbns, "page": page, "of": of}
