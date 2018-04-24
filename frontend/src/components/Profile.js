@@ -10,6 +10,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Avatar from 'material-ui/Avatar';
 import './Profile.css';
 import Paper from 'material-ui/Paper';
+import ListingFeed from './ListingFeed';
 
 class Profile extends Component {
   componentDidMount() {
@@ -37,6 +38,8 @@ class Profile extends Component {
       return <Redirect to="/login" />;
     }
 
+    console.log(this.props);
+
     return (
       <Page>
         <div className="container">
@@ -63,6 +66,9 @@ class Profile extends Component {
         </div>
         <h1 className="listing-header">Your Listings</h1>
         <p className="listing-header">Books you are selling go here.</p>
+        {user &&
+          <ListingFeed showTitle listingIds={user.listing_ids} />
+        }
       </Page>
     );
   }

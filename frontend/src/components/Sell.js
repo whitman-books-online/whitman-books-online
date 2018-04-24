@@ -74,6 +74,7 @@ class Sell extends Component {
     }
   }
 
+
   handleIsbnClick = (e) => {
     e.preventDefault();
     this.setState({ loading: true });
@@ -90,6 +91,20 @@ class Sell extends Component {
       }
     });
   }
+
+  handleIsbnEnterKey = (e) => {
+    // console.log(`Pressed keyCode ${ev.key}`);
+    if (e.key === 'Enter' && this.state.isbnButtonDisabled === false) {
+      this.handleIsbnClick(e);
+    }
+  }
+
+  handlePriceEnterKey = (e) => {
+    if (e.key === 'Enter' && this.state.priceButtonDisabled === false) {
+      this.handleSubmitClick(e);
+    }
+  }
+
 
   handleSubmitClick = (e) => {
     e.preventDefault();
@@ -135,6 +150,7 @@ class Sell extends Component {
           value={this.state.isbnValue}
           errorText={this.state.isbnError}
           onChange={this.handleIsbnChange}
+          onKeyPress={this.handleIsbnEnterKey}
           errorStyle={{
             float: 'left',
           }}
@@ -190,6 +206,7 @@ class Sell extends Component {
               floatingLabelText="Input your desired price:"
               value={this.state.price}
               onChange={this.handlePriceChange}
+              onKeyPress={this.handlePriceEnterKey}
               errorText={this.state.priceError}
               errorStyle={{
                 float: 'left',
