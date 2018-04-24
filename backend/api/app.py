@@ -13,6 +13,14 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #turns off Flask-SQL Alchem
 api = Api(app)
 
 @app.before_first_request
+    """Creates all database tables (books, listings, and users).
+
+    Args:
+        none.
+
+    Returns:
+        none.
+    """
 def create_tables():
     db.create_all()
 
