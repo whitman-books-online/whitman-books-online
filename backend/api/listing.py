@@ -103,7 +103,7 @@ class ListingModel(db.Model):
         Returns:
             json: A jsonified listing.
         """
-        return {'price': self.price, 'condition': self.condition, 'status': self.status, "listing_id": self.listing_id, 'timestamp': self.timestamp}
+        return {'price': self.price, 'condition': self.condition, 'status': self.status, "listing_id": self.listing_id, 'timestamp': self.timestamp, 'bookTitle': self.book.title}
 
     def bu_bare_json(self):  # Book to user bare jason
         """Returns a json object representing the listing. Used when
@@ -115,7 +115,7 @@ class ListingModel(db.Model):
         Returns:
             json: A jsonified listing.
         """
-        return {'price': self.price, 'condition': self.condition, 'status': self.status, "listing_id": self.listing_id, "google_tok": self.google_tok, 'timestamp': self.timestamp}
+        return {'price': self.price, 'condition': self.condition, 'status': self.status, "listing_id": self.listing_id, "google_tok": self.google_tok, 'timestamp': self.timestamp, 'bookTitle': self.book.title}
     # def get_user(self):
     #    user = []
     #    user.append(user.find_by_google_tok(self.google_tok))

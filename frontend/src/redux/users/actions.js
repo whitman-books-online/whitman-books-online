@@ -77,8 +77,12 @@ export function getUserList(googleIds) {
     requestUsers.send(urlDest);
     requestUsers.onload = () => {
       const userObjs = requestUsers.response;
-      const userList = userObjs.users;
-      dispatch(getUserListSuccess(userList));
+      if (userObjs) {
+        if (userObjs.users) {
+          const userList = userObjs.users;
+          dispatch(getUserListSuccess(userList));
+        }
+      }
     };
   };
 }

@@ -13,10 +13,11 @@ import './ListingItem.css';
 
 class ListingItem extends Component {
   render() {
-    const { price, condition, userId, user, profileObj } = this.props;
-
+    const { showTitle, bookTitle, price, condition, userId, user, profileObj, listing_id } = this.props;
+    console.log(this.props);
     return (
       <Paper style={{ margin: '1vh' }}>
+        {showTitle && <h2>{bookTitle}</h2>}
         <div className='price_cond'>
           <div className='price_box'>
             {/*<h3 style={{color:'#58ab43'}}>${price}</h3>*/}
@@ -27,7 +28,7 @@ class ListingItem extends Component {
           </div>
         </div>
         <div style={{ 'paddingTop': '1vh', 'paddingLeft': '1vh' }}>
-          <UserItem user={user} profileObj={profileObj} />
+          <UserItem user={user} profileObj={profileObj} listingId={listing_id} />
         </div>
       </Paper>
     );

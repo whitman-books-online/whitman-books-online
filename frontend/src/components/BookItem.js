@@ -10,6 +10,12 @@ class BookItem extends Component {
   render() {
     const { title, authors, industryIdentifiers, listing_ids, thumbnail } = this.props;
 
+    console.log(this.props);
+
+    if (listing_ids.length === 0) {
+      return null;
+    }
+
     return (
       <Card style={{'marginBottom': '2vh'}}>
         <div className="book_container">

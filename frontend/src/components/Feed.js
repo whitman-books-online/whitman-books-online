@@ -4,7 +4,7 @@ import Loader from './Loader';
 
 class Feed extends Component {
   render() {
-    const { loading, feedList, FeedItem, children } = this.props;
+    const { showTitle, loading, feedList, FeedItem, children } = this.props;
 
     if (!feedList) {
       return null;
@@ -19,7 +19,7 @@ class Feed extends Component {
         {Object.keys(feedList).map((key) => {
           const value = feedList[key];
           return (
-            <FeedItem key={key} {...value}> //Usually ListingItem is passed as FeedItem
+            <FeedItem key={key} showTitle={showTitle} {...value}>
               {this.props.children}
             </FeedItem>
           );

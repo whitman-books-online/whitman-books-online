@@ -4,9 +4,9 @@ import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Loader from './Loader';
-import { getUser } from '../redux/users/actions';
 import { makeGetUserById } from '../redux/users/selectors';
-import sampleData from '../redux/sampleData';
+import { deleteListing } from '../redux/listings/actions';
+
 
 import RaisedButton from 'material-ui/RaisedButton';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
@@ -16,7 +16,6 @@ import FlatButton from 'material-ui/FlatButton';
 import Snackbar from 'material-ui/Snackbar';
 import './UserItem.css';
 
-const { USER_DATA } = sampleData;
 
 class UserItem extends Component {
   constructor(props) {
@@ -78,6 +77,11 @@ class UserItem extends Component {
   };
 
 
+  handleDeleteClick = (e) => {
+    const { deleteListing, listingId } = this.props;
+    deleteListing(listingId);
+  }
+
   render() {
     const { user, profileObj } = this.props;
     const loading = user === undefined;
@@ -102,7 +106,7 @@ class UserItem extends Component {
         {(profileObj.googleId === google_tok)
           ?
           <CardActions>
-            <RaisedButton label="Delete" secondary={true} />
+            <RaisedButton label="Delete" secondary={true} onClick={this.handleDeleteClick} />
           </CardActions>
           :
           <CardActions style={{ "padding-left": "0px" }}>
@@ -160,4 +164,12 @@ class UserItem extends Component {
   }
 }
 
-export default UserItem;
+const mapStateToProps = (state, props) => {
+  return {
+  };
+};
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ deleteListing }, dispatch);
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserItem));

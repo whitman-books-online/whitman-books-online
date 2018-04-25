@@ -26,6 +26,11 @@ export default (state = initialState, action) => {
           ...payload.listingList,
         ],
       };
+    case 'DELETE_LISTING_SUCCESS':
+      return {
+        ...state,
+        listingList: state.listingList.filter(item => item.listing_id !== payload.listingId),
+      };
     case 'GET_LISTING_LIST_FAIL':
       return {
         ...state,
