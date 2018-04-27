@@ -91,7 +91,6 @@ class ListingModel(db.Model):
         try:
             return {"listing_id": self.listing_id, 'price': self.price, 'condition': self.condition, 'status': self.status, 'book': self.book.book_json_wo_listings(), 'user': self.user.user_json_wo_listings(), 'timestamp': self.timestamp}
         except:
-            # return {"message": "user deleted"}
             return {"Message": "Object does not exist in DB"}
 
     def bare_json(self):
@@ -116,10 +115,6 @@ class ListingModel(db.Model):
             json: A jsonified listing.
         """
         return {'price': self.price, 'condition': self.condition, 'status': self.status, "listing_id": self.listing_id, "google_tok": self.google_tok, 'timestamp': self.timestamp, 'bookTitle': self.book.title}
-    # def get_user(self):
-    #    user = []
-    #    user.append(user.find_by_google_tok(self.google_tok))
-    #    return user
 
     @classmethod
     def find_by_isbn(cls, isbn):  # abstracted and redifined from get
@@ -148,7 +143,6 @@ class ListingModel(db.Model):
             ListingModel[]: A list of listings.
         """
         listing = ListingModel.query.filter_by(listing_id=listing_id).first()
-        # For next time... How to search ONLY listing_id column???
         if listing:
             return listing
         return None
@@ -228,16 +222,8 @@ class Listing(Resource):
             json[]: A list of jsonified listings.
         """
 
-        # FOR WHEN WE DO PAGING:
-        #ids = ids.split("+")
-        # try:
-        #    page = int(ids[1])
-        # except:
-        #    return {"message": "No page provided"}
         ids = ids.split(",")
         for id_ in range(0, len(ids)):
-            # print(ids)
-            # must be in format ISBN, ISBN, etc. , LAST ISBN CANNOT BE FOLLOWED BY COMMA, single ISBN should not have comma
             ids[id_] = int(ids[id_])
         all_listings = ListingModel.query.filter(
             ListingModel.listing_id.in_(ids)).all()
@@ -245,15 +231,7 @@ class Listing(Resource):
         for l in all_listings:
             if l.isbn not in isbns:  # avoid duplicates
                 isbns.append(l.isbn)
-        # PAGING
-        #of = ceil(len(all_listings)/page_size)
         return {"listings": [listing.bare_json() for listing in all_listings], "isbns": isbns}
-        # return {"listings": [listing.listing_json_w_user() for listing in ListingModel.query.filter_by(isbn=isbn).order_by(ListingModel.price).all()]}
-        # for when we do paging: return {"listings": [all_listings[i].bare_json() for i in range(page*page_size,(min((page+1)*page_size, len(all_listings))))], "isbns": isbns, "page": page, "of": of}
-        # l = ListingModel.find_by_isbn(isbn)
-        # if l:
-        #     return l.listing_json_w_user()
-        # return {"message": "Item not found"}, 404
 
     def post(self, ids):
         """Posts a listing to the database.
@@ -265,8 +243,6 @@ class Listing(Resource):
             message: What happened with the post call.
         """
 
-        # if ListingModel.find_by_isbn(isbn):
-        #    return {'message': 'An item with isbn ' + isbn + 'already exists.'}, 400
         # what the user will send to the post request (in good format)
         data = Listing.parser.parse_args()
         # In our case, the user sends the price as JSON, but the item name gets passed into the function
@@ -347,9 +323,6 @@ class allListings(Resource):
         none.
     """
 
-    # def get(self):
-    #    return{"listings": [item.json() for item in ListingModel.query.all()]}
-
     def get(self, search):
         """Gets a list of all listings in database that match a search.
 
@@ -385,103 +358,10 @@ class allListings(Resource):
         for listing in listings:
             if listing.google_tok not in tokens:
                 tokens.append(listing.google_tok)
-        if search == "home":  # this is hilarious
+        if search == "home":
             isbns = []
             for listing in listings:
                 if listing.isbn not in isbns:
                     isbns.append(listing.isbn)
             return{"listings": [listing.bare_json() for listing in listings], "google_tokens": tokens, "isbns": isbns}
         return {"listings": [listing.bu_bare_json() for listing in listings], "google_tokens": tokens}
-
-        """try:
-            page = int(strings[3])
-        except:
-            return {"message": "No page provided"}
-        listings = []
-        all_listings = []
-        final_listings = []
-        search_by = []
-        if len(strings[0]) > 0: # ISBN's WERE provided
-            ISBNS = strings[0].split(",") # seperate ISBN's by comma,
-            for i in range(len(ISBNS)): # turn to ints
-                ISBNS[i] = int(ISBNS[i])
-            if len(strings[1]) > 0: # price was provided
-                price = float(strings[1])
-                if len(strings[2]) > 0: #condition was provided
-                    condition = strings[2] # "bad", "ehh", "good", or "new"
-                    for current_isbn in ISBNS:
-                        all_listings = ListingModel.query.filter(ListingModel.isbn == current_isbn).filter(ListingModel.price <= price).filter(ListingModel.condition >= condition).all()
-
-
-
-
-
-
-
-
-                    all_listings = ListingModel.query.filter(ListingModel.isbn.in_(ISBNS)).filter(ListingModel.price <= price).filter(ListingModel.condition >= condition).all()
-                else: # ISBN's, price, no condition
-                    all_listings = ListingModel.query.filter(ListingModel.isbn.in_(ISBNS)).filter(ListingModel.price <= price).all()
-            elif len(strings[2]) > 0: # ISBNs, no price, condition
-                condition = strings[2]
-                all_listings = ListingModel.query.filter(ListingModel.isbn.in_(ISBNS)).filter(ListingModel.condition >= condition).all()
-            else: #ISBN's, no price nor condition
-                all_listings = ListingModel.query.filter(ListingModel.isbn.in_(ISBNS)).all()
-        else: # No ISBN's provided,
-            return {"message": "No ISBN's provided"}
-
-            #below is code to be used for a search function given above implementation
-
-            search_ = strings[1]
-            for i in search_:
-                if i == "_":
-                    search_by.append(" ")
-                else:
-                    search_by.append(i)
-            search_by = ''.join(search_by)
-            if len(strings[2]) > 0: # price was provided
-                price = float(strings[2])
-                if len(strings[3]) > 0: #condition was provided
-                    condition = strings[3] # "bad", "ehh", "good", or "new"
-                    print(search_by)
-                    all_listings = ListingModel.query.filter(ListingModel.book.book_json_wo_listings()["author"] == search_by or ListingModel.book.book_json_wo_listings()["title"] == search_by).filter(ListingModel.price <= price).filter(ListingModel.condition >= condition).all()
-                    return{"listings": [all_listings[i].listing_json_w_book_and_user() for i in range(page*page_size, min(((page+1)*page_size),len(all_listings)))], "page": page, "of": of}
-
-
-
-
-        of = ceil(len(all_listings)/page_size)
-        return{"listings": [all_listings[i].listing_json_w_book_and_user() for i in range(page*page_size, min(((page+1)*page_size),len(all_listings)))], "page": page, "of": of} # add all filtered listings
-                    #return listings[0].listing_json_w_user()
-
-                    #WOOOOO!!!!!
-
-
-    # def get(self, filtr):
-    #     firstString = []
-    #     secondString = []
-    #     first = True
-    #     for i in range(0, len(filtr)):
-    #         if filtr[i] == ":":
-    #             first = False
-    #             continue
-    #         if first:
-    #             firstString.append(filtr[i])
-    #         elif not first:
-    #             secondString.append(filtr[i])
-    #     isbn = ''.join(firstString)
-    #     isbn = int(isbn)
-    #     print(isbn)
-    #     if len(secondString) > 0:
-    #         s = ''.join(secondString)
-    #         print(s)
-    #         if s == "price": #For next time: figure out ordering by price and condition!!!
-    #             return {"listings": [listing.listing_json_w_user() for listing in ListingModel.query.filter_by(isbn=isbn).order_by(ListingModel.price).all()]}
-    #         elif s == "condition":
-    #             return {"listings": [listing.listing_json_w_user() for listing in ListingModel.query.filter_by(isbn=isbn).order_by(ListingModel.condition.desc()).all()]}
-    #         else:
-    #             return{"message": "error, can only search by title or author: /booklist/author:Bill_Shakespeare"}
-    #     elif search != "all":
-    #         return {"message": "Please enter booklist/all or booklist/author:xxx or booklist/title:xxx"}
-    #     return {"books": [listing.listing_json_w_user() for listing in ListingModel.query.all()]}
-    """
