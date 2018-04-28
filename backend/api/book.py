@@ -238,71 +238,71 @@ class Book(Resource):
             return {"books": [book.bare_json() for book in data]}
         return {"message": "Book not found"}, 404
 
-        def post(self, isbns):
-            """Posts a book to the database.
+    def post(self, isbns):
+        """Posts a book to the database.
 
-            Args:
-                    isbns (str): The isbn of the book being posted.
+        Args:
+                isbns (str): The isbn of the book being posted.
 
-            Returns:
-                    message: What happened with the post call.
-            """
-            data = Book.parser.parse_args()
-            isbn = int(isbns) # string of only one ISBN
-            #Error handling, in case not all passed in
-            title = "None"
-            authors = "None"
-            categories = "None"
-            imagelinks = "None"
-            thumbnail = "None"
-            smallThumbnail = "None"
-            subtitle = "None"
-            publishedDate = "None"
-            previewLink = "None"
-            infoLink = "None"
-            canonicalVolumeLink = "None"
-            if BookModel.find_by_isbn(isbn):
-                return {'message': 'A book with isbn ' + str(isbn) + ' already exists'}, 400
-            if data["title"]:
-                title = data["title"]
-            if data["authors"]:
-                authors = ', '.join(author for author in data["authors"])
-            if data["subtitle"]:
-                subtitle = data["subtitle"]
-            if data["publishedDate"]:
-                publishedDate = data["publishedDate"]
-            if data["previewLink"]:
-                previewLink = data["previewLink"]
-            if data["infoLink"]:
-                infoLink = data["infoLink"]
-            if data["canonicalVolumeLink"]:
-                canonicalVolumeLink = data["canonicalVolumeLink"]
-            if data["categories"]:
-                categories = ', '.join(category for category in data["categories"])
-            if data["imageLinks"]:
-                imagelinks = ast.literal_eval(data["imageLinks"][0]) #dumb json parsing
-                if imagelinks["thumbnail"]:
-                    thumbnail = imagelinks["thumbnail"] # dumb json parsing.
-                if imagelinks["smallThumbnail"]:
-                    smallThumbnail = imagelinks["smallThumbnail"] # dumb json parsing
-            book = BookModel(title, subtitle, authors, isbn, categories, publishedDate, smallThumbnail, thumbnail, previewLink, infoLink, canonicalVolumeLink)
-            book.save_to_db()
-            return {"message": "Book created successfully."}, 201
+        Returns:
+                message: What happened with the post call.
+        """
+        data = Book.parser.parse_args()
+        isbn = int(isbns) # string of only one ISBN
+        #Error handling, in case not all passed in
+        title = "None"
+        authors = "None"
+        categories = "None"
+        imagelinks = "None"
+        thumbnail = "None"
+        smallThumbnail = "None"
+        subtitle = "None"
+        publishedDate = "None"
+        previewLink = "None"
+        infoLink = "None"
+        canonicalVolumeLink = "None"
+        if BookModel.find_by_isbn(isbn):
+            return {'message': 'A book with isbn ' + str(isbn) + ' already exists'}, 400
+        if data["title"]:
+            title = data["title"]
+        if data["authors"]:
+            authors = ', '.join(author for author in data["authors"])
+        if data["subtitle"]:
+            subtitle = data["subtitle"]
+        if data["publishedDate"]:
+            publishedDate = data["publishedDate"]
+        if data["previewLink"]:
+            previewLink = data["previewLink"]
+        if data["infoLink"]:
+            infoLink = data["infoLink"]
+        if data["canonicalVolumeLink"]:
+            canonicalVolumeLink = data["canonicalVolumeLink"]
+        if data["categories"]:
+            categories = ', '.join(category for category in data["categories"])
+        if data["imageLinks"]:
+            imagelinks = ast.literal_eval(data["imageLinks"][0]) #dumb json parsing
+            if imagelinks["thumbnail"]:
+                thumbnail = imagelinks["thumbnail"] # dumb json parsing.
+            if imagelinks["smallThumbnail"]:
+                smallThumbnail = imagelinks["smallThumbnail"] # dumb json parsing
+        book = BookModel(title, subtitle, authors, isbn, categories, publishedDate, smallThumbnail, thumbnail, previewLink, infoLink, canonicalVolumeLink)
+        book.save_to_db()
+        return {"message": "Book created successfully."}, 201
 
-        def delete(self, isbns):
-            """Deletes a book from the database.
+    def delete(self, isbns):
+        """Deletes a book from the database.
 
-            Args:
-                    isbns (str): The isbn of the book being deleted.
+        Args:
+                isbns (str): The isbn of the book being deleted.
 
-            Returns:
-                    message: What happened with the delete call.
-            """
-            book = BookModel.find_by_isbn(isbns)
-            if book:
-                book.delete_from_db()
-                return {"message": "Book deleted"}
-            return {"message": "Book with isbn (" + isbns + ") does not exist."}
+        Returns:
+                message: What happened with the delete call.
+        """
+        book = BookModel.find_by_isbn(isbns)
+        if book:
+            book.delete_from_db()
+            return {"message": "Book deleted"}
+        return {"message": "Book with isbn (" + isbns + ") does not exist."}
 
 class BookList(Resource):
     """The BookList object handles the entire list of books in the database.
