@@ -6,12 +6,12 @@ client_ids = (
 authorized_email_domains = ("whitman.edu")
 
 
-def verify_encoded_token(encoded_token):
+def decoded_and_verified_token(encoded_token):
     """Verify and get the client's token
 
     Verifies the token's signature, expiration, that it is from the API created
-    by the front end, that the email domain is one from
-    ``authorized_email_domains`` (whitman.edu), and that Google issued it.
+    by the front end, **that the email domain is one from
+    ``authorized_email_domains`` (whitman.edu)**, and that Google issued it.
 
     Args:
         encoded_token (str): The client token to verify and get email from
