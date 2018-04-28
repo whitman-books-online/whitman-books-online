@@ -15,7 +15,8 @@ Welcome to Whitman Books Online's documentation!
    :caption: Developer Guides:
    :glob:
 
-   dev-docs/*
+   dev-docs/api-guide.rst
+   dev-docs/autodoc-index.rst
 .. Quickstart
 .. etc...
 
