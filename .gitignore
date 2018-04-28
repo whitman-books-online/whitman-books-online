@@ -21,3 +21,6 @@ __pycache__/
 /.vs/whitman-books-online/v15/.suo
 /.vs/slnx.sqlite
 /.vs/ProjectSettings.json
+
+# Back end dev sqlite
+backend/api/data.db
