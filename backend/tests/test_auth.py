@@ -20,13 +20,15 @@ def ignore_warnings(test_func):
 class UserTestCase(unittest.TestCase):
     def setUp(self):
         try:
-            self.valid_jwt = os.environ['JWT']
+            self.valid_jwt = os.environ['VALID_JWT']
+            self.valid_email = os.environ['VALID_EMAIL']
             # Assumes decoded_and_verified_token() works
             self.assertIsNotNone(
                 auth.decoded_and_verified_token(
                     self.valid_jwt))
         except KeyError:
             sys.exit(1)
+        self.alt_email = 'other_user@whitman.edu'
         self.invalid_jwt = (
             'eyJhbGciOiJSUzI1NiIsImtpZCI6ImFmZmM2MjkwN2E0NDYxODJhZGMxZmE0ZT'
             'gxZmRiYTYzMTBkY2U2M2YifQ.eyJhenAiOiIzMTc1OTY2Nzg3OTItMmVrZGtkc'
@@ -71,6 +73,23 @@ class UserTestCase(unittest.TestCase):
         self.assertIsInstance(valid_token, dict)
         self.assertIsNone(invalid_token)
         self.assertIsNone(empty_token)
+
+    def test_email_mismatch_decoded_token(self):
+        valid_email_valid_header_mismatch = auth.email_mismatch_headers(
+            self.valid_email, self.valid_auth_header)
+        alt_email_valid_header = auth.email_mismatch_headers(
+            self.alt_email, self.valid_auth_header)
+        invalid_header = auth.email_mismatch_headers(
+            self.valid_email, self.invalid_auth_header)
+        empty_header = auth.email_mismatch_headers(
+            self.valid_email, self.empty_auth_header)
+        # Valid header and matching email should return False for the mismatch
+        self.assertFalse(valid_email_valid_header_mismatch)
+        # Valid header but email mismatch should return a 403 error message
+        self.assertEqual(alt_email_valid_header[1], 403)
+        # Invalid and empty headers should return a 401 error message
+        self.assertEqual(invalid_header[1], 401)
+        self.assertEqual(empty_header[1], 401)
 
 
 if __name__ == "__main__":

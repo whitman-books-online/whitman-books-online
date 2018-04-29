@@ -60,7 +60,8 @@ def unauthorized_headers(headers):
     """
     decoded_token = decoded_and_verified_token_from_headers(headers)
     if not decoded_token:
-        return {"message": "No valid token provided (possibly expired or not provided)"}, 401
+        return {
+            "message": "No valid token provided (possibly expired or not provided)"}, 401
     else:
         return False
 
@@ -94,8 +95,33 @@ def get_encoded_token_from_headers(headers):
         NoneType: when no Authorization header present
     """
     try:
-        auth_header = headers['Authorization']
+        auth_header = headers["Authorization"]
         encoded_token = auth_header.split(" ")[1]
     except KeyError:
         encoded_token = None
     return encoded_token
+
+
+def email_mismatch_headers(email, headers):
+    """Process HTTP header for validated token and compare with email
+
+    401 error if token is missing or invalid, 403 if the token's email doesn't
+    match the given email. False if they match.
+
+    Args:
+        email (str): email address that has authorization
+        headers (dict of str): output from ``user_unauthorization()``
+
+    Returns:
+        (dict, int): A tuple to be returned by Flask when token is unauthorized
+        bool: False when authorized
+    """
+    decoded_token = decoded_and_verified_token_from_headers(headers)
+
+    if not decoded_token:
+        return {
+            "message": "No valid token provided (possibly expired or not provided)"}, 401
+    elif email != decoded_token["email"]:
+        return {"message": email + " is not authorized"}, 403
+    else:
+        return False
