@@ -9,12 +9,12 @@ class TestWithCredentials(unittest.TestCase):
     def setUp(self):
         try:
             self.valid_jwt = os.environ['VALID_JWT']
-            self.valid_email = os.environ['VALID_EMAIL']
-            self.valid_google_tok = os.environ['VALID_GOOGLE_TOK']
             # Assumes decoded_and_verified_token() works
-            self.assertIsNotNone(
-                auth.decoded_and_verified_token(
-                    self.valid_jwt))
+            self.valid_token = auth.decoded_and_verified_token(self.valid_jwt)
+            self.assertIsNotNone(self.valid_token)
+            self.valid_email = self.valid_token['email']
+            self.valid_google_tok = self.valid_token['sub']
+        # Exit if above environment variables aren't set
         except KeyError:
             sys.exit(1)
         self.alt_email = 'other_user@whitman.edu'
