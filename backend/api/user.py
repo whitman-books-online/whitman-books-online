@@ -2,8 +2,10 @@ from sqlalchemy import Table, Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 from flask_restful import Resource, reqparse
 from math import ceil
+from flask import request
 
 from db import db
+import auth
 
 page_size = 20
 
@@ -197,7 +199,8 @@ class User(Resource):
         Returns:
                 json[]: A list of jsonified users.
         """
-
+        auth_error = auth.unauthorized_headers(request.headers)
+        if auth_error: return auth_error
         user = UserModel.find_by_google_tok(google_tok)
         listing_IDs = []
         if user:

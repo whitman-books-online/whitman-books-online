@@ -3,3 +3,4 @@ flask_jwt
 flask_sqlalchemy
 flask_cors
 google-auth
+requirements
