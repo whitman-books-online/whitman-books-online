@@ -43,3 +43,59 @@ def decoded_and_verified_token(encoded_token):
         return None
 
     return decoded_token
+
+
+def unauthorized_headers(headers):
+    """Return Flask return tuple if request is unauthorized
+
+    Example:
+        Intended to be used in a conditional within a Flask HTTP method to see
+        if the user is authorized:
+
+        .. code-block:: python
+
+           auth_error = unauthorized_headers(flask.request.headers)
+           if auth_error:
+               return auth_error
+    """
+    decoded_token = decoded_and_verified_token_from_headers(headers)
+    if not decoded_token:
+        return {"message": "No valid token provided (possibly expired or not provided)"}, 401
+    else:
+        return False
+
+
+def decoded_and_verified_token_from_headers(headers):
+    """Get decoded token from HTTP headers
+
+    Get encoded token from headers and use ``verify_encoded_token()`` to
+    verify token before returning the decoded token.
+
+    Args:
+        headers (dict of str): headers from ``flask.request.headers``
+
+    Returns:
+        dict: validated token
+        NoneType: if token is invalid for whatever reason
+    """
+    encoded_token = get_encoded_token_from_headers(headers)
+    decoded_token = decoded_and_verified_token(encoded_token)
+    return decoded_token
+
+
+def get_encoded_token_from_headers(headers):
+    """Read encoded bearer token from HTTP header
+
+    Args:
+        flask.request.headers
+
+    Returns:
+        str: encoded token (JWT)
+        NoneType: when no Authorization header present
+    """
+    try:
+        auth_header = headers['Authorization']
+        encoded_token = auth_header.split(" ")[1]
+    except KeyError:
+        encoded_token = None
+    return encoded_token
