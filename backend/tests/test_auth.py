@@ -39,6 +39,23 @@ class UserTestCase(TestWithCredentials):
         self.assertEqual(invalid_header[1], 401)
         self.assertEqual(empty_header[1], 401)
 
+    def test_google_tok_mismatch_headers(self):
+        valid_tok_valid_header = auth.google_tok_mismatch_headers(
+            self.valid_google_tok, self.valid_auth_header)
+        invalid_tok_valid_header = auth.google_tok_mismatch_headers(
+            self.invalid_google_tok, self.valid_auth_header)
+        invalid_header = auth.google_tok_mismatch_headers(
+                self.valid_google_tok, self.invalid_auth_header)
+        empty_header = auth.google_tok_mismatch_headers(
+                self.valid_google_tok, self.empty_auth_header)
+        # Valid header and matching Google token should return false
+        self.assertFalse(valid_tok_valid_header)
+        # Valid header but Google token mismatch should return a 403 error
+        self.assertEqual(invalid_tok_valid_header[1], 403)
+        # Invalid and empty headers should return a 401 error message
+        self.assertEqual(invalid_header[1], 401)
+        self.assertEqual(empty_header[1], 401)
+
 
 if __name__ == "__main__":
     unittest.main()

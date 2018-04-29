@@ -110,10 +110,10 @@ def email_mismatch_headers(email, headers):
 
     Args:
         email (str): email address that has authorization
-        headers (dict of str): output from ``user_unauthorization()``
+        headers (dict of str): dictionary of HTTP headers in request
 
     Returns:
-        (dict, int): A tuple to be returned by Flask when token is unauthorized
+        (dict, int): A tuple to be returned by Flask when header is unauthorized
         bool: False when authorized
     """
     decoded_token = decoded_and_verified_token_from_headers(headers)
@@ -123,5 +123,32 @@ def email_mismatch_headers(email, headers):
             "message": "No valid token provided (possibly expired or not provided)"}, 401
     elif email != decoded_token["email"]:
         return {"message": email + " is not authorized"}, 403
+    else:
+        return False
+
+
+def google_tok_mismatch_headers(google_tok, headers):
+    """Process HTTP header for validated token and compare with Google ID
+
+    401 error if token is missing or invalid, 403 if the token's ID doesn't
+    match the given ID. False if they match.
+
+    Args:
+        google_tok (str): Google ID that has authorization
+        headers (dict of str): dictionary of HTTP headers in request
+
+    Returns:
+        (dict, int): A tuple to be returned by Flask when header is unauthorized
+        bool: False when authorized
+    """
+    decoded_token = decoded_and_verified_token_from_headers(headers)
+
+    if not decoded_token:
+        return {
+            "message": "No valid token provided (possibly expired or not provided)"}, 401
+    # It looks like the "sub" key in the JWT is what corresponds to the Google
+    # ID, but we'll see if this holds true...
+    elif google_tok != decoded_token["sub"]:
+        return {"message":  str(google_tok) + " is not authorized"}, 403
     else:
         return False

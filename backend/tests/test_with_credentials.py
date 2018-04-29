@@ -10,6 +10,7 @@ class TestWithCredentials(unittest.TestCase):
         try:
             self.valid_jwt = os.environ['VALID_JWT']
             self.valid_email = os.environ['VALID_EMAIL']
+            self.valid_google_tok = os.environ['VALID_GOOGLE_TOK']
             # Assumes decoded_and_verified_token() works
             self.assertIsNotNone(
                 auth.decoded_and_verified_token(
@@ -39,6 +40,7 @@ class TestWithCredentials(unittest.TestCase):
             'UrMlgoEym6ly4gWaoiLoXi8ubSu1OTllTGCrk4HC-chlyLQ2EToeWAFfUCNSWl'
             'jFYRwm81RSIeFV5oQEClycnWPfIhXMXaCoGdxqrTdzd1pfe1GQaxCuHhAnCw'
         )
+        self.invalid_google_tok = 000000000000000000000
         self.valid_auth_header = {'Authorization': 'Bearer ' + self.valid_jwt}
         self.invalid_auth_header = {
             'Authorization': 'Bearer ' + self.invalid_jwt}
