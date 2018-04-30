@@ -79,6 +79,38 @@ class UserTestCase(TestWithCredentials):
         self.assertEqual(empty_header.status_code, 401)
         self.assertEqual(nonexistent_user.status_code, 404)
 
+    def user_exists(self):
+        """Helper function to ensure self.valid_google_tok has a user entry
+        """
+        user_exists = requests.post(
+            self.user_endpoint,
+            headers=self.valid_auth_header,
+            params=self.user_data)
+        self.assertIn(user_exists.status_code, [200, 201])
+
+    def test_user_delete(self):
+        self.user_exists()
+        authorized_header = requests.delete(
+            self.user_endpoint, headers=self.valid_auth_header)
+        self.user_exists()
+        unauthorized_header = requests.delete(
+            self.user_endpoint, headers=self.invalid_auth_header)
+        self.user_exists()
+        empty_header = requests.delete(
+            self.user_endpoint,
+            headers=self.invalid_auth_header)
+        self.user_exists()
+        nonexistent_user = requests.delete(
+            self.nonexistent_endpoint,
+            headers=self.valid_auth_header)
+        self.user_exists()
+        self.assertEqual(authorized_header.status_code, 200)
+        self.assertEqual(unauthorized_header.status_code, 401)
+        self.assertEqual(empty_header.status_code, 401)
+        # Even though a 404 would make sense, the user is more fundamentally
+        # trying to perform an unathorized action
+        self.assertEqual(nonexistent_user.status_code, 403)
+
 
 # # Inherits from TestWithCredentials to avoid rewriting SetUp()
 # class UserListTestCase(TestWithCredentials):
