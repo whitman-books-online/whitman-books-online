@@ -8,6 +8,8 @@ class UserTestCase(TestWithCredentials):
     def setUp(self):
         super(UserTestCase, self).setUp()
         self.api_base = 'http://localhost:5000/'
+        # Some testing logic is based on this endpoint being for the valid user
+        # Expect some breakage if you change it
         self.user_endpoint = self.api_base + \
             'user/' + str(self.valid_google_tok)
         self.user_data = {
@@ -17,6 +19,8 @@ class UserTestCase(TestWithCredentials):
             "givenName": self.valid_token["given_name"],
             "familyName": self.valid_token["family_name"],
         }
+        self.nonexistent_endpoint = self.api_base + \
+            'user/' + str(self.invalid_google_tok)
 
     def user_deleted(self, user_endpoint):
         """Helper function for deleting a user, using valid credentials
@@ -28,7 +32,7 @@ class UserTestCase(TestWithCredentials):
             self.user_endpoint,
             headers=self.valid_auth_header,
             params=self.user_data)
-        self.assertEqual(user_not_exists.status_code, 200)
+        self.assertIn(user_not_exists.status_code, [200, 404])
 
     def test_user_post(self):
         self.user_deleted(self.user_endpoint)
@@ -59,9 +63,7 @@ class UserTestCase(TestWithCredentials):
             headers=self.valid_auth_header,
             params=self.user_data)
         # Ensure already existed or does now exist
-        self.assertIn(user_exists.status_code, [201, 400])
-        nonexistent_endpoint = self.api_base + \
-            'user/' + str(self.invalid_google_tok)
+        self.assertIn(user_exists.status_code, [200, 201])
         authorized_header = requests.get(
             self.user_endpoint, headers=self.valid_auth_header)
         unauthorized_header = requests.get(
@@ -70,7 +72,7 @@ class UserTestCase(TestWithCredentials):
             self.user_endpoint,
             headers=self.invalid_auth_header)
         nonexistent_user = requests.get(
-            nonexistent_endpoint,
+            self.nonexistent_endpoint,
             headers=self.valid_auth_header)
         self.assertEqual(authorized_header.status_code, 200)
         self.assertEqual(unauthorized_header.status_code, 401)

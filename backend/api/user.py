@@ -223,7 +223,7 @@ class User(Resource):
         data = User.parser.parse_args()
         print("hello")
         if UserModel.find_by_google_tok(google_tok):
-            return {'message': 'A user with that google_token already exists'}, 400
+            return {'message': 'user '+str(google_tok)+' already exists'}, 200
         user = UserModel(google_tok, data['imageURL'], data['email'],
                          data['name'], data['givenName'], data['familyName'])
         user.save_to_db()
@@ -242,7 +242,7 @@ class User(Resource):
         if user:
             user.delete_from_db()
             return {"message": "User deleted"}
-        return {"message": "User with user_id (" + google_tok + ") does not exist."}
+        return {"message": "User with user_id (" + google_tok + ") does not exist."}, 404
 
 
 class UserList(Resource):
