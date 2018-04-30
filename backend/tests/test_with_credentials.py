@@ -45,3 +45,4 @@ class TestWithCredentials(unittest.TestCase):
         self.invalid_auth_header = {
             'Authorization': 'Bearer ' + self.invalid_jwt}
         self.empty_auth_header = {}
+        self.api_base = 'http://localhost:5000/'
