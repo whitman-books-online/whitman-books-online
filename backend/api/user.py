@@ -218,6 +218,8 @@ class User(Resource):
         Returns:
                 message: What happened with the post call.
         """
+        auth_error = auth.google_tok_mismatch_headers(google_tok, request.headers)
+        if auth_error: return auth_error
         data = User.parser.parse_args()
         print("hello")
         if UserModel.find_by_google_tok(google_tok):

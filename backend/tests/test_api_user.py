@@ -18,6 +18,40 @@ class UserTestCase(TestWithCredentials):
             "familyName": self.valid_token["family_name"],
         }
 
+    def user_deleted(self, user_endpoint):
+        """Helper function for deleting a user, using valid credentials
+
+        Because users are only allowed to delete themselves, this should only
+        succeed when ``user_endpoint`` corresponds to the valid credentials.
+        """
+        user_not_exists = requests.delete(
+            self.user_endpoint,
+            headers=self.valid_auth_header,
+            params=self.user_data)
+        self.assertEqual(user_not_exists.status_code, 200)
+
+    def test_user_post(self):
+        self.user_deleted(self.user_endpoint)
+        # Try posting using own valid credentials
+        authorized_header = requests.post(
+            self.user_endpoint,
+            headers=self.valid_auth_header,
+            params=self.user_data)
+        self.assertEqual(authorized_header.status_code, 201)
+        self.user_deleted(self.user_endpoint)
+        # Try posting with invalid credentials
+        unauthorized_header = requests.post(
+            self.user_endpoint,
+            headers=self.invalid_auth_header,
+            params=self.user_data)
+        self.assertEqual(unauthorized_header.status_code, 401)
+        self.user_deleted(self.user_endpoint)
+        # Try posting without supplying credentials
+        empty_header = requests.post(
+            self.user_endpoint,
+            headers=self.empty_auth_header, params=self.user_data)
+        self.assertEqual(empty_header.status_code, 401)
+
     # Assumes user does exist
     def test_user_get(self):
         user_exists = requests.post(
