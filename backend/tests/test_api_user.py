@@ -10,12 +10,20 @@ class UserTestCase(TestWithCredentials):
         self.api_base = 'http://localhost:5000/'
         self.user_endpoint = self.api_base + \
             'user/' + str(self.valid_google_tok)
+        self.user_data = {
+            "imageURL": self.valid_token["picture"],
+            "email": self.valid_token["email"],
+            "name": self.valid_token["name"],
+            "givenName": self.valid_token["given_name"],
+            "familyName": self.valid_token["family_name"],
+        }
 
     # Assumes user does exist
     def test_user_get(self):
         user_exists = requests.post(
             self.user_endpoint,
-            headers=self.valid_auth_header)
+            headers=self.valid_auth_header,
+            params=self.user_data)
         # Ensure already existed or does now exist
         self.assertIn(user_exists.status_code, [201, 400])
         nonexistent_endpoint = self.api_base + \
