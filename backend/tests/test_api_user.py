@@ -1,10 +1,10 @@
-from test_with_credentials import TestWithCredentials
+from test_api_base import ApiTestBase
 from api import auth
 import requests
 
 
-# Inherits from TestWithCredentials to avoid rewriting SetUp()
-class UserTestCase(TestWithCredentials):
+# Inherits from ApiTestBase to avoid rewriting SetUp()
+class UserTestCase(ApiTestBase):
     def setUp(self):
         super(UserTestCase, self).setUp()
         # Some testing logic is based on this endpoint being for the valid user
@@ -111,8 +111,8 @@ class UserTestCase(TestWithCredentials):
         self.assertEqual(nonexistent_user.status_code, 403)
 
 
-# Inherits from TestWithCredentials to avoid rewriting SetUp()
-class UserListTestCase(TestWithCredentials):
+# Inherits from ApiTestBase to avoid rewriting SetUp()
+class UserListTestCase(ApiTestBase):
     def setUp(self):
         super(UserListTestCase, self).setUp()
         # Some testing logic is based on this endpoint being for the valid user

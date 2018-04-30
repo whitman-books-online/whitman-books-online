@@ -5,7 +5,7 @@ import unittest
 from api import auth
 
 
-class TestWithCredentials(unittest.TestCase):
+class ApiTestBase(unittest.TestCase):
     def setUp(self):
         try:
             self.valid_jwt = os.environ['VALID_JWT']

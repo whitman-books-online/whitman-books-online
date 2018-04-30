@@ -1,9 +1,9 @@
-from test_with_credentials import TestWithCredentials
+from test_api_base import ApiTestBase
 from api import auth
 
 
-# Inherits from TestWithCredentials to avoid rewriting SetUp()
-class UserTestCase(TestWithCredentials):
+# Inherits from ApiTestBase to avoid rewriting SetUp()
+class UserTestCase(ApiTestBase):
     def test_get_encoded_token_from_headers(self):
         encoded_token = auth.get_encoded_token_from_headers(
             self.valid_auth_header)
