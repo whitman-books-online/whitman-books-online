@@ -247,6 +247,8 @@ class Book(Resource):
         Returns:
                 message: What happened with the post call.
         """
+        auth_error = auth.unauthorized_headers(request.headers)
+        if auth_error: return auth_error
         data = Book.parser.parse_args()
         isbn = int(isbns) # string of only one ISBN
         #Error handling, in case not all passed in
@@ -298,6 +300,7 @@ class Book(Resource):
         Returns:
                 message: What happened with the delete call.
         """
+        return message{"message": "Not authorized"}, 403
         book = BookModel.find_by_isbn(isbns)
         if book:
             book.delete_from_db()
