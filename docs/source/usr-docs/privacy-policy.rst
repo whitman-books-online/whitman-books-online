@@ -11,9 +11,10 @@ It will notify you of the following:
  3. How you can correct any inaccuracies in the information. 
 
 **Information Collection, Use, and Sharing**
+
 The information that *whitmanbooks.online* gathers is minimal because we use Google Authentication to verify that all users have a *whitman.edu* gmail address.
 
-Here is what we have access to:
+ Here is what we have access to:
   - your IP address
   - the date and time
   - your browser
@@ -24,7 +25,7 @@ Here is what we have access to:
    - your profile picture
    - your email address that you use to login
 
-Here is what we store in our database:   
+ Here is what we store in our database:   
  - your google token associated with your Google+ profile (this is publicly available information)
  - any books you are selling, their price, and their condition
 
@@ -32,12 +33,14 @@ All of this information is used to generate your profile and connect your listin
 Additionally, your email will be attached to the books you are selling for ease of contact.
 
 **Your Access and Control of Your Information**
-At any point you may contact us via the email address or phone number given below for any of the following:
+
+ At any point you may contact us via the email address or phone number given below for any of the following:
  - see all data we have related to your account 
  - have us delete any data related to your account
  - express any concerns you may have about our use of your data
 
 **Security**
+
 Our website protects all information by encrypting and transmitting it in a secure way. 
 You can verify this by checking the left hand side of your URL bar and noticing the green padlock and 'Secure' text denoting a secure https connection.
 
@@ -45,6 +48,7 @@ Our use of AWS and Google Auth also allows us to take advantage of the security 
 This means that your data is more likely to be kept secure.   
 
 **Notification of Modification**
+
 Should this privacy policy change, all users will be notified of its change through email or our website.
 
 
