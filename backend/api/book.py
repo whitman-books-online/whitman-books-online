@@ -70,7 +70,7 @@ class BookModel(db.Model):
                 none.
 
         Returns:
-                Dictionary[]: A list of jsonified listings.
+                dictionary[]: A list of jsonified listings.
         """
         listing_ids = []
         for listing in self.listings:

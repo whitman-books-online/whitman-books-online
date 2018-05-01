@@ -15,12 +15,12 @@ class UserModel(db.Model):
     the listing objects that are associated with it.
 
     Attributes:
-        google_tok (string): The google token for the user.
-        imageURL (string): The URL referencing the user's image.
-        email (string): The user's email.
-        name (string): The user's first name.
-        givenName (string): The user's given name.
-        familyName (string): The user's last name.
+        google_tok (str): The google token for the user.
+        imageURL (str): The URL referencing the user's image.
+        email (str): The user's email.
+        name (str): The user's first name.
+        givenName (str): The user's given name.
+        familyName (str): The user's last name.
         listings (ListingModel[]): All listings posted by the user,
 
     """
@@ -51,7 +51,7 @@ class UserModel(db.Model):
                 none.
 
         Returns:
-                json[]: A list of jsonified listings.
+                dictionary[]: A list of jsonified listings.
         """
         listing_ids = []
         for listing in self.listings:
@@ -66,7 +66,7 @@ class UserModel(db.Model):
                 none.
 
         Returns:
-                json: A json item representing the user.
+                dictionary: A dictionary representing a jsonified user.
         """
         return {'google_tok': self.google_tok, 'imageURL': self.imageURL, 'email': self.email, 'name': self.name, 'givenName': self.givenName, 'familyName': self.familyName}
 
@@ -77,7 +77,7 @@ class UserModel(db.Model):
                 none.
 
         Returns:
-                json: A json item representing the user.
+                dictionary: A dictionary representing a jsonified user.
         """
         return {'google_tok': self.google_tok, 'imageURL': self.imageURL, 'email': self.email, 'name': self.name, 'givenName': self.givenName, 'familyName': self.familyName, 'listings': self.get_listings()}
 
@@ -88,7 +88,7 @@ class UserModel(db.Model):
                 none.
 
         Returns:
-                json: A json item representing the user.
+                dictionary: A dictionary representing a jsonified user.
         """
         return {'google_tok': self.google_tok, 'imageURL': self.imageURL, 'email': self.email, 'name': self.name, 'givenName': self.givenName, 'familyName': self.familyName, 'listing_ids': [listing.listing_id for listing in self.listings]}
 
@@ -113,7 +113,7 @@ class UserModel(db.Model):
                 google_tok (str): The google token of the user we're looking for.
 
         Returns:
-                UserModel: The user who matches the google token..
+                UserModel: The user who matches the google token.
         """
         return UserModel.query.filter_by(google_tok=google_tok).first()
 
@@ -124,7 +124,7 @@ class UserModel(db.Model):
                 none.
 
         Returns:
-                json: A json item representing the user.
+                dictionary: A dictionary representing a jsonified user.
         """
         db.session.add(self)
         db.session.commit()
@@ -197,7 +197,7 @@ class User(Resource):
                 google_tok (str[]): A list of google tokens to query with.
 
         Returns:
-                json[]: A list of jsonified users.
+                dictionary[]: A list of dictionaries representing jsonified users.
         """
         auth_error = auth.unauthorized_headers(request.headers)
         if auth_error: return auth_error
@@ -262,7 +262,7 @@ Attributes:
                 tokens (str[]): A list of tokens to query with.
 
         Returns:
-                json[]: A list of jsonified users that match the tokens.
+                dictionary[]: A list of dictionaries representing jsonified users.
         """
         auth_error = auth.unauthorized_headers(request.headers)
         if auth_error: return auth_error
