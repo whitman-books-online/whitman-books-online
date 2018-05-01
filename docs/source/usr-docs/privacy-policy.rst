@@ -20,9 +20,9 @@ Here is what we have access to:
   - your operating system
   - your listed books
   - basic information related to your google account:
-    - your name
-    - your profile picture
-    - your email address that you use to login
+   - your name
+   - your profile picture
+   - your email address that you use to login
 
 Here is what we store in our database:   
  - your google token associated with your Google+ profile (this is publicly available information)
@@ -48,5 +48,5 @@ This means that your data is more likely to be kept secure.
 Should this privacy policy change, all users will be notified of its change through email or our website.
 
 
-**If you feel that we are not abiding by this privacy policy, please contact us immediately via phone or email: (619) 495-2111, bantaib@whitman.edu**
+**If you feel that we are not abiding by this privacy policy, please contact us immediately via phone or email: (619) 495-2111, bantaib@whitman.edu .**
 
