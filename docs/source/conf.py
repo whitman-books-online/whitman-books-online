@@ -47,7 +47,8 @@ output_title = 'Whitman Books Online Documentation'
 # ones.
 extensions = [
     'sphinx.ext.autodoc', 
-    'sphinx.ext.napoleon']
+    'sphinx.ext.napoleon', 
+    'sphinx_js']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -169,3 +170,5 @@ autodoc_default_flags = ['members',
                          'undoc-members', 
                          'inherited-members', 
                          'show-inheritance']
+
+js_source_path = '../../frontent/src'
