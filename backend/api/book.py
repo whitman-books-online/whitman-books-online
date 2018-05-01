@@ -13,18 +13,18 @@ class BookModel(db.Model):
         the listing objects that are associated with it.
 
     Attributes:
-        title (string): The title of the book.
-        subtitle (string): The subtitle of the book.
-        authors (string): The author/authors of the book.
+        title (str): The title of the book.
+        subtitle (str): The subtitle of the book.
+        authors (str): The author/authors of the book.
         isbn (int): The isbn number for the book.
-        categories (string): The categorise of the book.
-        puhlishedDate (string): The published date of the book.
-        smallThumbnail (string): A string referencing the small thumbnail of the book.
-        thumbnail (string): A string referencing the thumbnail of the book.
-        previewLink (string): A link to preview the book.
-        infoLink (string): An info link for the book.
-        canonicalVolumeLink (string): A canononical volume link for the book.
-                listings (Listing): The current listings of the book.
+        categories (str): The categorise of the book.
+        puhlishedDate (str): The published date of the book.
+        smallThumbnail (str): A string referencing the small thumbnail of the book.
+        thumbnail (str): A string referencing the thumbnail of the book.
+        previewLink (str): A link to preview the book.
+        infoLink (str): An info link for the book.
+        canonicalVolumeLink (str): A canononical volume link for the book.
+        listings (Listing[]): The current listings of the book.
     """
 
     # Creates a table named 'book'
@@ -70,7 +70,7 @@ class BookModel(db.Model):
                 none.
 
         Returns:
-                json[]: A list of jsonified listings.
+                Dictionary[]: A list of jsonified listings.
         """
         listing_ids = []
         for listing in self.listings:
@@ -86,7 +86,7 @@ class BookModel(db.Model):
                 none.
 
         Returns:
-                json: A json item representing a book.
+                dictionary: A dictionary representing a jsonified book.
         """
         return {'isbn': self.isbn, 'title': self.title, 'subtitle': self.subtitle, 'authors': self.authors, 'categories': self.categories, 'publishedDate': self.publishedDate, 'smallThumbnail': self.smallThumbnail, 'thumbnail': self.thumbnail, 'previewLink': self.previewLink, 'infoLink': self.infoLink, 'canonicalVolumeLink': self.canonicalVolumeLink, 'listings': self.get_listings()}
 
@@ -97,7 +97,7 @@ class BookModel(db.Model):
                 none.
 
         Returns:
-                json: A json item representing a book.
+                dictionary: A dictionary representing a jsonified book.
         """
         return {'isbn': self.isbn, 'title': self.title, 'subtitle': self.subtitle, 'authors': self.authors, 'categories': self.categories, 'publishedDate': self.publishedDate, 'smallThumbnail': self.smallThumbnail, 'thumbnail': self.thumbnail, 'previewLink': self.previewLink, 'infoLink': self.infoLink, 'canonicalVolumeLink': self.canonicalVolumeLink}
 
@@ -109,7 +109,7 @@ class BookModel(db.Model):
                 none.
 
         Returns:
-                json: A json item representing a book.
+                dictionary: A dictionary representing a jsonified book.
         """
         return {'isbn': self.isbn, 'title': self.title, 'subtitle': self.subtitle, 'authors': self.authors, 'categories': self.categories, 'publishedDate': self.publishedDate, 'smallThumbnail': self.smallThumbnail, 'thumbnail': self.thumbnail, 'previewLink': self.previewLink, 'infoLink': self.infoLink, 'canonicalVolumeLink': self.canonicalVolumeLink, "listing_ids": [l.listing_id for l in self.listings]}
 
@@ -132,7 +132,7 @@ class BookModel(db.Model):
                 none.
 
         Returns:
-                json: A json item representing the book.
+                dictionary: A dictionary representing a jsonified book.
         """
         db.session.add(self)
         db.session.commit()
@@ -227,7 +227,7 @@ class Book(Resource):
                 isbns (str[]): A list of isbns to query with.
 
         Returns:
-                json[]: A list of jsonified books.
+                dictionary[]: A list of dictionaries representing jsonified books.
         """
         all_isbns = isbns.split(",")
         for i in range(0, len(all_isbns)):
@@ -320,7 +320,7 @@ class BookList(Resource):
                 search (str): The string to search with.
 
         Returns:
-                json[]: A list of jsonified books that match the search result.
+                dictionary[]: A list of dictionaries representing jsonified books.
         """
         search = search.replace("_", " ")
         print(search)
