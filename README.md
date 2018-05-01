@@ -10,20 +10,17 @@ developed by the students of the CS300 Software Engineering course of spring
 2018.  
 
 ### Documentation
-For those curious about the development process, including:
- * Meeting notes
- * How the API works
- * The mistakes we made along the way
- * Or anything else... 
+For those wanting to know more about:
+ * Our Privacy Policy
+ * The Development Process 
+ * How to use Whitman Books Online
+ * And other stuff
 
 Please see our [ReadtheDocs.io](http://whitman-books-online-documentation.readthedocs.io/en/latest/) site.
 
 ### Code Quality
 
 #### Python 
-
-##### Style
-
 For our Python code we are conforming to the [pep8](https://www.python.org/dev/peps/pep-0008/) style-guide.
 
 Tests can be run using [pycodestyle](http://pycodestyle.pycqa.org/en/latest/index.html), in order to find style mistakes.
