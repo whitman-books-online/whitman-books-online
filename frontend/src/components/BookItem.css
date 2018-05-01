@@ -6,6 +6,7 @@
 }
 
 .info_box {
+  font-family: arial;
   display: flex;
   flex-direction: column;
   padding-left: 2vw;

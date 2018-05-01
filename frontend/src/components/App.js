@@ -15,6 +15,12 @@ import listingsReducer from '../redux/listings/reducer';
 import usersReducer from '../redux/users/reducer';
 import searchReducer from '../redux/search/reducer';
 import Home from './Home';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {cyan500} from 'material-ui/styles/colors';
+
+
+
 
 // Create a history of your choosing
 // (we're using a browser history in this case)
