@@ -2,8 +2,8 @@
 API Guide
 ############
 
-|*Written by Sean Miller.*
-|*Converted to reStructured Text by Tyler Phillips.*
+| *Written by Sean Miller.*
+| *Converted to reStructured Text by Tyler Phillips.*
 
 *Updated 2018-04-11.*
 
@@ -97,7 +97,7 @@ The body will look like this::
         "imageURL": "http://hello.com"
     }
 
-``listings`` is a list of all ``listing_id``s that correspond to each of the 
+``listings`` is a list of all ``listing_id`` s that correspond to each of the 
 user's listings.  The other information can be used to load the user's profile,
 including the image tied to their Google account, name, email address, etc.  
 
@@ -253,7 +253,7 @@ The response will look like this::
 
 Use this data to construct the listing objects.  
 
-**_`Third`**, use ``google_tokens`` for a GET request to the following endpoint::
+**Third**, use ``google_tokens`` for a GET request to the following endpoint::
     
     /userlist/google,tokens,separated,by,commas
 
@@ -315,11 +315,8 @@ This will return a JSON object similar to this::
     }
 
 Notice that the listings are in order from most to least recent.  From here, 
-the user and book objects will be loaded *separately*.  For book-object queries
-from ISBNs, see here_.  Use the data from those queries to construct the full 
-home page.  
-
-.. _here: `Third`_
+the user and book objects will be loaded *separately*. Use the data from those 
+queries to construct the full home page.  
 
 *********************
 7. Deleting Objects
