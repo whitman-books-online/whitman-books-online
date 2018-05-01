@@ -363,7 +363,5 @@ class allListings(Resource):
             for listing in listings:
                 if listing.isbn not in isbns:
                     isbns.append(listing.isbn)
-            (print(listing.bare_json()) for listing in listings)
             return{"listings": [listing.bare_json() for listing in listings], "google_tokens": tokens, "isbns": isbns}
-        (print(listing.bare_json()) for listing in listings)
         return {"listings": [listing.bu_bare_json() for listing in listings], "google_tokens": tokens}
