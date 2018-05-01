@@ -9,6 +9,7 @@ import { Card, CardHeader, CardText } from 'material-ui/Card';
 import Page from './Page';
 import Loader from './Loader';
 import authReducer from '../redux/auth/reducer';
+import { getIdToken } from '../redux/auth/selectors';
 import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -117,7 +118,9 @@ class Sell extends Component {
     const request = new XMLHttpRequest();
     request.open('POST', requestURL);
     request.responseType = "json";
+    const { idToken } = this.props;
     request.setRequestHeader("Content-Type", "application/json");
+    request.setRequestHeader("Authorization", `Bearer ${idToken}`);
     request.send(JSON.stringify(this.state.book));
     request.onload = function () {
       const bookData = request.response;
@@ -130,6 +133,7 @@ class Sell extends Component {
     request2.open('POST', requestURL2);
     request2.responseType = "json";
     request2.setRequestHeader("Content-Type", "application/json");
+    request2.setRequestHeader("Authorization", `Bearer ${idToken}`);
     const body = JSON.stringify({
       price: parseFloat(this.state.price),
       condition: this.state.condition,
@@ -230,7 +234,8 @@ class Sell extends Component {
 
 const mapStateToProps = (state) => {
   const { googleId } = state.authReducer.profileObj;
-  return { googleId };
+  const idToken = getIdToken(state);
+  return { googleId, idToken };
 };
 
 export default withRouter(connect(mapStateToProps)(Sell));
