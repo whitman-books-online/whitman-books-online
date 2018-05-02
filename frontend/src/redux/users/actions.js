@@ -1,4 +1,4 @@
-import { getIdToken } from './selectors';
+import { getUserById } from './selectors';
 import sampleData from '../sampleData';
 
 const { USER_DATA } = sampleData;
@@ -74,7 +74,7 @@ export function getUserList(googleIds) {
     const urlDest = USER_ENDPOINT + googleIds;
     const requestUsers = new XMLHttpRequest();
     requestUsers.open('GET', urlDest);
-    const idToken = getIdToken(state);
+    const idToken = getUserById(state);
     requestUsers.setRequestHeader("Content-Type", "application/json");
     requestUsers.setRequestHeader("Authorization", `Bearer ${idToken}`);
     requestUsers.responseType = "json";
