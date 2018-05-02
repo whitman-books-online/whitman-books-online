@@ -75,8 +75,8 @@ export function getUserList(googleIds) {
     const requestUsers = new XMLHttpRequest();
     requestUsers.open('GET', urlDest);
     const idToken = getIdToken(state);
-    requestIds.setRequestHeader("Content-Type", "application/json");
-    requestIds.setRequestHeader("Authorization", `Bearer ${idToken}`);
+    requestUsers.setRequestHeader("Content-Type", "application/json");
+    requestUsers.setRequestHeader("Authorization", `Bearer ${idToken}`);
     requestUsers.responseType = "json";
     requestUsers.send(urlDest);
     requestUsers.onload = () => {
