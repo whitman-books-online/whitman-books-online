@@ -1,4 +1,3 @@
-import { getIdToken } from '../auth/selectors';
 import sampleData from '../sampleData';
 
 const { BOOK_DATA } = sampleData;
@@ -66,9 +65,6 @@ export function getBookList() {
     const urlDest = GET_BOOK_ENDPOINT + searchValue;
     const requestBooks = new XMLHttpRequest();
     requestBooks.open('GET', urlDest);
-    const idToken = getIdToken(state);
-    requestBooks.setRequestHeader("Content-Type", "application/json");
-    requestBooks.setRequestHeader("Authorization", `Bearer ${idToken}`);
     requestBooks.responseType = 'json';
     requestBooks.send(urlDest);
     requestBooks.onload = () => {
