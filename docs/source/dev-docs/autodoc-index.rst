@@ -1,9 +1,9 @@
-Source Code AutoDoc
-===================
+API Autodoc
+===========
 
 .. toctree::
-    :maxdepth: 1
-    :caption: Auto Documentation of the Source Code
-    :glob:
+   :maxdepth: 1
+   :caption: Auto Documentation of the Source Code
+   :glob:
 
-    autodoc/*
+   autodoc/*

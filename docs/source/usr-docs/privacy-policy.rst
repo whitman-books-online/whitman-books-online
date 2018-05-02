@@ -21,9 +21,10 @@ The information that *whitmanbooks.online* gathers is minimal because we use Goo
   - your operating system
   - your listed books
   - basic information related to your google account:
-   - your name
-   - your profile picture
-   - your email address that you use to login
+
+    - your name
+    - your profile picture
+    - your email address that you use to login
 
  Here is what we store in our database:   
  - your google token associated with your Google+ profile (this is publicly available information)
