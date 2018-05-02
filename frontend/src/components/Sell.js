@@ -9,9 +9,13 @@ import { Card, CardHeader, CardText } from 'material-ui/Card';
 import Page from './Page';
 import Loader from './Loader';
 import authReducer from '../redux/auth/reducer';
+import { getIdToken } from '../redux/auth/selectors';
 import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import './Sell.css'
+import logo from './logo.png';
+
 
 
 class Sell extends Component {
@@ -114,7 +118,9 @@ class Sell extends Component {
     const request = new XMLHttpRequest();
     request.open('POST', requestURL);
     request.responseType = "json";
+    const { idToken } = this.props;
     request.setRequestHeader("Content-Type", "application/json");
+    request.setRequestHeader("Authorization", `Bearer ${idToken}`);
     request.send(JSON.stringify(this.state.book));
     request.onload = function () {
       const bookData = request.response;
@@ -127,6 +133,7 @@ class Sell extends Component {
     request2.open('POST', requestURL2);
     request2.responseType = "json";
     request2.setRequestHeader("Content-Type", "application/json");
+    request2.setRequestHeader("Authorization", `Bearer ${idToken}`);
     const body = JSON.stringify({
       price: parseFloat(this.state.price),
       condition: this.state.condition,
@@ -201,7 +208,7 @@ class Sell extends Component {
 
             <br />
 
-            $
+            $&nbsp;
             <TextField
               floatingLabelText="Input your desired price:"
               value={this.state.price}
@@ -227,7 +234,8 @@ class Sell extends Component {
 
 const mapStateToProps = (state) => {
   const { googleId } = state.authReducer.profileObj;
-  return { googleId };
+  const idToken = getIdToken(state);
+  return { googleId, idToken };
 };
 
 export default withRouter(connect(mapStateToProps)(Sell));
