@@ -141,16 +141,20 @@ class UserListTestCase(ApiTestBase):
     def test_userlist_get(self):
         # Only gets a list of one user, since the authorization requirements
         # for user creation make testing a little bit harder
+        userlist_endpoint = self.api_base + \
+            'userlist/' + str(self.valid_google_tok)
+        nonexistent_endpoint = self.api_base + \
+            'user/' + str(self.invalid_google_tok)
         self.user_exists()
         authorized_header = requests.get(
-            self.endpoint, headers=self.valid_auth_header)
+            userlist_endpoint, headers=self.valid_auth_header)
         unauthorized_header = requests.get(
-            self.endpoint, headers=self.invalid_auth_header)
+            userlist_endpoint, headers=self.invalid_auth_header)
         empty_header = requests.get(
-            self.endpoint,
+            userlist_endpoint,
             headers=self.invalid_auth_header)
         nonexistent_user = requests.get(
-            self.nonexistent_endpoint,
+            nonexistent_endpoint,
             headers=self.valid_auth_header)
         self.assertEqual(authorized_header.status_code, 200)
         self.assertEqual(unauthorized_header.status_code, 401)

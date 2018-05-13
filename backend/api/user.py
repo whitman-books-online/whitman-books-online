@@ -264,7 +264,7 @@ Attributes:
         Returns:
                 json[]: A list of jsonified users that match the tokens.
         """
-        auth_error = auth.google_tok_mismatch_headers(google_tok, request.headers)
+        auth_error = auth.unauthorized_headers(request.headers)
         if auth_error: return auth_error
         tokens = tokens.split(",")
         all_users = UserModel.query.filter(
