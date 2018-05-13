@@ -300,7 +300,7 @@ class Book(Resource):
         Returns:
                 message: What happened with the delete call.
         """
-        return message{"message": "Not authorized"}, 403
+        return {"message": "Not authorized"}, 403
         book = BookModel.find_by_isbn(isbns)
         if book:
             book.delete_from_db()
