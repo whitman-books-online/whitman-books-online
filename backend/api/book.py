@@ -3,8 +3,10 @@ from sqlalchemy.orm import relationship
 from flask_restful import Resource, reqparse
 import math # math.ciel() used for paging
 import ast # for json parsing imageLinks around line 177
+from flask import request
 
 from db import db
+import auth
 
 page_size = 20
 
