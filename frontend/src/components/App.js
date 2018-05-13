@@ -19,8 +19,10 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {cyan500} from 'material-ui/styles/colors';
 
-
-
+import DocumentTitle from 'react-document-title'
+import Favicon from 'react-favicon';
+import {logo} from './logo-small.png';
+import Helmet from 'react-helmet';
 
 // Create a history of your choosing
 // (we're using a browser history in this case)
