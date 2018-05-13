@@ -18,7 +18,7 @@
 
 - name: app cloned
   git:
-    repo: "{{ repo }}"
+    repo: "{{ backend_repo }}"
     dest: "{{ backend_app_dest }}"
     version: "{{ backend_version }}"
     force: yes

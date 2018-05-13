@@ -1,11 +1,4 @@
 server {
-
-    server_name whitmanbooksonline.com;
-    rewrite ^/(.*)$ http://{{ api_server }}/$1 permanent;
-
-}
-
-server {
 	listen 80;
 	listen [::]:80;
 	server_name {{ api_server }};
