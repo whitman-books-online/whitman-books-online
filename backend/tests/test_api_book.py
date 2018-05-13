@@ -5,7 +5,7 @@ import requests
 
 class BookTestCase(ApiTestBase):
     def setUp(self):
-        super(UserTestCase, self).setUp()
+        super(BookTestCase, self).setUp()
         self.book_endpoint = self.api_base + \
             'book/' + str("9781617750250")
         self.book_data = {
@@ -14,14 +14,6 @@ class BookTestCase(ApiTestBase):
         }
         self.nonexistent_endpoint = self.api_base + \
             'book/' + str("1")
-
-    # Is this even neccesary?
-    def book_deleted(self, book_endpoint):
-        book_not_exists = requests.delete(  # Book deleting does not allow anybody to do it
-            self.book_endpoint,			   # how should we deal with this?
-            headers=self.valid_auth_header,
-            params=self.user_data)
-        self.assertIn(user_not_exists.status_code, [200, 404])
 
     def test_book_post(self):
         # Try posting with invalid credentials
@@ -49,7 +41,7 @@ class BookTestCase(ApiTestBase):
             self.book_endpoint,
             headers=self.valid_auth_header,
             params=self.book_data)
-        self.assertIn(user_exists.status_code, [200, 201])
+        self.assertIn(book_exists.status_code, [200, 201])
 
     def test_book_get(self):
         self.book_exists()
@@ -69,7 +61,7 @@ class BookTestCase(ApiTestBase):
         self.assertEqual(nonexistent_user.status_code, 404)
 
     def test_book_delete(self):
-        self.user_exists()
+        self.book_exists()
         authorized_header = requests.delete(
             self.book_endpoint, headers=self.valid_auth_header)
         self.user_exists()
@@ -103,10 +95,10 @@ class BookListTestCase(ApiTestBase):
     def book_exists(self):
         # Make sure book either already exists, or now exists
         book_exists = requests.post(
-            self.book_endpoint,
+            self.endpoint,
             headers=self.valid_auth_header,
             params=self.book_data)
-        self.assertIn(user_exists.status_code, [200, 201])
+        self.assertIn(book_exists.status_code, [200, 201])
 
     def test_bookList_get(self):
         self.book_exists()
