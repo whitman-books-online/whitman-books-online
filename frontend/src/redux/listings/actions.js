@@ -3,8 +3,8 @@ import { getIdToken } from '../auth/selectors';
 import sampleData from '../sampleData';
 
 const { LISTING_DATA } = sampleData;
-const LISTINGS_ENDPOINT = 'http://127.0.0.1:5000/listings/';
-const LISTING_ENDPOINT = 'http://127.0.0.1:5000/listing/';
+const LISTINGS_ENDPOINT = 'https://api.whitmanbooks.online/listings/';
+const LISTING_ENDPOINT = 'https://api.whitmanbooks.online/listing/';
 
 export function getListingSuccess(listingId, listing) {
   return {

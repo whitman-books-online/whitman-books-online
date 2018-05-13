@@ -11,7 +11,7 @@ const initialState = {
     sort: "price",
     page: 0,
     length: 20,
-    urlDest: "https://localhost:5000/",
+    urlDest: "https://api.whitmanbooks.online/",
   },
 };
 
