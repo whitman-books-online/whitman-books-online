@@ -6,3 +6,7 @@
 - hosts: backend
   roles:
     - backend_api
+
+- hosts: reverse_proxy
+  roles:
+    - reverse_proxy

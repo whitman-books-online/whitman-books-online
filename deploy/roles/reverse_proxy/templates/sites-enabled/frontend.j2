@@ -6,6 +6,13 @@ server {
 }
 
 server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	server_name {{ server_name }};
+	return 301 https://$host$request_uri;
+}
+
+server {
 	listen	443 ssl;
 	server_name {{ server_name }};
 
