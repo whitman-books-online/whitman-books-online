@@ -13,6 +13,7 @@ import { getIdToken } from '../redux/auth/selectors';
 import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Snackbar from 'material-ui/Snackbar';
 import './Sell.css'
 import logo from './logo.png';
 
@@ -32,11 +33,32 @@ class Sell extends Component {
       isbnButtonDisabled: true,
       priceButtonDisabled: true,
       loading: false,
+      snackBarOpen: false,
+      autoHideDuration: 3000,
+      snackMessage: 'Your listing has been added! You can remove it in your profile page.',
 
     };
   }
 
 
+  clearListingFields = () => {
+    this.setState({
+      isbnValue: '',
+      book: null,
+      condition: '',
+      price: '',
+      priceError: '',
+      isbnError: '',
+      isbnButtonDisabled: true,
+      priceButtonDisabled: true,
+    });
+  }
+
+  handleSnackBarRequestClose = () => {
+    this.setState({
+      snackBarOpen: false,
+    });
+  };
 
   handleIsbnChange = (event) => {
     const isbnValue = event.target.value;
@@ -114,7 +136,8 @@ class Sell extends Component {
     e.preventDefault();
     //BOOK TO BACKEND
     //${this.state.book.industryIdentifiers[0].identifier}
-    const requestURL = `http://127.0.0.1:5000/book/${this.state.isbnValue}`;
+    const strippedIsbn = this.state.isbnValue.replace(/\D/g,'');
+    const requestURL = `http://127.0.0.1:5000/book/${strippedIsbn}`;
     const request = new XMLHttpRequest();
     request.open('POST', requestURL);
     request.responseType = "json";
@@ -144,6 +167,10 @@ class Sell extends Component {
     request2.onload = function () {
       const listingData = request2.reponse;
     }
+    this.clearListingFields();
+    this.setState({
+      snackBarOpen: true,
+    });
   }
 
   render() {
@@ -227,6 +254,12 @@ class Sell extends Component {
             />
           </div>
         }
+        <Snackbar
+          open={this.state.snackBarOpen}
+          message={this.state.snackMessage}
+          autoHideDuration={this.state.autoHideDuration}
+          onRequestClose={this.handleSnackBarRequestClose}
+        />
       </Page>
     );
   }
