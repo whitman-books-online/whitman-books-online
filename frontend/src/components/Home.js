@@ -10,7 +10,6 @@ import Login from './Login';
 import Profile from './Profile';
 import Exchange from './Exchange';
 import Sell from './Sell';
-import Helmet from 'react-helmet';
 
 const privateRoutes = [
   {
@@ -31,10 +30,6 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <Helmet>
-          <title>Whitman Books Online</title>
-
-        </Helmet>
         {privateRoutes.map((route, index) => (
           <Route
             key={route.path}
