@@ -3,12 +3,15 @@ Welcome to Whitman Books Online's documentation!
 
 .. toctree::
    :maxdepth: 1
+   :caption: Table of Contents
+   :glob:
+
+.. toctree::
+   :maxdepth: 1
    :caption: User Guides:
    :glob:
 
    usr-docs/*
-.. Quickstart
-.. etc...
 
 .. toctree::
    :maxdepth: 1
@@ -17,8 +20,6 @@ Welcome to Whitman Books Online's documentation!
 
    dev-docs/api-guide.rst
    dev-docs/autodoc-index.rst
-.. Quickstart
-.. etc...
 
 .. toctree::
    :maxdepth: 1
