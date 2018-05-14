@@ -1,0 +1,12 @@
+[frontend]
+ec2-52-14-147-108.us-east-2.compute.amazonaws.com	ansible_user=ec2-user
+
+[backend]
+ec2-52-14-147-108.us-east-2.compute.amazonaws.com	ansible_user=ec2-user
+
+[reverse_proxy]
+ec2-52-14-147-108.us-east-2.compute.amazonaws.com	ansible_user=ec2-user
+
+[all:vars]
+frontend_server=whitmanbooks.online
+api_server=api.whitmanbooks.online

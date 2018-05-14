@@ -43,7 +43,7 @@ export function login(response) {
       dispatch(loginFail(profileObj, tokenObj));
     }
     const idToken = tokenObj.id_token;
-    const requestURL = `http://127.0.0.1:5000/user/${googleId}`;
+    const requestURL = `https://api.whitmanbooks.online/user/${googleId}`;
     const request = new XMLHttpRequest();
     request.open('POST', requestURL);
     request.responseType = "json";
