@@ -5,7 +5,6 @@ from math import ceil
 from flask import request
 
 from db import db
-import auth
 
 page_size = 20
 
@@ -199,8 +198,6 @@ class User(Resource):
         Returns:
                 json[]: A list of jsonified users.
         """
-        auth_error = auth.unauthorized_headers(request.headers)
-        if auth_error: return auth_error
         user = UserModel.find_by_google_tok(google_tok)
         listing_IDs = []
         if user:
@@ -218,8 +215,6 @@ class User(Resource):
         Returns:
                 message: What happened with the post call.
         """
-        auth_error = auth.google_tok_mismatch_headers(google_tok, request.headers)
-        if auth_error: return auth_error
         data = User.parser.parse_args()
         print("hello")
         if UserModel.find_by_google_tok(google_tok):
@@ -238,8 +233,6 @@ class User(Resource):
         Returns:
                 message: What happened with the delete call.
         """
-        auth_error = auth.google_tok_mismatch_headers(google_tok, request.headers)
-        if auth_error: return auth_error
         user = UserModel.find_by_google_tok(google_tok)
         if user:
             user.delete_from_db()
@@ -264,8 +257,6 @@ Attributes:
         Returns:
                 json[]: A list of jsonified users that match the tokens.
         """
-        auth_error = auth.unauthorized_headers(request.headers)
-        if auth_error: return auth_error
         tokens = tokens.split(",")
         all_users = UserModel.query.filter(
             UserModel.google_tok.in_(tokens)).all()
