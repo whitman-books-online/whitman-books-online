@@ -1,8 +1,10 @@
-import sampleData from '../sampleData';
 import { getUserList } from '../users/actions';
+import { getIdToken } from '../auth/selectors';
+import sampleData from '../sampleData';
+
 const { LISTING_DATA } = sampleData;
-const LISTINGS_ENDPOINT = 'http://127.0.0.1:5000/listings/';
-const LISTING_ENDPOINT = 'http://127.0.0.1:5000/listing/';
+const LISTINGS_ENDPOINT = 'https://api.whitmanbooks.online/listings/';
+const LISTING_ENDPOINT = 'https://api.whitmanbooks.online/listing/';
 
 export function getListingSuccess(listingId, listing) {
   return {
@@ -110,10 +112,14 @@ export function fetchListingList(query) {
 }
 
 export function getUserListingList(listingIds) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const state = getState();
     const urlDest = `${LISTING_ENDPOINT}${listingIds}`;
     const requestIds = new XMLHttpRequest();
     requestIds.open('GET', urlDest);
+    const idToken = getIdToken(state);
+    requestIds.setRequestHeader("Content-Type", "application/json");
+    requestIds.setRequestHeader("Authorization", `Bearer ${idToken}`);
     requestIds.responseType = "json";
     requestIds.send(urlDest);
     requestIds.onload = () => {
@@ -132,6 +138,9 @@ export function getListingList(listingIds) {
     const urlDest = `${LISTINGS_ENDPOINT}${listingIds}+${sort}`;
     const requestIds = new XMLHttpRequest();
     requestIds.open('GET', urlDest);
+    const idToken = getIdToken(state);
+    requestIds.setRequestHeader("Content-Type", "application/json");
+    requestIds.setRequestHeader("Authorization", `Bearer ${idToken}`);
     requestIds.responseType = "json";
     requestIds.send(urlDest);
     requestIds.onload = () => {

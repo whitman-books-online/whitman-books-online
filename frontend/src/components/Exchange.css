@@ -1,0 +1,9 @@
+
+.heading {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: helvetica;
+  color: #000000;
+  /*background-color: #23C0FF;*/
+}

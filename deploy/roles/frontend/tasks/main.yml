@@ -27,7 +27,7 @@
 
 - name: app cloned
   git:
-    repo: "{{ repo }}"
+    repo: "{{ frontend_repo }}"
     dest: "{{ frontend_app_dest }}"
     version: "{{ frontend_version }}"
     force: yes

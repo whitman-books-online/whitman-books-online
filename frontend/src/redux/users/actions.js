@@ -1,7 +1,9 @@
+import { getIdToken } from '../auth/selectors';
+import { getUserById } from './selectors';
 import sampleData from '../sampleData';
 
 const { USER_DATA } = sampleData;
-const USER_ENDPOINT = 'http://127.0.0.1:5000/userlist/';
+const USER_ENDPOINT = 'https://api.whitmanbooks.online/userlist/';
 
 export function getUserSuccess(userId, user) {
   return {
@@ -68,11 +70,15 @@ export function getUser(userId) {
 }
 
 export function getUserList(googleIds) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     //third GET request using google tokens to get user objects
+    const state = getState();
     const urlDest = USER_ENDPOINT + googleIds;
     const requestUsers = new XMLHttpRequest();
     requestUsers.open('GET', urlDest);
+    const idToken = getIdToken(state);
+    requestUsers.setRequestHeader("Content-Type", "application/json");
+    requestUsers.setRequestHeader("Authorization", `Bearer ${idToken}`);
     requestUsers.responseType = "json";
     requestUsers.send(urlDest);
     requestUsers.onload = () => {

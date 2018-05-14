@@ -42,11 +42,13 @@ export function login(response) {
     } else {
       dispatch(loginFail(profileObj, tokenObj));
     }
-    const requestURL = `http://127.0.0.1:5000/user/${googleId}`;
+    const idToken = tokenObj.id_token;
+    const requestURL = `https://api.whitmanbooks.online/user/${googleId}`;
     const request = new XMLHttpRequest();
     request.open('POST', requestURL);
     request.responseType = "json";
     request.setRequestHeader("Content-Type", "application/json");
+    request.setRequestHeader("Authorization", `Bearer ${idToken}`);
     request.send(JSON.stringify(profileObj));
   }
 }

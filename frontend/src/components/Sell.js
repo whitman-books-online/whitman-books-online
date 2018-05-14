@@ -9,9 +9,13 @@ import { Card, CardHeader, CardText } from 'material-ui/Card';
 import Page from './Page';
 import Loader from './Loader';
 import authReducer from '../redux/auth/reducer';
+import { getIdToken } from '../redux/auth/selectors';
 import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import './Sell.css'
+import logo from './logo.png';
+
 
 
 class Sell extends Component {
@@ -110,11 +114,13 @@ class Sell extends Component {
     e.preventDefault();
     //BOOK TO BACKEND
     //${this.state.book.industryIdentifiers[0].identifier}
-    const requestURL = `http://127.0.0.1:5000/book/${this.state.isbnValue}`;
+    const requestURL = `https://api.whitmanbooks.online/book/${this.state.isbnValue}`;
     const request = new XMLHttpRequest();
     request.open('POST', requestURL);
     request.responseType = "json";
+    const { idToken } = this.props;
     request.setRequestHeader("Content-Type", "application/json");
+    request.setRequestHeader("Authorization", `Bearer ${idToken}`);
     request.send(JSON.stringify(this.state.book));
     request.onload = function () {
       const bookData = request.response;
@@ -122,11 +128,12 @@ class Sell extends Component {
 
     //LISTING TO BACKEND
     const i = this.state.book.industryIdentifiers.length - 1;
-    const requestURL2 = `http://127.0.0.1:5000/listing/${this.state.book.industryIdentifiers[i].identifier}`;
+    const requestURL2 = `https://api.whitmanbooks.online/listing/${this.state.book.industryIdentifiers[i].identifier}`;
     const request2 = new XMLHttpRequest();
     request2.open('POST', requestURL2);
     request2.responseType = "json";
     request2.setRequestHeader("Content-Type", "application/json");
+    request2.setRequestHeader("Authorization", `Bearer ${idToken}`);
     const body = JSON.stringify({
       price: parseFloat(this.state.price),
       condition: this.state.condition,
@@ -201,7 +208,7 @@ class Sell extends Component {
 
             <br />
 
-            $
+            $&nbsp;
             <TextField
               floatingLabelText="Input your desired price:"
               value={this.state.price}
@@ -227,7 +234,8 @@ class Sell extends Component {
 
 const mapStateToProps = (state) => {
   const { googleId } = state.authReducer.profileObj;
-  return { googleId };
+  const idToken = getIdToken(state);
+  return { googleId, idToken };
 };
 
 export default withRouter(connect(mapStateToProps)(Sell));

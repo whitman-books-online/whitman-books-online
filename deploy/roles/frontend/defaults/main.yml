@@ -3,7 +3,7 @@ frontend_user: frontend
 app_name: wbo
 app_directory: /var/lib/{{ app_name }}
 frontend_home: "{{ app_directory }}/frontend"
-repo: https://github.com/whitman-books-online/whitman-books-online
+frontend_repo: https://github.com/whitman-books-online/whitman-books-online
 frontend_version: master
 frontend_app_dest: "{{ frontend_home }}/{{ app_name }}"
 frontend_app_path: "{{ frontend_app_dest }}/frontend"
