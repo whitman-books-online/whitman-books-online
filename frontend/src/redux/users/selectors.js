@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 const getUserList = state => state.usersReducer.userList;
 
-const getUserId = (state, props) => props.userId;
+const getUserId = (state, props) => props.google_tok;
 
 export const getUserById = createSelector(
   [getUserList, getUserId],
