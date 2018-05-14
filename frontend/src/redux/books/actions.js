@@ -2,8 +2,8 @@ import { getIdToken } from '../auth/selectors';
 import sampleData from '../sampleData';
 
 const { BOOK_DATA } = sampleData;
-const POST_BOOK_ENDPOINT = 'http://127.0.0.1:5000/book/';
-const GET_BOOK_ENDPOINT = 'http://127.0.0.1:5000/booklist/';
+const POST_BOOK_ENDPOINT = 'https://api.whitmanbooks.online/book/';
+const GET_BOOK_ENDPOINT = 'https://api.whitmanbooks.online/booklist/';
 
 export function getBookSuccess(bookId, book) {
   return {

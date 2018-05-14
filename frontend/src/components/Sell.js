@@ -114,7 +114,7 @@ class Sell extends Component {
     e.preventDefault();
     //BOOK TO BACKEND
     //${this.state.book.industryIdentifiers[0].identifier}
-    const requestURL = `http://127.0.0.1:5000/book/${this.state.isbnValue}`;
+    const requestURL = `https://api.whitmanbooks.online/book/${this.state.isbnValue}`;
     const request = new XMLHttpRequest();
     request.open('POST', requestURL);
     request.responseType = "json";
@@ -128,7 +128,7 @@ class Sell extends Component {
 
     //LISTING TO BACKEND
     const i = this.state.book.industryIdentifiers.length - 1;
-    const requestURL2 = `http://127.0.0.1:5000/listing/${this.state.book.industryIdentifiers[i].identifier}`;
+    const requestURL2 = `https://api.whitmanbooks.online/listing/${this.state.book.industryIdentifiers[i].identifier}`;
     const request2 = new XMLHttpRequest();
     request2.open('POST', requestURL2);
     request2.responseType = "json";

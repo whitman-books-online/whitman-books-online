@@ -1,13 +1,20 @@
 server {
 
     server_name whitmanbooksonline.com;
-    rewrite ^/(.*)$ http://{{ server_name }}/$1 permanent;
+    rewrite ^/(.*)$ http://{{ frontend_server }}/$1 permanent;
 
 }
 
 server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	server_name {{ frontend_server }};
+	return 301 https://$host$request_uri;
+}
+
+server {
 	listen	443 ssl;
-	server_name {{ server_name }};
+	server_name {{ frontend_server }};
 
 	location / {
 	proxy_pass http://{{ frontend_host }}:{{ frontend_port }};

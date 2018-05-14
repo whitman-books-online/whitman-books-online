@@ -3,7 +3,7 @@ import { getUserById } from './selectors';
 import sampleData from '../sampleData';
 
 const { USER_DATA } = sampleData;
-const USER_ENDPOINT = 'http://127.0.0.1:5000/userlist/';
+const USER_ENDPOINT = 'https://api.whitmanbooks.online/userlist/';
 
 export function getUserSuccess(userId, user) {
   return {

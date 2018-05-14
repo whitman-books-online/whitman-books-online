@@ -1,6 +1,12 @@
 - name: EPEL installed
   yum:
-    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    name:
+      - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+      - yum-utils
+  become: yes
+
+- name: Enable optional channel on EC2 instance
+  command: "yum-config-manager --enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional"
   become: yes
 
 - name: packages installed
