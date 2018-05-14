@@ -233,11 +233,11 @@ class Listing(Resource):
                 isbns.append(l.isbn)
         return {"listings": [listing.bare_json() for listing in all_listings], "isbns": isbns}
 
-    def post(self, ids):
+    def post(self, isbn):
         """Posts a listing to the database.
 
         Args:
-            ids (str): The listing id of the listing being posted.
+            isbn (str): The ISBN of the listing being posted.
 
         Returns:
             message: What happened with the post call.
@@ -249,10 +249,10 @@ class Listing(Resource):
         # if user doesn't exist
         if not UserModel.find_by_google_tok(data['google_tok']):
             return {"message": "invalid google token, user does not exist in database"}
-        if not BookModel.find_by_isbn(ids):  # if book doesn't exist
+        if not BookModel.find_by_isbn(isbn):  # if book doesn't exist
             return {"message": "invalid isbn, book model does not exist in database"}
 
-        isbn = int(ids)
+        isbn = int(isbn)
 
         item = ListingModel(data["price"], data["condition"],
                             isbn, data["google_tok"], data["status"])
