@@ -7,7 +7,7 @@ const getUserId = (state, props) => props.userId;
 export const getUserById = createSelector(
   [getUserList, getUserId],
   (userList, userId) => {
-    const user = userList.find(item => item.googleId === userId);
+    const user = userList.find(item => item.google_tok === userId);
     return user;
   },
 );
