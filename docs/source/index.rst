@@ -17,6 +17,7 @@ Welcome to Whitman Books Online's documentation!
 
    dev-docs/api-guide.rst
    dev-docs/autodoc-index.rst
+   dev-docs/frontend-description.rst
 .. Quickstart
 .. etc...
 
