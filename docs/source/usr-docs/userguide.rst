@@ -54,4 +54,4 @@ Selling a Book
 .. image:: ../../images/sell_page-inputting_price.png
 
 - Finally, add the Price you are wishing to sell the book for. Be sure to only add numbers into this prompt in order to have a valid price.
-- After clicking submit, a listing for your book will appear in the market! (\*Currently not working, will be added)
+- After clicking submit, a listing for your book will appear in the market.
