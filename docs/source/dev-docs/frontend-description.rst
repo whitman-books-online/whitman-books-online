@@ -3,7 +3,7 @@ Front End Description
 #####################
 
 | *Written by Richard Farman*
-| *Edited and converted to reStructured Text by Jeremy Davis*
+| *Edited and converted to reStructuredText by Jeremy Davis*
 
 *Updated 2018-05-13*
 
