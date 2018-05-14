@@ -48,9 +48,7 @@ Selling a Book
 .. image:: ../../images/sell_page-inputting_isbn.png
 
 - Adding the ISBN will bring up a publisher description of the book you are trying to sell. Confirm that the description matches the book you are selling before continuing. If it does not, double-check that you have added the correct ISBN
-
-.. image:: ../../images/sell_page-inputting_condition.png
-
+.. image:: ../../images/sell_page_condition.PNG
 - Choose from the Condition drop down menu the option that best describes the condition of your book. Be accurate and honest in choosing the most apt description.
 
 .. image:: ../../images/sell_page-inputting_price.png
