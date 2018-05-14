@@ -22,17 +22,16 @@ Whitman Books Online Documentation
    :caption: User Guides:
    :glob:
 
-   usr-docs/*
-
+   usr-docs/userguide.rst
 
 .. toctree::
    :maxdepth: 1
    :caption: Developer Guides:
    :glob:
 
+   dev-docs/frontend-description.rst
    dev-docs/api-guide.rst
    dev-docs/autodoc-index.rst
-   dev-docs/frontend-description.rst
 
 
 .. toctree::
@@ -40,8 +39,9 @@ Whitman Books Online Documentation
    :caption: Extra Documents:
    :glob:
 
-   meeting/meeting-index.rst
    extra/*
+   meeting/meeting-index.rst
+   usr-docs/privacy-policy.rst
 
 
 .. Indices and tables
