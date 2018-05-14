@@ -3,7 +3,7 @@ API Guide
 ############
 
 | *Written by Sean Miller.*
-| *Converted to reStructured Text by Tyler Phillips.*
+| *Converted to reStructuredText by Tyler Phillips.*
 
 *Updated 2018-04-11.*
 
